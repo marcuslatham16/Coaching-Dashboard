@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function() {
               </a>
             </li>
             <li>
-              <a href="scheduled-sessions.html" class="sidebar-item ${currentPage === 'scheduled-sessions.html' ? 'active' : ''}">
+              <a href="upcoming-sessions.html" class="sidebar-item ${currentPage === 'upcoming-sessions.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="sidebar-label">Scheduled Sessions</div>
+                <div class="sidebar-label">Upcoming Sessions</div>
                 <div class="sidebar-badge">3</div>
               </a>
             </li>
