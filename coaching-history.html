@@ -4,127 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coaching History - Call Center Coach</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Our CSS -->
+  <link href="css/variables.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-    </head>
+  <link rel="shortcut icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
 <body>
   <div class="app-container">
-    <!-- Header - Now sticky -->
-    <header class="header">
-      <div class="header-left">
-        <div class="header-brand">
-          <div class="header-logo">
-            <i class="fas fa-headset"></i>
-          </div>
-          <div class="header-title">Call Center Coach</div>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="header-search">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" class="search-input" placeholder="Search agents, behaviors...">
-        </div>
-        <div class="header-notification">
-          <i class="fas fa-bell"></i>
-          <div class="notification-indicator"></div>
-        </div>
-        <div class="header-avatar">
-          SM
-        </div>
-      </div>
-    </header>
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
 
     <!-- Main Layout -->
     <div class="main-container">
-      <!-- Sidebar - Now with Start Coaching button -->
-      <aside class="sidebar" id="sidebar">
-        <!-- Start Coaching Button -->
-        <div class="start-coaching-btn" id="startCoachingBtn">
-          <i class="fas fa-play-circle start-coaching-icon"></i>
-          <span>Start Coaching Session</span>
-        </div>
-        
-        <ul class="sidebar-menu">
-          <li class="sidebar-section">
-            <div class="sidebar-title">Coaching</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="index.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-tachometer-alt"></i></div>
-                  <div class="sidebar-label">Dashboard</div>
-                </a>
-              </li>
-              <li>
-                <a href="active-coaching.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
-                  <div class="sidebar-label">Active Coaching</div>
-                  <div class="sidebar-badge badge-accent">2</div>
-                </a>
-              </li>
-              <li>
-                <a href="upcoming-sessions.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
-                  <div class="sidebar-label">Upcoming Sessions</div>
-                  <div class="sidebar-badge">3</div>
-                </a>
-              </li>
-              <li>
-                <a href="action-items.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-clipboard-check"></i></div>
-                  <div class="sidebar-label">Action Items</div>
-                  <div class="sidebar-badge badge-accent">5</div>
-                </a>
-              </li>
-              <li>
-                <a href="coaching-history.html" class="sidebar-item active">
-                  <div class="sidebar-icon"><i class="fas fa-history"></i></div>
-                  <div class="sidebar-label">Coaching History</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Insights</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="agent-performance.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-chart-line"></i></div>
-                  <div class="sidebar-label">Agent Performance</div>
-                </a>
-              </li>
-              <li>
-                <a href="team-overview.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-users"></i></div>
-                  <div class="sidebar-label">My Team</div>
-                </a>
-              </li>
-              <li>
-                <a href="reports.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
-                  <div class="sidebar-label">Reports</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Resources</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="coaching-guides.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-book"></i></div>
-                  <div class="sidebar-label">Coaching Guides</div>
-                </a>
-              </li>
-              <li>
-                <a href="templates.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
-                  <div class="sidebar-label">Templates</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </aside>
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
 
       <!-- Main Content -->
       <main class="content">
@@ -464,8 +361,8 @@
     </div>
   </div>
 
-  <!-- Modal Overlay -->
-  <div class="overlay" id="overlay"></div>
+  <!-- Overlay for modals -->
+  <div id="overlay-container"></div>
 
   <!-- Start Coaching Modal -->
   <div class="start-coaching-modal" id="startCoachingModal">
@@ -511,105 +408,8 @@
     </div>
   </div>
 
-  <script>
-    // Toggle sidebar on mobile
-    document.querySelector('.header-logo').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('show');
-      document.getElementById('overlay').classList.toggle('show');
-    });
-
-    // Close sidebar when overlay is clicked
-    document.getElementById('overlay').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.remove('show');
-      document.getElementById('overlay').classList.remove('show');
-      document.getElementById('startCoachingModal').classList.remove('show');
-    });
-
-    // Start Coaching button functionality
-    const startCoachingBtn = document.getElementById('startCoachingBtn');
-    const startCoachingModal = document.getElementById('startCoachingModal');
-    const startCoachingClose = document.getElementById('startCoachingClose');
-    const startCoachingContinue = document.getElementById('startCoachingContinue');
-    const coachingOptions = document.querySelectorAll('.coaching-option');
-    
-    startCoachingBtn.addEventListener('click', function() {
-      document.getElementById('overlay').classList.add('show');
-      startCoachingModal.classList.add('show');
-    });
-    
-    startCoachingClose.addEventListener('click', function() {
-      document.getElementById('overlay').classList.remove('show');
-      startCoachingModal.classList.remove('show');
-    });
-    
-    // Handle option selection
-    coachingOptions.forEach(option => {
-      option.addEventListener('click', function() {
-        // Remove selected class from all options
-        coachingOptions.forEach(opt => opt.style.borderColor = '');
-        
-        // Add selected style to clicked option
-        this.style.borderColor = 'var(--primary-color)';
-      });
-    });
-    
-    // Continue button
-    startCoachingContinue.addEventListener('click', function() {
-      document.getElementById('overlay').classList.remove('show');
-      startCoachingModal.classList.remove('show');
-      
-      // We would redirect or open another modal based on the selected option
-      alert("Starting a new coaching session would happen here!");
-    });
-
-    // Action icons functionality
-                document.querySelectorAll('.action-view').forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Find the agent name from the parent history item
-        const historyItem = this.closest('.history-item');
-        const agentName = historyItem.querySelector('.agent-name').textContent;
-        const behavior = historyItem.querySelector('.behavior-tag').textContent;
-        const kpi = historyItem.querySelector('.kpi-tag').textContent;
-        const change = historyItem.querySelector('.improvement-value').textContent;
-        
-        alert(`Viewing KPI impact details for ${agentName}\nBehavior: ${behavior}\nKPI: ${kpi}\nChange: ${change}`);
-      });
-    });
-    
-    document.querySelectorAll('.action-download').forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Find the agent name from the parent history item
-        const historyItem = this.closest('.history-item');
-        const agentName = historyItem.querySelector('.agent-name').textContent;
-        const kpi = historyItem.querySelector('.kpi-tag').textContent;
-        
-        alert(`Downloading KPI impact report for ${agentName} - ${kpi} metrics`);
-      });
-    });
-
-    // Month navigation buttons
-    document.querySelectorAll('.month-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        // This would actually change the month displayed
-        alert("This would navigate to the previous/next month");
-      });
-    });
-
-    // Pagination buttons
-    document.querySelectorAll('.pagination .page-item:not(.disabled)').forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Remove active class from all pagination items
-        document.querySelectorAll('.pagination .page-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        
-        // Add active class to clicked pagination item
-        this.classList.add('active');
-        
-        // This would actually load the corresponding page
-        // For demo purposes, we're not changing the content
-      });
-    });
-  </script>
+  <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-history.js"></script>
 </body>
-</html>
