@@ -1,12 +1,18 @@
 // Add this to your js/active-coaching.js file (create it if it doesn't exist)
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Set up chart functionality
+document.addEventListener('DOMContentLoaded', function () {
+  // Existing setup calls...
   setupChartInteractions();
-  
-  // End Coaching button functionality
   setupEndCoachingButton();
+
+  const rescheduleBtn = document.getElementById('rescheduleCoachingBtn');
+  if (rescheduleBtn) {
+    rescheduleBtn.addEventListener('click', function () {
+      showToast('Reschedule', 'Opening calendar to reschedule coaching...', 'info');
+    });
+  }
 });
+
 
 /**
  * Set up interactions for the coaching progress chart
