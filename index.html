@@ -249,7 +249,9 @@
   </div>
 
   <!-- Coaching Form Modal -->
-  <div class="coaching-form-container" id="coachingForm">
+<div class="overlay" id="formOverlay"></div>
+
+<div class="coaching-form-container" id="coachingForm">
   <div class="coaching-form-header">
     <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
     <button class="form-close" id="formClose">
@@ -263,8 +265,6 @@
 
     <label for="formBehavior">Behavior Focus</label>
     <input id="formBehavior" type="text" readonly />
-
-    <!-- Add your dynamic lists or inputs here (goals, obstacles, etc.) -->
   </div>
 
   <div class="coaching-form-footer">
@@ -276,7 +276,6 @@
     </button>
   </div>
 </div>
-
   
   <!-- Insights Modal -->
   <div class="overlay" id="insightsOverlay"></div>
@@ -291,5 +290,9 @@
   <script src="js/insights-modal.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/active-coaching.js"></script>
+
+  <!-- Toast Notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
 </body>
 </html>
