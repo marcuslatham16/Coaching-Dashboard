@@ -41,6 +41,12 @@ document.addEventListener("DOMContentLoaded", function() {
   if (sidebarContainer) {
     sidebarContainer.innerHTML = `
       <div class="sidebar" id="sidebar">
+        <div class="sidebar-action">
+          <button class="btn btn-primary sidebar-start-btn" id="startSessionSidebarBtn">
+            <i class="fas fa-play-circle btn-icon"></i>
+            Start Coaching Session
+          </button>
+        </div>
         <div class="sidebar-section">
           <div class="sidebar-title">Coaching</div>
           <ul class="sidebar-menu">

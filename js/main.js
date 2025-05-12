@@ -23,9 +23,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set up form interactions
   setupCoachingForm();
   
-  // Set up insights modal
+    // Set up insights modal
   setupInsightsModal();
-  
+
+  // Start Coaching button from sidebar
+  const startBtn = document.getElementById('startSessionSidebarBtn');
+  if (startBtn) {
+    startBtn.addEventListener('click', () => {
+      const modal = document.getElementById('startCoachingModal');
+      const overlay = document.getElementById('formOverlay');
+
+      if (modal && overlay) {
+        modal.classList.add('show');
+        overlay.classList.add('show');
+      } else {
+        window.location.href = 'upcoming-sessions.html';
+      }
+    });
+  }
   // Show a welcome toast on first load
   showToast('Welcome back!', 'You have 3 upcoming coaching sessions today.', 'info');
 });
