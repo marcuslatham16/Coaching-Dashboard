@@ -1005,6 +1005,12 @@ html, body {
   border-top: 1px solid var(--grey-200);
 }
 
+.active-sessions-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
 .active-session-footer {
   display: flex;
   justify-content: space-between;
