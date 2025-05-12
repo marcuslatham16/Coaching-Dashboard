@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Call Center Coaching Tool</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Coaching Dashboard</h1>
+          <p class="page-subtitle">View and manage your coaching schedule and activities</p>
+        </div>
+
+        <!-- Dashboard Summary Cards -->
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <div class="card-icon card-icon-primary">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="card-title">Upcoming Sessions</div>
+            <div class="card-value">3</div>
+            <div class="card-info">
+              <i class="fas fa-clock"></i>
+              <span class="card-info-text">Next session is today at 10:30 AM</span>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon card-icon-warning">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div class="card-title">Action Items</div>
+            <div class="card-value">5</div>
+            <div class="card-info">
+              <i class="fas fa-exclamation-circle"></i>
+              <span class="card-info-text">2 items require immediate attention</span>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-icon card-icon-accent">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <div class="card-title">Active Coaching</div>
+            <div class="card-value">2</div>
+            <div class="card-info">
+              <i class="fas fa-info-circle"></i>
+              <span class="card-info-text">Sessions currently in progress</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Required Card -->
+        <div class="action-required">
+          <div class="action-header">
+            <h2 class="action-title">
+              <i class="fas fa-exclamation-circle action-title-icon"></i>
+              Priority Action Required
+            </h2>
+            <div class="action-date">Today</div>
+          </div>
+          <div class="action-content">
+            <div class="action-session">
+              <div class="action-icon">
+                <i class="fas fa-exclamation"></i>
+              </div>
+              <div class="action-details">
+                <h3 class="action-name">Missed Session with Robert Johnson</h3>
+                <div class="action-meta">
+                  <div class="action-meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Scheduled for Yesterday at 2:00 PM</span>
+                  </div>
+                  <div class="action-meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>Call De-escalation</span>
+                  </div>
+                  <div class="action-meta-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Agent has missed 2 consecutive sessions</span>
+                  </div>
+                </div>
+                <div class="action-buttons">
+                  <button class="btn btn-primary" id="rescheduleBtn">
+                    <i class="fas fa-calendar-plus btn-icon"></i>
+                    Reschedule Session
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs Container -->
+        <div class="tabs-container">
+          <div class="tabs-header">
+            <div class="tab active" data-tab="upcoming-sessions">Upcoming Sessions</div>
+            <div class="tab" data-tab="active-coaching">Active Coaching</div>
+            <div class="tab" data-tab="follow-ups">Follow-up Actions</div>
+            <div class="tab" data-tab="opportunities">Coaching Opportunities</div>
+          </div>
+
+          <!-- Upcoming Sessions Tab -->
+          <div class="tab-content active" id="upcoming-sessions">
+            <div class="sessions-list">
+              <div class="sessions-card-header">
+                <div class="sessions-title">Your Scheduled Sessions</div>
+                <div class="sessions-filter">
+                  <div class="filter-label">Filter by:</div>
+                  <select class="filter-select">
+                    <option value="all">All Behaviors</option>
+                    <option value="active-listening">Active Listening</option>
+                    <option value="call-de-escalation">Call De-escalation</option>
+                    <option value="product-knowledge">Product Knowledge</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Today's Session -->
+              <div class="sessions-list-item">
+                <div class="session-avatar">MR</div>
+                <div class="session-details">
+                  <div class="session-primary">
+                    <div class="session-name">Maria Rodriguez</div>
+                    <div class="session-time">Today at 10:30 AM</div>
+                  </div>
+                  <div class="session-secondary">
+                    <div class="behavior-tag">Active Listening</div>
+                    <div class="session-metrics">
+                      <div class="metric">
+                        <div class="metric-value good">92%</div>
+                        <div class="metric-label">Call Quality</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value good">4.7</div>
+                        <div class="metric-label">CSAT</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value good">85%</div>
+                        <div class="metric-label">FCR</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="session-action">
+                  <i class="fas fa-chart-line insights-icon" data-agent="Maria Rodriguez" title="View Insights"></i>
+                  <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                    <i class="fas fa-clipboard btn-icon"></i>
+                    Coach
+                  </button>
+                </div>
+              </div>
+
+              <!-- Future Sessions -->
+              <div class="sessions-list-item">
+                <div class="session-avatar">JW</div>
+                <div class="session-details">
+                  <div class="session-primary">
+                    <div class="session-name">James Wilson</div>
+                    <div class="session-time">Tomorrow at 2:00 PM</div>
+                  </div>
+                  <div class="session-secondary">
+                    <div class="behavior-tag">Call De-escalation</div>
+                    <div class="session-metrics">
+                      <div class="metric">
+                        <div class="metric-value average">85%</div>
+                        <div class="metric-label">Call Quality</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value average">4.2</div>
+                        <div class="metric-label">CSAT</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value average">78%</div>
+                        <div class="metric-label">FCR</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="session-action">
+                  <i class="fas fa-chart-line insights-icon" data-agent="James Wilson" title="View Insights"></i>
+                  <button class="btn btn-outline-primary session-btn" data-agent="James Wilson" data-behavior="Call De-escalation">
+                    <i class="fas fa-clipboard btn-icon"></i>
+                    Prepare
+                  </button>
+                </div>
+              </div>
+
+              <div class="sessions-list-item">
+                <div class="session-avatar">DK</div>
+                <div class="session-details">
+                  <div class="session-primary">
+                    <div class="session-name">Daniel Kim</div>
+                    <div class="session-time">May 14, 2025 at 3:00 PM</div>
+                  </div>
+                  <div class="session-secondary">
+                    <div class="behavior-tag">Product Knowledge</div>
+                    <div class="session-metrics">
+                      <div class="metric">
+                        <div class="metric-value poor">76%</div>
+                        <div class="metric-label">Call Quality</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value poor">3.8</div>
+                        <div class="metric-label">CSAT</div>
+                      </div>
+                      <div class="metric">
+                        <div class="metric-value poor">65%</div>
+                        <div class="metric-label">FCR</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="session-action">
+                  <i class="fas fa-chart-line insights-icon" data-agent="Daniel Kim" title="View Insights"></i>
+                  <button class="btn btn-outline-primary session-btn" data-agent="Daniel Kim" data-behavior="Product Knowledge">
+                    <i class="fas fa-clipboard btn-icon"></i>
+                    Prepare
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Active Coaching Tab -->
+          <div class="tab-content" id="active-coaching">
+            <div class="sessions-list">
+              <div class="sessions-card-header">
+                <div class="sessions-title">Active Coaching Sessions</div>
+              </div>
+
+              <!-- First Active Session (Expandable) -->
+              <div class="active-session-item">
+                <div class="active-session-header" data-target="#session301">
+                  <div class="active-session-info">
+                    <div class="session-avatar">EC</div>
+                    <div class="active-session-details">
+                      <div class="active-session-name">Emily Chen</div>
+                      <div class="active-session-meta">
+                        <div class="active-session-time">
+                          <i class="fas fa-clock"></i> Started 15 minutes ago
+                        </div>
+                        <div class="active-session-behavior">
+                          <i class="fas fa-tag"></i> Call De-escalation
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="active-session-actions">
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                    <button class="btn btn-primary continue-btn">
+                      <i class="fas fa-clipboard-check btn-icon"></i>
+                      Continue Session
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="active-session-details-panel" id="session301">
+                  <div class="active-session-content">
+                    <div class="active-session-section">
+                      <div class="section-title">Current Goals</div>
+                      <ul class="active-goals-list">
+                        <li class="active-goal-item">Improve de-escalation techniques for angry customers</li>
+                        <li class="active-goal-item">Reduce average handle time for complaint calls by 10%</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="active-session-section">
+                      <div class="section-title">Obstacles</div>
+                      <ul class="active-obstacles-list">
+                        <li class="active-obstacle-item">Difficulty with extremely agitated customers</li>
+                        <li class="active-obstacle-item">Knowledge gaps on new refund policies</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div class="active-session-insights">
+                    <div class="insights-title">
+                      <i class="fas fa-chart-line"></i> Coaching Insights
+                    </div>
+                    
+                    <div class="insights-metrics">
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Starting Point</div>
+                        <div class="insight-metric-value">73%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Current</div>
+                        <div class="insight-metric-value">78%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Goal</div>
+                        <div class="insight-metric-value">85%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Sessions</div>
+                        <div class="insight-metric-value">3</div>
+                      </div>
+                    </div>
+                    
+                    <div class="mini-trend">
+                      <div class="mini-points">
+                        <div class="mini-point" style="--value: 73"></div>
+                        <div class="mini-point" style="--value: 74"></div>
+                        <div class="mini-point" style="--value: 78"></div>
+                        <div class="mini-point upcoming" style="--value: 85"></div>
+                      </div>
+                      <div class="mini-line"></div>
+                      <div class="target-line" style="--target: 85"></div>
+                    </div>
+                    
+                    <div class="insight-notes">
+                      <div class="note-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Last session focused on active listening techniques</span>
+                      </div>
+                      <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Needs more practice with new refund policy scripts</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Second Active Session (Expandable) -->
+              <div class="active-session-item">
+                <div class="active-session-header" data-target="#session302">
+                  <div class="active-session-info">
+                    <div class="session-avatar">MB</div>
+                    <div class="active-session-details">
+                      <div class="active-session-name">Michael Brown</div>
+                      <div class="active-session-meta">
+                        <div class="active-session-time">
+                          <i class="fas fa-clock"></i> Started 20 minutes ago
+                        </div>
+                        <div class="active-session-behavior">
+                          <i class="fas fa-tag"></i> Product Knowledge
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="active-session-actions">
+                    <i class="fas fa-chevron-down toggle-icon"></i>
+                    <button class="btn btn-primary continue-btn">
+                      <i class="fas fa-clipboard-check btn-icon"></i>
+                      Continue Session
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="active-session-details-panel" id="session302">
+                  <div class="active-session-content">
+                    <div class="active-session-section">
+                      <div class="section-title">Current Goals</div>
+                      <ul class="active-goals-list">
+                        <li class="active-goal-item">Master new product features launched this quarter</li>
+                        <li class="active-goal-item">Improve troubleshooting efficiency</li>
+                        <li class="active-goal-item">Increase first call resolution rate to 80%</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="active-session-section">
+                      <div class="section-title">Obstacles</div>
+                      <ul class="active-obstacles-list">
+                        <li class="active-obstacle-item">Limited hands-on practice with new product features</li>
+                        <li class="active-obstacle-item">Complex technical issues requiring escalation</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div class="active-session-insights">
+                    <div class="insights-title">
+                      <i class="fas fa-chart-line"></i> Coaching Insights
+                    </div>
+                    
+                    <div class="insights-metrics">
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Starting Point</div>
+                        <div class="insight-metric-value">68%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Current</div>
+                        <div class="insight-metric-value">81%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Goal</div>
+                        <div class="insight-metric-value">85%</div>
+                      </div>
+                      <div class="insight-metric">
+                        <div class="insight-metric-label">Sessions</div>
+                        <div class="insight-metric-value">4</div>
+                      </div>
+                    </div>
+                    
+                    <div class="mini-trend">
+                      <div class="mini-points">
+                        <div class="mini-point" style="--value: 68"></div>
+                        <div class="mini-point" style="--value: 72"></div>
+                        <div class="mini-point" style="--value: 76"></div>
+                        <div class="mini-point" style="--value: 81"></div>
+                        <div class="mini-point upcoming" style="--value: 85"></div>
+                      </div>
+                      <div class="mini-line"></div>
+                      <div class="target-line" style="--target: 85"></div>
+                    </div>
+                    
+                    <div class="insight-notes">
+                      <div class="note-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Showing steady improvement in product knowledge assessment scores</span>
+                      </div>
+                      <div class="note-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Successfully mastered core product troubleshooting flows</span>
+                      </div>
+                      <div class="note-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Still needs work on advanced integration scenarios</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Follow-ups Tab -->
+          <div class="tab-content" id="follow-ups">
+            <div class="sessions-list">
+              <div class="sessions-card-header">
+                <div class="sessions-title">Your Follow-up Actions</div>
+              </div>
+
+              <div class="follow-up-item">
+                <div class="follow-up-checkbox">
+                  <div class="custom-checkbox" id="checkbox1">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="follow-up-content">
+                  <div class="follow-up-title" id="title1">Review de-escalation techniques training materials</div>
+                  <div class="follow-up-meta">
+                    <div class="follow-up-agent">
+                      <div class="avatar">LC</div>
+                      <span>Lisa Chen - Call De-escalation</span>
+                    </div>
+                    <div class="follow-up-due due-today">
+                      <i class="fas fa-calendar-day"></i>
+                      Due Today
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="follow-up-item">
+                <div class="follow-up-checkbox">
+                  <div class="custom-checkbox" id="checkbox2">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="follow-up-content">
+                  <div class="follow-up-title" id="title2">Share call scripts for handling billing disputes</div>
+                  <div class="follow-up-meta">
+                    <div class="follow-up-agent">
+                      <div class="avatar">RJ</div>
+                      <span>Robert Johnson - Active Listening</span>
+                    </div>
+                    <div class="follow-up-due overdue">
+                      <i class="fas fa-exclamation-circle"></i>
+                      Due Yesterday
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="follow-up-item">
+                <div class="follow-up-checkbox">
+                  <div class="custom-checkbox" id="checkbox3">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="follow-up-content">
+                  <div class="follow-up-title" id="title3">Send product troubleshooting guide for new feature</div>
+                  <div class="follow-up-meta">
+                    <div class="follow-up-agent">
+                      <div class="avatar">MR</div>
+                      <span>Maria Rodriguez - Product Knowledge</span>
+                    </div>
+                    <div class="follow-up-due">
+                      <i class="fas fa-calendar-alt"></i>
+                      Due in 3 days
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Opportunities Tab -->
+          <div class="tab-content" id="opportunities">
+            <div class="opportunities-grid">
+              <!-- Thomas Wilson -->
+              <div class="opportunity-card">
+                <div class="opportunity-header">
+                  <div class="opportunity-avatar">TW</div>
+                  <div class="opportunity-title">
+                    <div class="opportunity-name">Thomas Wilson</div>
+                    <div class="opportunity-team">Call De-escalation</div>
+                  </div>
+                </div>
+                <div class="opportunity-body">
+                  <div class="opportunity-metrics">
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Call Quality</div>
+                      <div class="opportunity-metric-value poor">68%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">CSAT</div>
+                      <div class="opportunity-metric-value poor">3.5</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">First Call Resolution</div>
+                      <div class="opportunity-metric-value poor">58%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Avg Handle Time</div>
+                      <div class="opportunity-metric-value poor">7:30</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-last-coached">
+                    <i class="fas fa-history"></i>
+                    <span>Last coached 39 days ago</span>
+                  </div>
+                  <div class="focus-areas">
+                    <div class="focus-area-title">Focus Areas</div>
+                    <div class="focus-area-tags">
+                      <div class="focus-tag">Call resolution</div>
+                      <div class="focus-tag">Technical knowledge</div>
+                      <div class="focus-tag">Customer satisfaction</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-actions">
+                    <button class="btn btn-primary session-btn" data-agent="Thomas Wilson" data-behavior="Call De-escalation">
+                      <i class="fas fa-calendar-plus btn-icon"></i>
+                      Schedule Session
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sophia Martinez -->
+              <div class="opportunity-card">
+                <div class="opportunity-header">
+                  <div class="opportunity-avatar">SM</div>
+                  <div class="opportunity-title">
+                    <div class="opportunity-name">Sophia Martinez</div>
+                    <div class="opportunity-team">Customer Empathy</div>
+                  </div>
+                </div>
+                <div class="opportunity-body">
+                  <div class="opportunity-metrics">
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Call Quality</div>
+                      <div class="opportunity-metric-value average">72%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">CSAT</div>
+                      <div class="opportunity-metric-value average">3.6</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">First Call Resolution</div>
+                      <div class="opportunity-metric-value average">64%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Avg Handle Time</div>
+                      <div class="opportunity-metric-value average">6:20</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-last-coached">
+                    <i class="fas fa-history"></i>
+                    <span>Last coached 24 days ago</span>
+                  </div>
+                  <div class="focus-areas">
+                    <div class="focus-area-title">Focus Areas</div>
+                    <div class="focus-area-tags">
+                      <div class="focus-tag">Customer empathy</div>
+                      <div class="focus-tag">Product knowledge</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-actions">
+                    <button class="btn btn-primary session-btn" data-agent="Sophia Martinez" data-behavior="Customer Empathy">
+                      <i class="fas fa-calendar-plus btn-icon"></i>
+                      Schedule Session
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Jason Lee -->
+              <div class="opportunity-card">
+                <div class="opportunity-header">
+                  <div class="opportunity-avatar">JL</div>
+                  <div class="opportunity-title">
+                    <div class="opportunity-name">Jason Lee</div>
+                    <div class="opportunity-team">Product Knowledge</div>
+                  </div>
+                </div>
+                <div class="opportunity-body">
+                  <div class="opportunity-metrics">
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Call Quality</div>
+                      <div class="opportunity-metric-value average">74%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">CSAT</div>
+                      <div class="opportunity-metric-value average">3.8</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">First Call Resolution</div>
+                      <div class="opportunity-metric-value average">67%</div>
+                    </div>
+                    <div class="opportunity-metric">
+                      <div class="opportunity-metric-label">Avg Handle Time</div>
+                      <div class="opportunity-metric-value average">6:00</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-last-coached">
+                    <i class="fas fa-history"></i>
+                    <span>Never coached</span>
+                  </div>
+                  <div class="focus-areas">
+                    <div class="focus-area-title">Focus Areas</div>
+                    <div class="focus-area-tags">
+                      <div class="focus-tag">New hire</div>
+                      <div class="focus-tag">Billing procedures</div>
+                      <div class="focus-tag">System navigation</div>
+                    </div>
+                  </div>
+                  <div class="opportunity-actions">
+                    <button class="btn btn-primary session-btn" data-agent="Jason Lee" data-behavior="Product Knowledge">
+                      <i class="fas fa-calendar-plus btn-icon"></i>
+                      Schedule Session
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Coaching Form Modal -->
+  <div class="overlay" id="formOverlay"></div>
+  <div class="coaching-form-container" id="coachingForm">
+    <div class="coaching-form-header">
+      <h2 class="form-title">Coaching Session: <span id="agentName">Maria Rodriguez</span></h2>
+      <button class="form-close" id="formClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="coaching-form-body">
+      <!-- Agent Info Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Session Information</h3>
+        <div class="form-row form-input-group">
+          <div>
+            <label class="form-label">Agent Name</label>
+            <input type="text" class="form-input" id="formAgentName" readonly>
+          </div>
+          <div>
+            <label class="form-label">Behavior</label>
+            <input type="text" class="form-input" id="formBehavior" readonly>
+          </div>
+          <div>
+            <label class="form-label">Date</label>
+            <input type="text" class="form-input" value="May 12, 2025" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goals Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Current Goals</h3>
+        <div class="form-row">
+          <ul class="input-list" id="goalsList">
+            <li class="input-list-item">
+              <input type="text" class="input-list-field" placeholder="Enter a goal...">
+              <button class="input-list-remove"><i class="fas fa-times"></i></button>
+            </li>
+            <li class="input-list-item">
+              <input type="text" class="input-list-field" placeholder="Enter a goal...">
+              <button class="input-list-remove"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <button class="form-action" id="addGoal">
+            <i class="fas fa-plus"></i> Add Another Goal
+          </button>
+        </div>
+      </div>
+
+      <!-- Obstacles Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Obstacles</h3>
+        <div class="form-row">
+          <ul class="input-list" id="obstaclesList">
+            <li class="input-list-item">
+              <input type="text" class="input-list-field" placeholder="Enter an obstacle...">
+              <button class="input-list-remove"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <button class="form-action" id="addObstacle">
+            <i class="fas fa-plus"></i> Add Another Obstacle
+          </button>
+        </div>
+      </div>
+
+      <!-- Strategies Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Alternative Strategies</h3>
+        <div class="form-row">
+          <ul class="input-list" id="strategiesList">
+            <li class="input-list-item">
+              <input type="text" class="input-list-field" placeholder="Enter a strategy...">
+              <button class="input-list-remove"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <button class="form-action" id="addStrategy">
+            <i class="fas fa-plus"></i> Add Another Strategy
+          </button>
+        </div>
+      </div>
+
+      <!-- Discussion Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Discussion Points</h3>
+        <div class="form-row">
+          <textarea class="form-textarea" placeholder="Enter notes about what was discussed during the coaching session..."></textarea>
+        </div>
+      </div>
+
+      <!-- Follow-up Actions Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Follow-up Actions</h3>
+        <div class="form-row">
+          <ul class="input-list" id="actionsList">
+            <li class="input-list-item">
+              <input type="text" class="input-list-field" placeholder="Enter an action item...">
+              <button class="input-list-remove"><i class="fas fa-times"></i></button>
+            </li>
+          </ul>
+          <button class="form-action" id="addAction">
+            <i class="fas fa-plus"></i> Add Another Action
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="coaching-form-footer">
+      <button class="btn btn-outline-primary" id="saveFormDraft">
+        <i class="fas fa-save btn-icon"></i>
+        Save Draft
+      </button>
+      <button class="btn btn-primary" id="submitForm">
+        <i class="fas fa-check btn-icon"></i>
+        Complete Session
+      </button>
+    </div>
+  </div>
+  
+  <!-- Insights Modal -->
+  <div class="overlay" id="insightsOverlay"></div>
+  <div class="insights-container" id="insightsModal">
+    <div class="insights-header">
+      <div class="agent-details">
+        <h2 class="agent-name" id="insightsAgentName">Maria Rodriguez</h2>
+        <div class="agent-metrics">
+          <div class="agent-metric">
+            <span class="metric-label">Behavior:</span>
+            <span class="metric-value">Active Listening</span>
+          </div>
+          <div class="agent-metric">
+            <span class="metric-label">Coaching Started:</span>
+            <span class="metric-value">04/15/2025</span>
+          </div>
+          <div class="agent-metric">
+            <span class="metric-label">Follow-Up Date:</span>
+            <span class="metric-value">05/15/2025</span>
+          </div>
+          <div class="agent-metric">
+            <span class="metric-label">Coached:</span>
+            <span class="metric-value">3</span>
+          </div>
+          <div class="agent-metric">
+            <span class="metric-label">Goal:</span>
+            <span class="metric-value">95%</span>
+          </div>
+        </div>
+      </div>
+      <div class="action-button">
+        <button class="btn btn-primary" id="insightsClose">
+          <i class="fas fa-times btn-icon"></i>
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div class="insights-content">
+      <div class="average-section">
+        <div class="average-header">
+          <div class="average-title">Today's 7-day Average</div>
+          <div class="average-value">92.5%
+            <span class="trend-indicator up">
+              <i class="fas fa-arrow-up"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend-visualization">
+        <div class="breadcrumb-trail">
+          <!-- Start Point -->
+          <div class="trail-point start">
+            <div class="point-circle" style="--value: 85">
+              85%
+            </div>
+            <div class="point-label">Start</div>
+            <div class="point-date">4/15/2025</div>
+          </div>
+          <div class="trail-connector"></div>
+          
+          <!-- First Follow-up -->
+          <div class="trail-point followup">
+            <div class="point-circle" style="--value: 88">
+              88%
+            </div>
+            <div class="point-label">Follow-Up</div>
+            <div class="point-date">4/22/2025</div>
+          </div>
+          <div class="trail-connector"></div>
+          
+          <!-- Another Follow-up -->
+          <div class="trail-point followup">
+            <div class="point-circle" style="--value: 92">
+              92%
+            </div>
+            <div class="point-label">Follow-Up</div>
+            <div class="point-date">5/05/2025</div>
+          </div>
+          <div class="trail-connector"></div>
+          
+          <!-- Upcoming Session -->
+          <div class="trail-point upcoming">
+            <div class="point-circle">
+              <i class="fas fa-calendar"></i>
+            </div>
+            <div class="point-label">Follow-Up</div>
+            <div class="point-date">5/15/2025</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics-selector">
+        <button class="metric-button selected">
+          NPS
+        </button>
+        <button class="metric-button">
+          CSAT
+        </button>
+        <button class="metric-button">
+          FCR
+        </button>
+      </div>
+
+      <div class="trend-chart">
+        <div class="chart-container">
+          <div class="chart-target-line" style="--target: 95">
+            <span class="target-label">95% TARGET</span>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+            <!-- Line connecting points -->
+            <polyline
+              class="chart-line"
+              points="0,55 100,45 200,38 300,30 400,26 500,22 600,20"
+            />
+            <!-- Individual data points -->
+            <circle class="chart-point" cx="0" cy="55" r="4" />
+            <circle class="chart-point" cx="100" cy="45" r="4" />
+            <circle class="chart-point" cx="200" cy="38" r="4" />
+            <circle class="chart-point" cx="300" cy="30" r="4" />
+            <circle class="chart-point" cx="400" cy="26" r="4" />
+            <circle class="chart-point" cx="500" cy="22" r="4" />
+            <circle class="chart-point" cx="600" cy="20" r="4" />
+          </svg>
+          <div class="chart-dates">
+            <div class="chart-date">4/15</div>
+            <div class="chart-date">4/22</div>
+            <div class="chart-date">4/29</div>
+            <div class="chart-date">5/3</div>
+            <div class="chart-date">5/5</div>
+            <div class="chart-date">5/9</div>
+            <div class="chart-date">5/12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-form.js"></script>
+  <script src="js/insights-modal.js"></script>
+  <script src="js/charts.js"></script>
+</body>
+</html>

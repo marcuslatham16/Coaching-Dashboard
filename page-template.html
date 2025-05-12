@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAGE_TITLE | Call Center Coaching Tool</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">PAGE_TITLE</h1>
+          <p class="page-subtitle">PAGE_SUBTITLE</p>
+        </div>
+
+        <!-- Main content goes here -->
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <h3 class="empty-title">PAGE_TITLE Content</h3>
+          <p class="empty-message">This is a placeholder for the PAGE_TITLE page content. In a production environment, this would contain actual data and functionality.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Overlay for Mobile -->
+  <div class="overlay" id="formOverlay"></div>
+
+  <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

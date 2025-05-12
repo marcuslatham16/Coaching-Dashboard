@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheduled Sessions | Call Center Coaching Tool</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Scheduled Coaching Sessions</h1>
+          <p class="page-subtitle">View and manage your upcoming coaching sessions</p>
+        </div>
+
+        <!-- Scheduled Sessions List -->
+        <div class="sessions-list">
+          <div class="sessions-card-header">
+            <div class="sessions-title">Upcoming Sessions</div>
+            <div class="sessions-filter">
+              <div class="filter-label">Filter by:</div>
+              <select class="filter-select">
+                <option value="all">All Behaviors</option>
+                <option value="active-listening">Active Listening</option>
+                <option value="call-de-escalation">Call De-escalation</option>
+                <option value="product-knowledge">Product Knowledge</option>
+                <option value="customer-empathy">Customer Empathy</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Today's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">MR</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Maria Rodriguez</div>
+                <div class="session-time">Today at 10:30 AM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Active Listening</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value good">92%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value good">4.7</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value good">85%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Maria Rodriguez" title="View Insights"></i>
+              <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Coach
+              </button>
+            </div>
+          </div>
+
+          <!-- Tomorrow's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">JW</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">James Wilson</div>
+                <div class="session-time">Tomorrow at 2:00 PM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Call De-escalation</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value average">85%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">4.2</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">78%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="James Wilson" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="James Wilson" data-behavior="Call De-escalation">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+
+          <!-- Another Future Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">DK</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Daniel Kim</div>
+                <div class="session-time">May 14, 2025 at 3:00 PM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Product Knowledge</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value poor">76%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value poor">3.8</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value poor">65%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Daniel Kim" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="Daniel Kim" data-behavior="Product Knowledge">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+          
+          <!-- Future Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">AN</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Alex Nguyen</div>
+                <div class="session-time">May 15, 2025 at 11:00 AM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Customer Empathy</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value average">80%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">4.0</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">72%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Alex Nguyen" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="Alex Nguyen" data-behavior="Customer Empathy">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="page-header" style="margin-top: 32px;">
+          <h2 class="page-title" style="font-size: 20px;">Calendar View</h2>
+        </div>
+        
+        <!-- Calendar Placeholder -->
+        <div class="sessions-list">
+          <div class="sessions-card-header">
+            <div class="sessions-title">May 2025</div>
+            <div class="sessions-filter">
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-calendar-plus btn-icon"></i>
+                New Session
+              </button>
+            </div>
+          </div>
+          
+          <div style="padding: 32px 24px; text-align: center;">
+            <div class="empty-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3 class="empty-title">Calendar View</h3>
+            <p class="empty-message">In a production environment, this area would display an interactive calendar showing all scheduled coaching sessions.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Coaching Form Modal -->
+  <div class="overlay" id="formOverlay"></div>
+  <div class="coaching-form-container" id="coachingForm">
+    <div class="coaching-form-header">
+      <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
+      <button class="form-close" id="formClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="coaching-form-body">
+      <!-- Agent Info Section -->
+      <div class="form-section">
+        <h3 class="form-section-title">Session Information</h3>
+        <div class="form-row form-input-group">
+          <div>
+            <label class="form-label">Agent Name</label>
+            <input type="text" class="form-input" id="formAgentName" readonly>
+          </div>
+          <div>
+            <label class="form-label">Behavior</label>
+            <input type="text" class="form-input" id="formBehavior" readonly>
+          </div>
+          <div>
+            <label class="form-label">Date</label>
+            <input type="text" class="form-input" value="May 12, 2025" readonly>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form content similar to index.html coaching form -->
+      <!-- ... -->
+    </div>
+    <div class="coaching-form-footer">
+      <button class="btn btn-outline-primary" id="saveFormDraft">
+        <i class="fas fa-save btn-icon"></i>
+        Save Draft
+      </button>
+      <button class="btn btn-primary" id="submitForm">
+        <i class="fas fa-check btn-icon"></i>
+        Complete Session
+      </button>
+    </div>
+  </div>
+  
+  <!-- Insights Modal -->
+  <div class="overlay" id="insightsOverlay"></div>
+  <div class="insights-container" id="insightsModal">
+    <!-- Insights modal content similar to index.html -->
+    <!-- ... -->
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-form.js"></script>
+  <script src="js/insights-modal.js"></script>
+  <script src="js/charts.js"></script>
+</body>
+</html>
