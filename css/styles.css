@@ -1004,7 +1004,9 @@ html {
   background-color: white;
   border-top: 1px solid var(--grey-200);
   border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+  margin-top: var(--spacing-md);
 }
+
 
 .footer-left,
 .footer-right {

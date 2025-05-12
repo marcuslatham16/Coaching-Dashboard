@@ -1,18 +1,28 @@
 // Add this to your js/active-coaching.js file (create it if it doesn't exist)
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Existing setup calls...
   setupChartInteractions();
   setupEndCoachingButton();
 
-  const rescheduleBtn = document.getElementById('rescheduleCoachingBtn');
-  if (rescheduleBtn) {
-    rescheduleBtn.addEventListener('click', function () {
+  // Safely bind reschedule buttons
+  document.querySelectorAll('.reschedule-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
       showToast('Reschedule', 'Opening calendar to reschedule coaching...', 'info');
     });
-  }
-});
+  });
 
+  // Safely bind end buttons
+  document.querySelectorAll('.end-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      if (confirm('Are you sure you want to end this coaching program? This action cannot be undone.')) {
+        showToast('Coaching Ended', 'The coaching program has been successfully ended.', 'success');
+        setTimeout(() => {
+          window.location.href = 'coaching-history.html';
+        }, 2000);
+      }
+    });
+  });
+});
 
 /**
  * Set up interactions for the coaching progress chart
@@ -35,26 +45,6 @@ function setupChartInteractions() {
       showToast('Metric Changed', `Switched to ${metricName} metrics view`, 'info');
     });
   });
-}
-
-/**
- * Set up end coaching button functionality
- */
-function setupEndCoachingButton() {
-  const endCoachingBtn = document.getElementById('endCoachingBtn');
-  
-  if (endCoachingBtn) {
-    endCoachingBtn.addEventListener('click', function() {
-      // In a real application, this would open a confirmation modal
-      if (confirm('Are you sure you want to end this coaching program? This action cannot be undone.')) {
-        showToast('Coaching Ended', 'The coaching program has been successfully ended.', 'success');
-        // In a real application, this would redirect to a summary page or update the UI
-        setTimeout(() => {
-          window.location.href = 'coaching-history.html';
-        }, 2000);
-      }
-    });
-  }
 }
 
 /**
