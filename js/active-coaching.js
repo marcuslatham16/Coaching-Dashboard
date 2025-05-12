@@ -2,8 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   setupChartInteractions();
-  setupEndCoachingButton();
-
+  
   // Safely bind reschedule buttons
   document.querySelectorAll('.reschedule-btn').forEach(btn => {
     btn.addEventListener('click', function () {

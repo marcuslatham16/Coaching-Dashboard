@@ -18,14 +18,32 @@ body {
   overflow: hidden; /* Prevents double scrollbars */
 }
 
-html {
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+
 .app-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Header/Toolbar - Updated Design */
@@ -170,11 +188,7 @@ html {
   margin-right: var(--spacing-md);
 }
 
-/* Main Layout */
-.main-container {
-  display: flex;
-  flex: 1;
-}
+
 
 /* Sidebar - Updated Design */
 .sidebar {
@@ -267,13 +281,8 @@ html {
   color: white;
 }
 
-/* Main Content */
-.content {
-  flex: 1;
-  padding: var(--spacing-lg);
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
+
 
 .page-header {
   margin-bottom: var(--spacing-lg);
