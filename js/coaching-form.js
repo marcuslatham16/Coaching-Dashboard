@@ -7,23 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const formAgentName = document.getElementById('formAgentName');
   const formBehavior = document.getElementById('formBehavior');
 
-  // Open form when coach button is clicked
-  document.querySelectorAll('.session-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const agent = this.getAttribute('data-agent');
-      const behavior = this.getAttribute('data-behavior');
-      
-      // Update form with agent info
-      if (agentNameSpan) agentNameSpan.textContent = agent;
-      if (formAgentName) formAgentName.value = agent;
-      if (formBehavior) formBehavior.value = behavior;
-      
-      // Show form and overlay
-      if (formOverlay) formOverlay.classList.add('show');
-      if (coachingForm) coachingForm.classList.add('show');
-    });
-  });
-
   // Close form when close button is clicked
   if (formClose) {
     formClose.addEventListener('click', function() {

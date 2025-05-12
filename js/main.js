@@ -194,22 +194,22 @@ function setupActionButtons() {
   }
   
   // Coach and Prepare buttons
-  document.querySelectorAll('.session-btn').forEach(btn => {
+    document.querySelectorAll('.session-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const agent = this.getAttribute('data-agent');
       const behavior = this.getAttribute('data-behavior');
-      
-      if (this.textContent.trim().includes('Coach')) {
+
+      const isCoach = this.textContent.toLowerCase().includes('coach');
+      const isPrepare = this.textContent.toLowerCase().includes('prepare');
+
+      if (isCoach) {
         openCoachingForm(agent, behavior);
-      } else if (this.textContent.trim().includes('Prepare')) {
+      } else if (isPrepare) {
         showToast('Preparation', `Opening preparation materials for ${agent}'s ${behavior} session...`, 'info');
-        // In a real application, this would open preparation materials
-      } else if (this.textContent.trim().includes('Schedule')) {
-        showToast('Scheduling', `Opening calendar to schedule session with ${agent}...`, 'info');
-        // In a real application, this would open a scheduling modal
       }
     });
   });
+
   
   // Insights icons
   document.querySelectorAll('.insights-icon').forEach(icon => {

@@ -1768,6 +1768,21 @@ html, body {
   display: flex;
   justify-content: center;
 }
+.coaching-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.form-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--grey-600);
+  cursor: pointer;
+}
 
 
 /* Responsive design rules at the end */

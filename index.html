@@ -249,10 +249,34 @@
   </div>
 
   <!-- Coaching Form Modal -->
-  <div class="overlay" id="formOverlay"></div>
   <div class="coaching-form-container" id="coachingForm">
-    <!-- ... Form content ... -->
+  <div class="coaching-form-header">
+    <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
+    <button class="form-close" id="formClose">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
+
+  <div class="coaching-form-body">
+    <label for="formAgentName">Agent Name</label>
+    <input id="formAgentName" type="text" readonly />
+
+    <label for="formBehavior">Behavior Focus</label>
+    <input id="formBehavior" type="text" readonly />
+
+    <!-- Add your dynamic lists or inputs here (goals, obstacles, etc.) -->
+  </div>
+
+  <div class="coaching-form-footer">
+    <button class="btn btn-outline-primary" id="saveFormDraft">
+      <i class="fas fa-save btn-icon"></i> Save Draft
+    </button>
+    <button class="btn btn-primary" id="submitForm">
+      <i class="fas fa-check btn-icon"></i> Complete Session
+    </button>
+  </div>
+</div>
+
   
   <!-- Insights Modal -->
   <div class="overlay" id="insightsOverlay"></div>
