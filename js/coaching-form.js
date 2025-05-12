@@ -1,19 +1,46 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Coaching form functionality
-  const formOverlay = document.getElementById('formOverlay');
-  const coachingForm = document.getElementById('coachingForm');
-  const formClose = document.getElementById('formClose');
+document.addEventListener('DOMContentLoaded', function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const agent = urlParams.get('agent') || 'Agent';
+  const behavior = urlParams.get('behavior') || 'Coaching';
+
   const agentNameSpan = document.getElementById('agentName');
   const formAgentName = document.getElementById('formAgentName');
   const formBehavior = document.getElementById('formBehavior');
+  const formOverlay = document.getElementById('formOverlay');
+  const coachingForm = document.getElementById('coachingForm');
 
-  // Close form when close button is clicked
-  if (formClose) {
-    formClose.addEventListener('click', function() {
+  if (agentNameSpan) agentNameSpan.textContent = agent;
+  if (formAgentName) formAgentName.value = agent;
+  if (formBehavior) formBehavior.value = behavior;
+  if (formOverlay) formOverlay.classList.add('show');
+
+  // Save/Submit buttons
+  const saveFormDraft = document.getElementById('saveFormDraft');
+  if (saveFormDraft) {
+    saveFormDraft.addEventListener('click', function () {
+      alert('Coaching form draft saved successfully!');
+    });
+  }
+
+  const submitForm = document.getElementById('submitForm');
+  if (submitForm) {
+    submitForm.addEventListener('click', function () {
+      alert('Coaching session completed successfully!');
       formOverlay.classList.remove('show');
       coachingForm.classList.remove('show');
     });
   }
+
+  // Close button
+  const formClose = document.getElementById('formClose');
+  if (formClose) {
+    formClose.addEventListener('click', function () {
+      formOverlay.classList.remove('show');
+      coachingForm.classList.remove('show');
+    });
+  }
+});
+
 
   // Add item functionality for lists
   function setupAddButton(buttonId, listId, placeholder) {
@@ -74,4 +101,3 @@ document.addEventListener('DOMContentLoaded', function() {
       coachingForm.classList.remove('show');
     });
   }
-});

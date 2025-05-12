@@ -163,10 +163,10 @@
                 </div>
                 <div class="session-action">
                   <i class="fas fa-chart-line insights-icon" data-agent="Maria Rodriguez" title="View Insights"></i>
-                  <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                  <a class="btn btn-primary" href="coaching-form.html?agent=Maria Rodriguez&behavior=Active Listening">
                     <i class="fas fa-clipboard btn-icon"></i>
                     Coach
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -198,7 +198,7 @@
                 </div>
                 <div class="session-action">
                   <i class="fas fa-chart-line insights-icon" data-agent="James Wilson" title="View Insights"></i>
-                  <button class="btn btn-outline-primary session-btn" data-agent="James Wilson" data-behavior="Call De-escalation">
+                  <a class="btn btn-outline-primary" href="coaching-form.html?agent=James Wilson&behavior=Call De-escalation">e-escalation">
                     <i class="fas fa-clipboard btn-icon"></i>
                     Prepare
                   </button>
@@ -232,7 +232,7 @@
                 </div>
                 <div class="session-action">
                   <i class="fas fa-chart-line insights-icon" data-agent="Daniel Kim" title="View Insights"></i>
-                  <button class="btn btn-outline-primary session-btn" data-agent="Daniel Kim" data-behavior="Product Knowledge">
+                  <a class="btn btn-outline-primary" href="coaching-form.html?agent=Daniel Kim&behavior=Product Knowledge">
                     <i class="fas fa-clipboard btn-icon"></i>
                     Prepare
                   </button>
@@ -248,38 +248,8 @@
     </div>
   </div>
 
-  <!-- Coaching Form Modal -->
-<div class="overlay" id="formOverlay"></div>
-
-<div class="coaching-form-container" id="coachingForm">
-  <div class="coaching-form-header">
-    <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
-    <button class="form-close" id="formClose">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-
-  <div class="coaching-form-body">
-    <label for="formAgentName">Agent Name</label>
-    <input id="formAgentName" type="text" readonly />
-
-    <label for="formBehavior">Behavior Focus</label>
-    <input id="formBehavior" type="text" readonly />
-  </div>
-
-  <div class="coaching-form-footer">
-    <button class="btn btn-outline-primary" id="saveFormDraft">
-      <i class="fas fa-save btn-icon"></i> Save Draft
-    </button>
-    <button class="btn btn-primary" id="submitForm">
-      <i class="fas fa-check btn-icon"></i> Complete Session
-    </button>
-  </div>
-</div>
-  
   <!-- Insights Modal -->
-  <div class="overlay" id="insightsOverlay"></div>
-  <div class="insights-container" id="insightsModal">
+    <div class="insights-container" id="insightsModal">
     <!-- ... Modal content ... -->
   </div>
 

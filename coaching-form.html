@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coaching Form | Call Center Coaching Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <div id="header-container"></div>
+
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Coaching Form</h1>
+          <p class="page-subtitle">Log session notes and coaching actions</p>
+        </div>
+
+        <div class="coaching-form-container show" id="coachingForm">
+          <div class="coaching-form-header">
+            <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
+            <button class="form-close" id="formClose"><i class="fas fa-times"></i></button>
+          </div>
+
+          <div class="coaching-form-body">
+            <label for="formAgentName">Agent Name</label>
+            <input id="formAgentName" type="text" readonly />
+
+            <label for="formBehavior">Behavior Focus</label>
+            <input id="formBehavior" type="text" readonly />
+
+            <!-- Add list fields if needed -->
+          </div>
+
+          <div class="coaching-form-footer">
+            <button class="btn btn-outline-primary" id="saveFormDraft">
+              <i class="fas fa-save btn-icon"></i> Save Draft
+            </button>
+            <button class="btn btn-primary" id="submitForm">
+              <i class="fas fa-check btn-icon"></i> Complete Session
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay show" id="formOverlay"></div>
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-form.js"></script>
+</body>
+</html>
