@@ -1,11 +1,17 @@
 :root {
-  --primary-color: #6e32a0;
-  --primary-light: #e8f0fe;
-  --secondary-color: #5f6369;
-  --accent-color: #fa9d28;
-  --warning-color: #f6ba15;
-  --success-color: #34a853;
-  --danger-color: #ea4335;
+  /* Primary Colors */
+  --primary-color: #4a6bdf;    /* Adjusted to a more vibrant blue */
+  --primary-light: #edf0ff;    /* Lighter shade for backgrounds */
+  --primary-dark: #3a51a3;     /* Darker shade for hover states */
+  
+  /* Secondary Colors */
+  --secondary-color: #5f6369;  
+  --accent-color: #ff5c35;     /* Brighter orange accent */
+  --warning-color: #ffb02e;    /* Warmer yellow for warnings */
+  --success-color: #2cc66d;    /* Vibrant green for success states */
+  --danger-color: #f5325c;     /* More vibrant red for errors/dangers */
+  
+  /* Neutrals */
   --grey-100: #f8f9fa;
   --grey-200: #e9ecef;
   --grey-300: #dee2e6;
@@ -15,11 +21,36 @@
   --grey-700: #495057;
   --grey-800: #343a40;
   --grey-900: #212529;
-  --border-radius: 8px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --brand-pink: #e91e63;
-  --brand-pink-light: #f8bbd0;
-  --brand-purple: #9c27b0;
+  
+  /* Brand Colors */
+  --brand-pink: #f93e97;       /* More vibrant pink */
+  --brand-pink-light: #ffd0e7;
+  --brand-purple: #8a3df7;     /* More vibrant purple */
+  --brand-teal: #00c2c2;       /* Teal accent color */
+  
+  /* UI Elements */
+  --border-radius: 8px;        /* Consistent border radius */
+  --border-radius-lg: 12px;    /* Larger border radius for cards */
+  --border-radius-sm: 4px;     /* Smaller border radius for buttons */
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Typography */
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+  --font-size-base: 16px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  --font-weight-extra-bold: 700;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
 }
