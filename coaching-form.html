@@ -2,59 +2,966 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coaching Form | Call Center Coaching Tool</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="css/variables.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coaching Form - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="css/variables.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div class="app-container">
+    <!-- Header Injected via JS -->
     <div id="header-container"></div>
 
+    <!-- Main Layout -->
     <div class="main-container">
+      <!-- Sidebar Injected via JS -->
       <div id="sidebar-container"></div>
 
+      <!-- Main Content -->
       <main class="content">
         <div class="page-header">
-          <h1 class="page-title">Coaching Form</h1>
-          <p class="page-subtitle">Log session notes and coaching actions</p>
+          <h1 class="page-title">Coaching Session</h1>
+          <p class="page-subtitle">Complete your coaching session with the form below</p>
         </div>
-
-        <div class="coaching-form-container show" id="coachingForm">
+           <!-- Coaching Form -->
+        <div class="coaching-form-container">
           <div class="coaching-form-header">
-            <h2 class="form-title">Coaching Session: <span id="agentName">Agent Name</span></h2>
-            <button class="form-close" id="formClose"><i class="fas fa-times"></i></button>
+            <div class="form-session-info">
+              <h2 class="session-info-title">Session Information</h2>
+              <div class="session-info-grid">
+                <div class="info-item">
+                  <div class="info-label">Coaching For</div>
+                  <div class="info-value">Emilio Bran</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Coaching By</div>
+                  <div class="info-value">Marcus Latham</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Coached On</div>
+                  <div class="info-value">05/13/2025</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Follow-up Date</div>
+                  <div class="info-value">05/18/2025</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Metric Focus</div>
+                  <div class="info-value">CSAT</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Behavior</div>
+                  <div class="info-value">Active Listening</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-template-selector">
+              <div class="form-template-label">Coaching Form Template</div>
+              <select class="template-select">
+                <option value="standard">Standard Coaching Template</option>
+                <option value="active-listening" selected>Active Listening Coaching</option>
+                <option value="product">Product Knowledge Coaching</option>
+                <option value="de-escalation">Call De-escalation Coaching</option>
+                <option value="quick-followup">Quick Follow-up</option>
+              </select>
+            </div>
           </div>
 
-          <div class="coaching-form-body">
-            <label for="formAgentName">Agent Name</label>
-            <input id="formAgentName" type="text" readonly />
+          <div class="coaching-form-tabs">
+            <div class="coaching-tab grow active" data-tab="grow">
+              GROW Coaching Model
+              <div class="coaching-tab-info tooltip">
+                <i class="fas fa-circle-info"></i>
+                <span class="tooltip-text">Goal, Reality, Options, Way Forward - A proven coaching framework</span>
+              </div>
+            </div>
+            <div class="coaching-tab smarter" data-tab="smarter">
+              SMARTER Action Plan
+              <div class="coaching-tab-info tooltip">
+                <i class="fas fa-circle-info"></i>
+                <span class="tooltip-text">Specific, Measurable, Achievable, Relevant, Time-bound, Evaluated, Reviewed</span>
+              </div>
+            </div>
+          </div>
 
-            <label for="formBehavior">Behavior Focus</label>
-            <input id="formBehavior" type="text" readonly />
+          <!-- GROW Tab Content -->
+          <div class="coaching-tab-content active" id="grow-tab">
+            <!-- Goals Section -->
+            <div class="form-section grow-section" data-letter="G">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Goals
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Clarify any short or long-term objective for this session</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Define specific performance goals for this coaching session. What does success look like?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <ul>
+                    <li>Improve active listening score from current 75% to 85% within 30 days</li>
+                    <li>Reduce interruptions during customer calls by 50%</li>
+                    <li>Increase customer acknowledgment phrases by 25%</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-            <!-- Add list fields if needed -->
+            <!-- Reality Section -->
+            <div class="form-section grow-section" data-letter="R">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Reality
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Explore the current situation, previous actions taken, and obstacles</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What is happening now? What are the impacts of this? What are the obstacles?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Current Performance:</strong></p>
+                  <ul>
+                    <li>Current active listening score is 75% based on last 5 calls</li>
+                    <li>Interrupting customers on average 4 times per call</li>
+                    <li>Using acknowledgment phrases 3-4 times per call (goal is 6-8)</li>
+                  </ul>
+                  <p><strong>Obstacles:</strong></p>
+                  <ul>
+                    <li>High call volume creating pressure to complete calls quickly</li>
+                    <li>Difficulty with technical troubleshooting scenarios</li>
+                    <li>Challenges with customers who are verbose or disorganized</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Options Section -->
+            <div class="form-section grow-section" data-letter="O">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Options
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Identify possibilities and alternative strategies to consider</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What alternatives do we have? What else could we try? What approaches might work best?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Active Listening Strategies:</strong></p>
+                  <ol>
+                    <li>Use physical notes or digital tool to mark key points during customer explanations</li>
+                    <li>Practice counting to 2 after customer stops speaking before responding</li>
+                    <li>Implement "3 acknowledgment minimum" rule for each customer explanation</li>
+                    <li>Use paraphrasing techniques to confirm understanding</li>
+                    <li>Add standard acknowledgment phrases to desktop reference card</li>
+                  </ol>
+                  <p><strong>Other Considerations:</strong></p>
+                  <ul>
+                    <li>Shadow top-performing agent Marie for 2 hours to observe techniques</li>
+                    <li>Review recordings of 3 calls with highest CSAT ratings</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Way Forward Section -->
+            <div class="form-section grow-section" data-letter="W">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Way Forward
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Establish a plan of action, future obstacles, and accountability</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What will you do? When will you do it? How will we measure success? What support do you need?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Action Plan:</strong></p>
+                  <ol>
+                    <li>Create desktop acknowledgment phrases card by end of day (Coach to provide template)</li>
+                    <li>Complete Active Listening online module by 5/15/2025</li>
+                    <li>Shadow Marie on 5/16/2025 from 10am-12pm</li>
+                    <li>Implement "count to 2" and "3 acknowledgment minimum" rule starting tomorrow</li>
+                    <li>Coach will provide 3 recordings of top CSAT calls by 5/14/2025</li>
+                    <li>Daily self-assessment using Active Listening Checklist (Coach to provide)</li>
+                  </ol>
+                  <p><strong>Key Metrics:</strong></p>
+                  <ul>
+                    <li>QA Listening Score (Target: 85% by 6/13/2025)</li>
+                    <li>Customer Interruptions (Target: Max 2 per call by 5/27/2025)</li>
+                    <li>Acknowledgment phrases (Target: 6-8 per call by 5/20/2025)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Action Items -->
+              <div class="form-section">
+                <div class="form-section-header">
+                  <h3 class="form-section-title">
+                    Action Items
+                    <span class="field-required">*</span>
+                  </h3>
+                </div>
+                <div class="action-items-container">
+                  <div class="action-item">
+                    <input type="checkbox" class="action-checkbox">
+                    <div class="action-content">
+                      <div class="action-title">Complete Active Listening online module</div>
+                      <div class="action-description">Go through all lessons and take the final assessment</div>
+                      <div class="action-meta">
+                        <div class="action-assignee">
+                          <i class="fas fa-user"></i>
+                          Emilio Bran
+                        </div>
+                        <div class="action-date">
+                          <i class="fas fa-calendar"></i>
+                          Due by 05/15/2025
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="action-item">
+                    <input type="checkbox" class="action-checkbox">
+                    <div class="action-content">
+                      <div class="action-title">Shadow Marie for active listening techniques</div>
+                      <div class="action-description">Observe and take notes during customer interactions</div>
+                      <div class="action-meta">
+                        <div class="action-assignee">
+                          <i class="fas fa-user"></i>
+                          Emilio Bran
+                        </div>
+                        <div class="action-date">
+                          <i class="fas fa-calendar"></i>
+                          Due by 05/16/2025
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="action-item">
+                    <input type="checkbox" class="action-checkbox">
+                    <div class="action-content">
+                      <div class="action-title">Provide top CSAT call recordings</div>
+                      <div class="action-description">Share 3 examples of excellent active listening</div>
+                      <div class="action-meta">
+                        <div class="action-assignee">
+                          <i class="fas fa-user"></i>
+                          Marcus Latham
+                        </div>
+                        <div class="action-date">
+                          <i class="fas fa-calendar"></i>
+                          Due by 05/14/2025
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="add-action-btn" id="addActionBtn">
+                  <i class="fas fa-plus"></i>
+                  Add Action Item
+                </button>
+              </div>
+            </div>
+
+            <!-- Commitment Section -->
+            <div class="commitment-section">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Commitment
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Provide commitment details for both coach and person being coached</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="dual-textarea-container">
+                <div class="form-field">
+                  <label class="field-label">
+                    Coach Commitment
+                    <span class="field-required">*</span>
+                  </label>
+                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I will provide the acknowledgment phrases template by end of day today, share the 3 top CSAT call recordings by 5/14, and coordinate the shadowing session with Marie. I'll also check in on 5/15 to see how the online module went and answer any questions.</textarea>
+                </div>
+
+                <div class="form-field">
+                  <label class="field-label">
+                    Agent Commitment
+                    <span class="field-required">*</span>
+                  </label>
+                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I commit to implementing the "count to 2" technique starting tomorrow, completing the online module by 5/15, and maintaining the daily self-assessment checklist. I'll shadow Marie as scheduled and work on increasing my acknowledgment phrases to the target of 6-8 per call.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Previous Sessions Section (Collapsed by default) -->
+            <div class="previous-sessions">
+              <div class="previous-sessions-header">
+                <h3 class="previous-sessions-title">Previous Coaching Sessions</h3>
+                <button class="previous-sessions-toggle">
+                  Show History
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+              <div class="session-timeline" style="display: none;">
+                <div class="timeline-item">
+                  <div class="timeline-date">04/15/2025</div>
+                  <div class="timeline-title">Initial Active Listening Coaching</div>
+                  <div class="timeline-description">
+                    Focused on basic active listening techniques and introduced acknowledgment phrases.
+                  </div>
+                  <div class="timeline-kpis">
+                    <div class="timeline-kpi">
+                      <i class="fas fa-chart-simple"></i>
+                      Listening Score: 68%
+                    </div>
+                    <div class="timeline-kpi">
+                      <i class="fas fa-chart-simple"></i>
+                      CSAT: 4.1
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-date">04/29/2025</div>
+                  <div class="timeline-title">Active Listening Follow-up</div>
+                  <div class="timeline-description">
+                    Reviewed progress and identified challenges with technical troubleshooting calls.
+                  </div>
+                  <div class="timeline-kpis">
+                    <div class="timeline-kpi positive">
+                      <i class="fas fa-arrow-up"></i>
+                      Listening Score: 75%
+                    </div>
+                    <div class="timeline-kpi positive">
+                      <i class="fas fa-arrow-up"></i>
+                      CSAT: 4.3
+                    </div>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-date">05/13/2025 (Today)</div>
+                  <div class="timeline-title">Current Coaching Session</div>
+                  <div class="timeline-description">
+                    Working on advanced active listening skills and reducing interruptions.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SMARTER Tab Content -->
+          <div class="coaching-tab-content" id="smarter-tab">
+            <!-- Specific Section -->
+            <div class="form-section smarter-section" data-letter="S">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Specific
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">What exactly needs to be accomplished? Be precise about what you want to achieve.</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Define exactly what needs to be accomplished with clear, concise details.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Specific Goal Description
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Describe the specific goal that needs to be accomplished">Improve active listening behaviors during customer calls by reducing interruptions and increasing acknowledgment phrases to improve customer satisfaction scores.</textarea>
+              </div>
+            </div>
+
+            <!-- Measurable Section -->
+            <div class="form-section smarter-section" data-letter="M">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Measurable
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">How will you measure progress and success? Define concrete criteria.</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Identify how you'll track progress and know when the goal has been achieved.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Success Metrics
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Define the specific measurements that will track progress">1. QA Active Listening Score: Increase from 75% to 85%
+2. Customer Interruptions: Reduce from 4 per call to max 2 per call
+3. Acknowledgment Phrases: Increase from 3-4 per call to 6-8 per call
+4. CSAT Score: Increase from current 4.3 to target 4.5+</textarea>
+              </div>
+            </div>
+
+            <!-- Achievable Section -->
+            <div class="form-section smarter-section" data-letter="A">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Achievable
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Is the goal realistic and attainable? What resources or support are needed?</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Ensure the goal is realistic and attainable given available resources and constraints.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Achievability Assessment
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Assess if this goal is achievable with current resources">This goal is achievable because:
+1. Emilio has already improved listening score from 68% to 75% in the past month
+2. The online training module provides specific techniques
+3. Shadowing opportunities with top performers are available
+4. No system or process barriers exist to prevent implementation
+5. Time required to implement techniques is minimal</textarea>
+              </div>
+            </div>
+
+            <!-- Relevant Section -->
+            <div class="form-section smarter-section" data-letter="R">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Relevant
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Does this goal align with broader objectives? Why is it important?</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Explain why this goal matters and how it aligns with team and organizational objectives.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Relevance Explanation
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Explain why this goal is relevant and important">This goal directly aligns with:
+1. Department KPI target to increase CSAT scores by 0.3 points this quarter
+2. Company-wide initiative to improve first call resolution rates
+3. Emilio's career development plan to strengthen customer engagement skills
+4. Team objectives to reduce escalations by 15% through better customer interactions</textarea>
+              </div>
+            </div>
+
+            <!-- Time-bound Section -->
+            <div class="form-section smarter-section" data-letter="T">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Time-bound
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Set a deadline or timeframe for completion. When will it be done?</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Set clear deadlines for when the goal and its components should be completed.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Timeline
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Set specific deadlines and milestones">Overall target completion: 06/13/2025 (30 days)
+
+Key milestones:
+1. Complete Active Listening module by 5/15/2025
+2. Shadow top performer by 5/16/2025
+3. Implement "count to 2" technique starting 5/14/2025
+4. Achieve 6-8 acknowledgments per call by 5/20/2025
+5. Reduce interruptions to max 2 per call by 5/27/2025
+6. Mid-point assessment on 5/27/2025
+7. Final assessment on 6/13/2025</textarea>
+              </div>
+            </div>
+
+            <!-- Evaluated Section -->
+            <div class="form-section smarter-section" data-letter="E">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Evaluated
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">How will progress be evaluated? What will constitute success?</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Define how and when progress will be evaluated throughout the process.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Evaluation Method
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Describe how progress will be evaluated">Evaluation methods:
+1. Daily self-assessments using Active Listening Checklist
+2. Weekly QA reviews of 2 randomly selected calls
+3. Bi-weekly check-in with coach (5/27 and 6/10)
+4. Mid-point formal assessment on 5/27/2025
+5. Final assessment on 6/13/2025
+6. CSAT trend review for calls between 5/14 and 6/13
+7. Customer verbatim comments analysis</textarea>
+              </div>
+            </div>
+
+            <!-- Reviewed Section -->
+            <div class="form-section smarter-section" data-letter="R">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Reviewed
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">How will you review progress and make adjustments as needed?</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Plan for how progress will be reviewed and what adjustments can be made if needed.
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  Review Plan
+                  <span class="field-required">*</span>
+                </label>
+                <textarea class="field-textarea" placeholder="Describe the review process and potential adjustments">Review plan:
+1. Daily 5-minute self-review using Active Listening Checklist
+2. Weekly 15-minute check-in with team lead for quick feedback
+3. Bi-weekly coaching meeting on 5/27/2025 and 6/10/2025
+4. Mid-point detailed assessment (5/27/2025) with adjustment options:
+   - If on track, continue with current plan
+   - If below target, add call shadowing with senior agent (2 hours/week)
+   - If struggling with specific call types, develop focused scenarios
+5. Final review on 6/13/2025 with determination for next steps</textarea>
+              </div>
+            </div>
+
+            <!-- Action Items for SMARTER -->
+            <div class="form-section">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Action Items
+                  <span class="field-required">*</span>
+                </h3>
+              </div>
+              <div class="action-items-container">
+                <div class="action-item">
+                  <input type="checkbox" class="action-checkbox">
+                  <div class="action-content">
+                    <div class="action-title">Complete Active Listening online module</div>
+                    <div class="action-description">Go through all lessons and take the final assessment</div>
+                    <div class="action-meta">
+                      <div class="action-assignee">
+                        <i class="fas fa-user"></i>
+                        Emilio Bran
+                      </div>
+                      <div class="action-date">
+                        <i class="fas fa-calendar"></i>
+                        Due by 05/15/2025
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="action-item">
+                  <input type="checkbox" class="action-checkbox">
+                  <div class="action-content">
+                    <div class="action-title">Shadow Marie for active listening techniques</div>
+                    <div class="action-description">Observe and take notes during customer interactions</div>
+                    <div class="action-meta">
+                      <div class="action-assignee">
+                        <i class="fas fa-user"></i>
+                        Emilio Bran
+                      </div>
+                      <div class="action-date">
+                        <i class="fas fa-calendar"></i>
+                        Due by 05/16/2025
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="action-item">
+                  <input type="checkbox" class="action-checkbox">
+                  <div class="action-content">
+                    <div class="action-title">Provide top CSAT call recordings</div>
+                    <div class="action-description">Share 3 examples of excellent active listening</div>
+                    <div class="action-meta">
+                      <div class="action-assignee">
+                        <i class="fas fa-user"></i>
+                        Marcus Latham
+                      </div>
+                      <div class="action-date">
+                        <i class="fas fa-calendar"></i>
+                        Due by 05/14/2025
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="add-action-btn" id="addActionBtnSmarter">
+                <i class="fas fa-plus"></i>
+                Add Action Item
+              </button>
+            </div>
+
+            <!-- Commitment Section for SMARTER -->
+            <div class="commitment-section">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Commitment
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Provide commitment details for both coach and person being coached</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="dual-textarea-container">
+                <div class="form-field">
+                  <label class="field-label">
+                    Coach Commitment
+                    <span class="field-required">*</span>
+                  </label>
+                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I will provide the acknowledgment phrases template by end of day today, share the 3 top CSAT call recordings by 5/14, and coordinate the shadowing session with Marie. I'll also check in on 5/15 to see how the online module went and answer any questions.</textarea>
+                </div>
+
+                <div class="form-field">
+                  <label class="field-label">
+                    Agent Commitment
+                    <span class="field-required">*</span>
+                  </label>
+                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I commit to implementing the "count to 2" technique starting tomorrow, completing the online module by 5/15, and maintaining the daily self-assessment checklist. I'll shadow Marie as scheduled and work on increasing my acknowledgment phrases to the target of 6-8 per call.</textarea>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="coaching-form-footer">
-            <button class="btn btn-outline-primary" id="saveFormDraft">
-              <i class="fas fa-save btn-icon"></i> Save Draft
-            </button>
-            <button class="btn btn-primary" id="submitForm">
-              <i class="fas fa-check btn-icon"></i> Complete Session
-            </button>
+            <div class="form-actions-left">
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-save btn-icon"></i>
+                Save Draft
+              </button>
+            </div>
+            <div class="form-actions-right">
+              <button class="btn btn-primary">
+                <i class="fas fa-check-circle btn-icon"></i>
+                Complete Session
+              </button>
+              <button class="btn btn-success">
+                <i class="fas fa-paper-plane btn-icon"></i>
+                Submit & Schedule Follow-up
+              </button>
+            </div>
           </div>
         </div>
       </main>
     </div>
   </div>
 
+  <!-- Add Action Modal -->
+  <div class="modal-overlay" id="actionModalOverlay"></div>
+  <div class="add-action-modal" id="addActionModal">
+    <div class="add-action-header">
+      <h3 class="add-action-title">Add New Action Item</h3>
+      <button class="add-action-close" id="addActionClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="add-action-body">
+      <div class="form-field">
+        <label class="field-label">
+          Action Title
+          <span class="field-required">*</span>
+        </label>
+        <input type="text" class="field-input" id="actionTitle" placeholder="Enter a clear, specific action title">
+      </div>
+      <div class="form-field">
+        <label class="field-label">
+          Description
+        </label>
+        <textarea class="field-textarea" id="actionDescription" placeholder="Provide additional details about this action item" style="min-height: 80px;"></textarea>
+      </div>
+      <div class="field-row">
+        <div class="form-field">
+          <label class="field-label">
+            Assigned To
+            <span class="field-required">*</span>
+          </label>
+          <select class="field-select" id="actionAssignee">
+            <option value="emilio">Emilio Bran</option>
+            <option value="marcus">Marcus Latham</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="field-label">
+            Due Date
+            <span class="field-required">*</span>
+          </label>
+          <input type="date" class="field-input" id="actionDueDate" value="2025-05-18">
+        </div>
+      </div>
+    </div>
+    <div class="add-action-footer">
+      <button class="btn btn-outline-primary" id="addActionCancel">
+        Cancel
+      </button>
+      <button class="btn btn-primary" id="addActionSave">
+        Add Action
+      </button>
+    </div>
+  </div>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    const logo = document.querySelector('.header-logo');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (logo && sidebar) {
+      logo.addEventListener('click', function () {
+        sidebar.classList.toggle('show');
+      });
+    }
+  });
+</script>
+
+<script>
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.coaching-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Hide all tab contents
+        document.querySelectorAll('.coaching-tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        
+        // Show the corresponding tab content
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+      });
+    });
+
+    // Rich text editor functionality
+    document.querySelectorAll('.editor-tool').forEach(tool => {
+      tool.addEventListener('click', function() {
+        const command = this.getAttribute('title').toLowerCase();
+        
+        if (command === 'bold') {
+          document.execCommand('bold', false, null);
+        } else if (command === 'italic') {
+          document.execCommand('italic', false, null);
+        } else if (command === 'underline') {
+          document.execCommand('underline', false, null);
+        } else if (command === 'bulleted list') {
+          document.execCommand('insertUnorderedList', false, null);
+        } else if (command === 'numbered list') {
+          document.execCommand('insertOrderedList', false, null);
+        }
+        
+        // Toggle active state for formatting buttons
+        if (['bold', 'italic', 'underline'].includes(command)) {
+          this.classList.toggle('active');
+        }
+      });
+    });
+
+    // Previous sessions toggle
+    const historyToggle = document.querySelector('.previous-sessions-toggle');
+    const timeline = document.querySelector('.session-timeline');
+    historyToggle.addEventListener('click', function() {
+      const isHidden = timeline.style.display === 'none';
+      timeline.style.display = isHidden ? 'block' : 'none';
+      historyToggle.innerHTML = isHidden ? 
+        'Hide History <i class="fas fa-chevron-up"></i>' : 
+        'Show History <i class="fas fa-chevron-down"></i>';
+    });
+
+    // Action Items Modal
+    const actionModal = document.getElementById('addActionModal');
+    const actionOverlay = document.getElementById('actionModalOverlay');
+    const addActionBtn = document.getElementById('addActionBtn');
+    const addActionBtnSmarter = document.getElementById('addActionBtnSmarter');
+    const closeActionBtn = document.getElementById('addActionClose');
+    const cancelActionBtn = document.getElementById('addActionCancel');
+    const saveActionBtn = document.getElementById('addActionSave');
+
+    function openActionModal() {
+      actionModal.classList.add('show');
+      actionOverlay.classList.add('show');
+    }
+
+    function closeActionModal() {
+      actionModal.classList.remove('show');
+      actionOverlay.classList.remove('show');
+    }
+
+    addActionBtn.addEventListener('click', openActionModal);
+    addActionBtnSmarter.addEventListener('click', openActionModal);
+    closeActionBtn.addEventListener('click', closeActionModal);
+    cancelActionBtn.addEventListener('click', closeActionModal);
+    actionOverlay.addEventListener('click', closeActionModal);
+
+    // Add a new action when Save is clicked
+    saveActionBtn.addEventListener('click', function() {
+      const title = document.getElementById('actionTitle').value;
+      const description = document.getElementById('actionDescription').value;
+      const assignee = document.getElementById('actionAssignee').value === 'emilio' ? 'Emilio Bran' : 'Marcus Latham';
+      const dueDate = document.getElementById('actionDueDate').value;
+      
+      if (!title || !dueDate) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      // Format the date for display
+      const formattedDate = new Date(dueDate).toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+      });
+      
+      // Create the new action item HTML
+      const actionItem = document.createElement('div');
+      actionItem.className = 'action-item';
+      actionItem.innerHTML = `
+        <input type="checkbox" class="action-checkbox">
+        <div class="action-content">
+          <div class="action-title">${title}</div>
+          <div class="action-description">${description}</div>
+          <div class="action-meta">
+            <div class="action-assignee">
+              <i class="fas fa-user"></i>
+              ${assignee}
+            </div>
+            <div class="action-date">
+              <i class="fas fa-calendar"></i>
+              Due by ${formattedDate}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Add the action item to both GROW and SMARTER tabs
+      const activeTab = document.querySelector('.coaching-tab-content.active');
+      activeTab.querySelector('.action-items-container').appendChild(actionItem);
+      
+      // Clear the form
+      document.getElementById('actionTitle').value = '';
+      document.getElementById('actionDescription').value = '';
+      
+      // Close the modal
+      closeActionModal();
+    });
+
+    // Form submit functionality
+    document.querySelector('.btn-success').addEventListener('click', function() {
+      // Validation logic would go here
+      alert('Coaching session submitted and follow-up scheduled for 05/18/2025!');
+      // In a real app, this would redirect to the dashboard or next action
+    });
+
+    document.querySelector('.btn-primary').addEventListener('click', function() {
+      // Validation logic would go here
+      alert('Coaching session completed successfully!');
+      // In a real app, this would redirect to the dashboard
+    });
+    </script> <!-- your last inline script tag ends -->
+  
+  <!-- Toast Notifications -->
   <div id="toastContainer" class="toast-container"></div>
 
+  <!-- Required Overlays -->
+  <div id="formOverlay" class="overlay"></div>
+
+  <!-- JavaScript Files -->
   <script src="js/header-footer.js"></script>
   <script src="js/main.js"></script>
   <script src="js/coaching-form.js"></script>
+  <script src="js/insights-modal.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/active-coaching.js"></script>
 </body>
 </html>
