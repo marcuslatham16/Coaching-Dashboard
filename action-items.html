@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Items - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <style>
+    .action-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .action-header-agent {
+      display: flex;
+      align-items: center;
+        font-size: 20px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+    .action-header-agent .agent-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .action-header-due {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--danger-color);
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .action-button {
+      padding: 10px 15px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 24px;
+    }
+    .action-details {
+      font-size: 16px;
+      color: var(--grey-700);
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Action Items</h1>
+          <p class="page-subtitle">
+            Track and manage follow-up tasks from coaching sessions.<br>            
+          </p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-card-title">Total Action Items</div>
+            <div class="summary-card-value">23</div>
+            <div class="summary-card-info">
+              <i class="fas fa-clipboard-list"></i>
+              <span>Tracks all pending follow-ups</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">Overdue Items</div>
+            <div class="summary-card-value">2</div>
+            <div class="summary-card-info">
+              <i class="fas fa-exclamation-circle" style="color: var(--danger-color);"></i>
+              <span>Follow-up missed or overdue</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">Follow-Up Completion Rate</div>
+            <div class="summary-card-value">78%</div>
+            <div class="summary-card-info">
+              <i class="fas fa-check-circle trend-up"></i>
+              <span>On-time or rescheduled completions</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">Re-Schedule Rate</div>
+            <div class="summary-card-value">22%</div>
+            <div class="summary-card-info">
+              <i class="fas fa-calendar-plus" style="color: var(--warning-color);"></i>
+              <span>Sessions rescheduled before due</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="action-items-filter">
+          <div class="filter-group">
+            <label for="statusFilter" class="filter-label">Status</label>
+            <select id="statusFilter" class="filter-input">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="agentFilter" class="filter-label">Agent</label>
+            <select id="agentFilter" class="filter-input">
+              <option value="all">All Agents</option>
+              <option value="maria-rodriguez">Maria Rodriguez</option>
+              <option value="james-wilson">James Wilson</option>
+              <option value="emily-chen">Emily Chen</option>
+              <option value="michael-brown">Michael Brown</option>
+              <option value="lisa-chen">Lisa Chen</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="priorityFilter" class="filter-label">Priority</label>
+            <select id="priorityFilter" class="filter-input">
+              <option value="all">All Priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="filter-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-filter btn-icon"></i>
+              Apply Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Items List -->
+        <div class="action-items-list">
+          <div class="action-item">
+            <div class="action-content">
+                <div class="action-header-top">
+                <div class="action-header-agent">
+                  <div class="agent-avatar">M</div>
+                  Maria Rodriguez
+                </div>
+                <div class="action-header-due">
+                  <i class="fas fa-calendar-day"></i> Due Today
+                </div>
+              </div>
+              <div class="action-details">
+                Send follow-up guide to Maria and review de-escalation framework in next session. Ensure this includes a 5-minute call simulation and script reading review. Add personalized feedback from last performance call to reinforce expectations.
+              </div>
+              <div class="action-buttons">
+                <button class="action-button btn-outline-primary">
+                  <i class="fas fa-play-circle"></i>
+                  Continue Session
+                </button>
+                <button class="action-button btn-outline-primary">
+                  <i class="fas fa-calendar-alt"></i>
+                  Reschedule Coaching
+                </button>
+                <button class="action-button btn-outline-danger">
+                  <i class="fas fa-flag-checkered"></i>
+                  End Coaching
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
+  <div id="toastContainer" class="toast-container"></div>
+</body>
+</html>
