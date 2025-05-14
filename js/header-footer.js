@@ -42,11 +42,10 @@ document.addEventListener("DOMContentLoaded", function() {
     sidebarContainer.innerHTML = `
       <div class="sidebar" id="sidebar">
         <div class="sidebar-action">
-          <button class="btn btn-primary sidebar-start-btn" id="startSessionSidebarBtn">
-            <i class="fas fa-play-circle btn-icon"></i>
-            Start Coaching Session
-          </button>
-        </div>
+          <a href="coaching-form.html" class="btn btn-primary stn" id="startSessionSidebarBtn">
+          <i class="fas fa-plus btn-icon"></i>
+          Start Coaching Session
+        </a>
         <div class="sidebar-section">
           <div class="sidebar-title">Coaching</div>
           <ul class="sidebar-menu">
@@ -56,18 +55,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="sidebar-label">Dashboard</div>
               </a>
             </li>
-            <li>
+              <li>
               <a href="active-coaching.html" class="sidebar-item ${currentPage === 'active-coaching.html' ? 'active' : ''}">
-                <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
-                <div class="sidebar-label">Active Coaching</div>
-                <div class="sidebar-badge badge-accent">2</div>
-              </a>
-            </li>
-            <li>
-              <a href="upcoming-sessions.html" class="sidebar-item ${currentPage === 'upcoming-sessions.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="sidebar-label">Upcoming Sessions</div>
-                <div class="sidebar-badge">3</div>
+                <div class="sidebar-label">Active Coaching</div>
+                <div class="sidebar-badge">15</div>
               </a>
             </li>
             <li>

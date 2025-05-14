@@ -3,25 +3,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Active Coaching | Call Center Coaching Tool</title>
+  <title>Upcoming Sessions | Call Center Coaching Tool</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-</head>
+  <!-- FullCalendar CDN -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+</head>head>
 <body>
   <div class="app-container">
-    <!-- Header Container (populated by JS) -->
     <div id="header-container"></div>
-
-    <!-- Main Layout -->
     <div class="main-container">
-      <!-- Sidebar Container (populated by JS) -->
       <div id="sidebar-container"></div>
-
-      <!-- Main Content -->
       <main class="content">
         <div class="page-header">
-          <h1 class="page-title">Active Coaching Sessions</h1>
+          <h1 class="page-title">Scheduled Coaching Sessions</h1>
+          <p class="page-subtitle">View and manage your upcoming coaching sessions</p>
+        </div>
+        
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+          <div class="dashboard-card orange">
+            <div class="card-icon">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <div class="card-label">Active Coaching</div>
+            <div class="card-value" id="activeCount">0</div>
+            <div class="card-subtext"><i class="fas fa-info-circle"></i> Sessions currently in progress</div>
+          </div>     
+          
+          <div class="dashboard-card purple">
+            <div class="card-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="card-label">Upcoming Sessions</div>
+            <div class="card-value" id="upcomingCount">0</div>
+            <div class="card-subtext"><i class="fas fa-info-circle"></i> Next session is today at 10:30 AM</div>
+          </div>
+
+          <div class="dashboard-card yellow">
+            <div class="card-icon">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div class="card-label">Focused Behaviors</div>
+            <div class="card-value" id="behaviorCount">0</div>
+            <div class="card-subtext"><i class="fas fa-info-circle"></i> Behaviors being coached</div>
+          </div>
+
+          
+        </div>
+
+        <!-- Upcoming Sessions List -->
+        <div class="sessions-list upcoming-sessions">
+          <div class="sessions-card-header">
+            <div class="sessions-title">Upcoming Sessions</div>
+            <div class="sessions-filter">
+              <div class="filter-label">Filter by:</div>
+              <select class="filter-select">
+                <option value="all">All Behaviors</option>
+                <option value="active-listening">Active Listening</option>
+                <option value="call-de-escalation">Call De-escalation</option>
+                <option value="product-knowledge">Product Knowledge</option>
+                <option value="customer-empathy">Customer Empathy</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Today's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">MR</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Maria Rodriguez</div>
+                <div class="session-time">Today at 10:30 AM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Active Listening</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value good">92%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value good">4.7</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value good">85%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Maria Rodriguez" title="View Insights"></i>
+              <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Coach
+              </button>
+            </div>
+          </div>
+
+          <!-- Tomorrow's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">JW</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">James Wilson</div>
+                <div class="session-time">Tomorrow at 2:00 PM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Call De-escalation</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value average">85%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">4.2</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">78%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="James Wilson" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="James Wilson" data-behavior="Call De-escalation">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+
+          <!-- Another Future Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">DK</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Daniel Kim</div>
+                <div class="session-time">May 14, 2025 at 3:00 PM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Product Knowledge</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value poor">76%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value poor">3.8</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value poor">65%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Daniel Kim" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="Daniel Kim" data-behavior="Product Knowledge">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+          
+          <!-- Future Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">AN</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Alex Nguyen</div>
+                <div class="session-time">May 15, 2025 at 11:00 AM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Customer Empathy</div>
+                <div class="session-metrics">
+                  <div class="metric">
+                    <div class="metric-value average">80%</div>
+                    <div class="metric-label">Call Quality</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">4.0</div>
+                    <div class="metric-label">CSAT</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value average">72%</div>
+                    <div class="metric-label">FCR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="session-action">
+              <i class="fas fa-chart-line insights-icon" data-agent="Alex Nguyen" title="View Insights"></i>
+              <button class="btn btn-outline-primary session-btn" data-agent="Alex Nguyen" data-behavior="Customer Empathy">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Prepare
+              </button>
+            </div>
+          </div>
+        </div>
+          <!-- Main Content -->
+      <div class="page-header" style="padding-top: 32px;">
+           <h1 class="page-title">Active Coaching Sessions</h1>
           <p class="page-subtitle">Manage your ongoing coaching sessions</p>
         </div>
 
@@ -30,6 +220,26 @@
           <div class="sessions-card-header">
             <div class="sessions-title">Your Active Sessions</div>
           </div>
+      <div class="coaching-filters" style="padding: 10px 24px;">
+        <div class="filter-group">
+          <label for="dateFilter">Date Range:</label>
+          <select id="dateFilter" class="filter-select">
+            <option value="all">All</option>
+            <option value="week">Next Week</option>
+            <option value="month">This Month</option>
+            <option value="quarter">This Quarter</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="statusFilter">Follow-up Status:</label>
+          <select id="statusFilter" class="filter-select">
+            <option value="all">All</option>
+            <option value="outstanding">Outstanding Actions</option>
+            <option value="missed">Missed Follow-Ups</option>
+          </select>
+        </div>
+      </div>
 
            <!-- Emily Chen's Active Session -->
           <div class="active-session-item">
@@ -360,10 +570,23 @@
           </div> <!-- END .active-session-insights -->
         </div> <!-- END .active-session-details-panel -->
       </div> <!-- END .active-session-item -->
-    </main>
-  </div></div>
-
- 
+     </div>
+        <!-- Calendar Section (INSIDE <main>) -->
+        <div class="calendar-list" style="margin-top: 40px;">
+          <div class="sessions-card-header">
+            <div class="sessions-title">May 2025</div>
+            <div class="sessions-filter">
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-calendar-plus btn-icon"></i>
+                Schedule Coaching
+              </button>
+            </div>
+          </div>
+          <div style="padding: 32px 24px;">
+            <div id="calendar"></div> 
+            </div> <!-- END .calendar-list -->
+<!-- End Calendar Section -->
+</main> 
   <!-- Load JavaScript -->
   <script src="js/header-footer.js"></script>
   <script src="js/main.js"></script>
@@ -371,5 +594,53 @@
   <script src="js/insights-modal.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/active-coaching.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ✅ Render FullCalendar
+    const calendarEl = document.getElementById('calendar');
+    if (calendarEl) {
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,listWeek'
+        },
+        height: 'auto',
+        events: [
+          {
+            title: 'Session with Maria',
+            start: '2025-05-15T10:00:00'
+          },
+          {
+            title: 'Follow-up Coaching',
+            start: '2025-05-19T14:00:00'
+          }
+        ]
+      });
+      calendar.render();
+    }
+
+    // ✅ Dashboard Card Metrics
+
+    // 1. Active Coaching
+    const activeCount = document.querySelectorAll('.active-session-item').length;
+    const activeEl = document.getElementById('activeCount');
+    if (activeEl) activeEl.textContent = activeCount;
+
+    // 2. Upcoming Sessions
+    const upcomingCount = document.querySelectorAll('.upcoming-sessions .sessions-list-item').length;
+    const upcomingEl = document.getElementById('upcomingCount');
+    if (upcomingEl) upcomingEl.textContent = upcomingCount;
+
+    // 3. Focused Behaviors
+    const behaviorTags = document.querySelectorAll('.behavior-tag');
+    const behaviors = new Set();
+    behaviorTags.forEach(tag => behaviors.add(tag.textContent.trim()));
+    const behaviorEl = document.getElementById('behaviorCount');
+    if (behaviorEl) behaviorEl.textContent = behaviors.size;
+  });
+</script>
 </body>
 </html>

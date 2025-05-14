@@ -185,7 +185,360 @@
         <div class="page-header" style="margin-top: 32px;">
           <h2 class="page-title" style="font-size: 20px;">Calendar View</h2>
         </div>
-        
+        <body>
+  <div class="app-container">
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Active Coaching Sessions</h1>
+          <p class="page-subtitle">Manage your ongoing coaching sessions</p>
+        </div>
+
+        <!-- Active Coaching Sessions -->
+        <div class="sessions-list">
+          <div class="sessions-card-header">
+            <div class="sessions-title">Your Active Sessions</div>
+          </div>
+
+           <!-- Emily Chen's Active Session -->
+          <div class="active-session-item">
+            <div class="active-session-header" data-target="#session101">
+              <div class="active-session-info">
+                <div class="session-avatar">EC</div>
+                <div class="active-session-details">
+                  <div class="active-session-name">Emily Chen</div>
+                  <div class="active-session-meta">
+                    <div class="active-session-time">
+                      <i class="fas fa-clock"></i> Started 15 minutes ago
+                    </div>
+                    <div class="active-session-behavior">
+                      <i class="fas fa-tag"></i> Call De-escalation
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="active-session-actions">
+                <i class="fas fa-chevron-down toggle-icon"></i>
+                <button class="btn btn-primary continue-btn">
+                  <i class="fas fa-clipboard-check btn-icon"></i>
+                  Continue Session
+                </button>
+              </div>
+            </div>
+            
+            <div class="active-session-details-panel" id="session101">
+              <div class="active-session-content">
+                <div class="active-session-section">
+                  <div class="section-title">Current Goals</div>
+                  <ul class="active-goals-list">
+                    <li class="active-goal-item">Improve de-escalation techniques for angry customers</li>
+                    <li class="active-goal-item">Reduce average handle time for complaint calls by 10%</li>
+                  </ul>
+                </div>
+                
+                <div class="active-session-section">
+                  <div class="section-title">Obstacles</div>
+                  <ul class="active-obstacles-list">
+                    <li class="active-obstacle-item">Difficulty with extremely agitated customers</li>
+                    <li class="active-obstacle-item">Knowledge gaps on new refund policies</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="active-session-insights">
+                <div class="insights-title">
+                  <i class="fas fa-chart-line"></i> Coaching Insights
+                </div>
+                
+                <div class="insights-metrics">
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Starting Point</div>
+                    <div class="insight-metric-value">73%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Current</div>
+                    <div class="insight-metric-value">78%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Goal</div>
+                    <div class="insight-metric-value">85%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Sessions</div>
+                    <div class="insight-metric-value">3</div>
+                  </div>
+                </div>
+                
+                <div class="mini-trend">
+                  <div class="mini-points">
+                    <div class="mini-point" style="--value: 73"></div>
+                    <div class="mini-point" style="--value: 74"></div>
+                    <div class="mini-point" style="--value: 78"></div>
+                    <div class="mini-point upcoming" style="--value: 85"></div>
+                  </div>
+                  <div class="mini-line"></div>
+                  <div class="target-line" style="--target: 85"></div>
+                </div>
+                
+                <div class="insight-notes">
+                  <div class="note-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Last session focused on active listening techniques</span>
+                  </div>
+                  <div class="note-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Needs more practice with new refund policy scripts</span>
+                  </div>
+                  <div class="active-session-footer">
+                  <div class="next-session-date">
+                    <i class="fas fa-calendar-alt"></i> Next Session: May 19, 2025 at 10:00 AM
+                  </div>
+                  <div class="footer-buttons">
+                    <button class="btn btn-outline-primary reschedule-btn">
+                      <i class="fas fa-calendar-plus btn-icon"></i>
+                      Reschedule Coaching
+                    </button>
+                    <button class="btn btn-outline-danger end-btn">
+                      <i class="fas fa-flag-checkered btn-icon"></i>
+                      End Coaching
+                    </button>
+                  </div>
+                </div> <!-- END footer -->
+              </div> <!-- END .active-session-insights -->
+            </div> <!-- END .active-session-details-panel -->
+          </div> <!-- END .active-session-item -->
+
+          <!-- Michael Brown's Active Session -->
+          <div class="active-session-item">
+            <div class="active-session-header" data-target="#session102">
+              <div class="active-session-info">
+                <div class="session-avatar">MB</div>
+                <div class="active-session-details">
+                  <div class="active-session-name">Michael Brown</div>
+                  <div class="active-session-meta">
+                    <div class="active-session-time">
+                      <i class="fas fa-clock"></i> Started 20 minutes ago
+                    </div>
+                    <div class="active-session-behavior">
+                      <i class="fas fa-tag"></i> Product Knowledge
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="active-session-actions">
+                <i class="fas fa-chevron-down toggle-icon"></i>
+                <button class="btn btn-primary continue-btn">
+                  <i class="fas fa-clipboard-check btn-icon"></i>
+                  Continue Session
+                </button>
+              </div>
+            </div>
+            
+            <div class="active-session-details-panel" id="session102">
+              <div class="active-session-content">
+                <div class="active-session-section">
+                  <div class="section-title">Current Goals</div>
+                  <ul class="active-goals-list">
+                    <li class="active-goal-item">Master new product features launched this quarter</li>
+                    <li class="active-goal-item">Improve troubleshooting efficiency</li>
+                    <li class="active-goal-item">Increase first call resolution rate to 80%</li>
+                  </ul>
+                </div>
+                
+                <div class="active-session-section">
+                  <div class="section-title">Obstacles</div>
+                  <ul class="active-obstacles-list">
+                    <li class="active-obstacle-item">Limited hands-on practice with new product features</li>
+                    <li class="active-obstacle-item">Complex technical issues requiring escalation</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="active-session-insights">
+                <div class="insights-title">
+                  <i class="fas fa-chart-line"></i> Coaching Insights
+                </div>
+                
+                <div class="insights-metrics">
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Starting Point</div>
+                    <div class="insight-metric-value">68%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Current</div>
+                    <div class="insight-metric-value">81%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Goal</div>
+                    <div class="insight-metric-value">85%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Sessions</div>
+                    <div class="insight-metric-value">4</div>
+                  </div>
+                </div>
+                
+                <div class="mini-trend">
+                  <div class="mini-points">
+                    <div class="mini-point" style="--value: 68"></div>
+                    <div class="mini-point" style="--value: 72"></div>
+                    <div class="mini-point" style="--value: 76"></div>
+                    <div class="mini-point" style="--value: 81"></div>
+                    <div class="mini-point upcoming" style="--value: 85"></div>
+                  </div>
+                  <div class="mini-line"></div>
+                  <div class="target-line" style="--target: 85"></div>
+                </div>
+                
+                <div class="insight-notes">
+                  <div class="note-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Showing steady improvement in product knowledge assessment scores</span>
+                  </div>
+                  <div class="note-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Successfully mastered core product troubleshooting flows</span>
+                  </div>
+                  <div class="note-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Still needs work on advanced integration scenarios</span>
+                  </div>
+                  <div class="active-session-footer">
+                  <div class="next-session-date">
+                    <i class="fas fa-calendar-alt"></i> Next Session: May 19, 2025 at 10:00 AM
+                  </div>
+                  <div class="footer-buttons">
+                    <button class="btn btn-outline-primary reschedule-btn">
+                      <i class="fas fa-calendar-plus btn-icon"></i>
+                      Reschedule Coaching
+                    </button>
+                    <button class="btn btn-outline-danger end-btn">
+                      <i class="fas fa-flag-checkered btn-icon"></i>
+                      End Coaching
+                    </button>
+                  </div>
+                </div> <!-- END footer -->
+              </div> <!-- END .active-session-insights -->
+            </div> <!-- END .active-session-details-panel -->
+          </div> <!-- END .active-session-item -->
+          
+          <!-- Sarah Johnson's Active Session -->
+          <div class="active-session-item">
+            <div class="active-session-header" data-target="#session103">
+              <div class="active-session-info">
+                <div class="session-avatar">SJ</div>
+                <div class="active-session-details">
+                  <div class="active-session-name">Sarah Johnson</div>
+                  <div class="active-session-meta">
+                    <div class="active-session-time">
+                      <i class="fas fa-clock"></i> Started 5 minutes ago
+                    </div>
+                    <div class="active-session-behavior">
+                      <i class="fas fa-tag"></i> Active Listening
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="active-session-actions">
+                <i class="fas fa-chevron-down toggle-icon"></i>
+                <button class="btn btn-primary continue-btn">
+                  <i class="fas fa-clipboard-check btn-icon"></i>
+                  Continue Session
+                </button>
+              </div>
+            </div>
+            
+            <div class="active-session-details-panel" id="session103">
+              <div class="active-session-content">
+                <div class="active-session-section">
+                  <div class="section-title">Current Goals</div>
+                  <ul class="active-goals-list">
+                    <li class="active-goal-item">Improve active listening skills to identify customer needs</li>
+                    <li class="active-goal-item">Practice reflective questioning techniques</li>
+                    <li class="active-goal-item">Reduce interruptions during customer explanations</li>
+                  </ul>
+                </div>
+                
+                <div class="active-session-section">
+                  <div class="section-title">Obstacles</div>
+                  <ul class="active-obstacles-list">
+                    <li class="active-obstacle-item">High call volume leading to rushing through calls</li>
+                    <li class="active-obstacle-item">Difficulty with ambiguous customer concerns</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="active-session-insights">
+                <div class="insights-title">
+                  <i class="fas fa-chart-line"></i> Coaching Insights
+                </div>
+                
+                <div class="insights-metrics">
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Starting Point</div>
+                    <div class="insight-metric-value">79%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Current</div>
+                    <div class="insight-metric-value">83%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Goal</div>
+                    <div class="insight-metric-value">90%</div>
+                  </div>
+                  <div class="insight-metric">
+                    <div class="insight-metric-label">Sessions</div>
+                    <div class="insight-metric-value">2</div>
+                  </div>
+                </div>
+                
+                <div class="mini-trend">
+                  <div class="mini-points">
+                    <div class="mini-point" style="--value: 79"></div>
+                    <div class="mini-point" style="--value: 83"></div>
+                    <div class="mini-point upcoming" style="--value: 90"></div>
+                  </div>
+                  <div class="mini-line"></div>
+                  <div class="target-line" style="--target: 90"></div>
+                </div>
+                
+                <div class="insight-notes">
+                  <div class="note-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Making good progress with active listening skills</span>
+                  </div>
+                  <div class="note-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Still needs to practice pausing after customer statements</span>
+                  </div>
+                  <div class="active-session-footer">
+              <div class="next-session-date">
+                <i class="fas fa-calendar-alt"></i> Next Session: May 19, 2025 at 10:00 AM
+              </div>
+              <div class="footer-buttons">
+                <button class="btn btn-outline-primary reschedule-btn">
+                  <i class="fas fa-calendar-plus btn-icon"></i>
+                  Reschedule Coaching
+                </button>
+                <button class="btn btn-outline-danger end-btn">
+                  <i class="fas fa-flag-checkered btn-icon"></i>
+                  End Coaching
+                </button>
+              </div>
+            </div> <!-- END footer -->
+          </div> <!-- END .active-session-insights -->
+        </div> <!-- END .active-session-details-panel -->
+      </div> <!-- END .active-session-item -->
+    </main>
+  </div></div>
         <!-- Calendar Placeholder -->
         <div class="calendar-list">
           <div class="sessions-card-header">

@@ -3,272 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coaching Form - Call Center Coach</title>
+  <title>Upcoming Sessions | Call Center Coaching Tool</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+  </head>
   <style>
-    :root {
-      --primary-color: #2c6ecb;
-      --primary-light: #e8f0fe;
-      --secondary-color: #5f6369;
-      --accent-color: #fa6331;
-      --warning-color: #f6ba15;
-      --success-color: #34a853;
-      --danger-color: #ea4335;
-      --grey-100: #f8f9fa;
-      --grey-200: #e9ecef;
-      --grey-300: #dee2e6;
-      --grey-400: #ced4da;
-      --grey-500: #adb5bd;
-      --grey-600: #6c757d;
-      --grey-700: #495057;
-      --grey-800: #343a40;
-      --grey-900: #212529;
-      --border-radius: 8px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --brand-pink: #e91e63;
-      --brand-pink-light: #fce4ec;
-      --grow-color: #e91e63;
-      --grow-light: #fce4ec;
-      --smarter-color: #7b1fa2;
-      --smarter-light: #f3e5f5;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--grey-100);
-      color: var(--grey-800);
-      line-height: 1.5;
-    }
-
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Header/Toolbar */
-    .header {
-      background-color: white;
-      box-shadow: var(--shadow-sm);
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .header-brand {
-      display: flex;
-      align-items: center;
-    }
-
-    .header-logo {
-      height: 32px;
-      width: 32px;
-      background-color: var(--primary-color);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      margin-right: 12px;
-      font-weight: bold;
-    }
-
-    .header-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--grey-800);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-search {
-      position: relative;
-    }
-
-    .search-input {
-      padding: 8px 16px 8px 40px;
-      border: 1px solid var(--grey-300);
-      border-radius: 24px;
-      font-size: 14px;
-      width: 240px;
-      background-color: var(--grey-100);
-      transition: all 0.2s;
-    }
-
-    .search-input:focus {
-      outline: none;
-      background-color: white;
-      border-color: var(--primary-color);
-      width: 280px;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--grey-600);
-      font-size: 14px;
-    }
-
-    .header-notification {
-      position: relative;
-      height: 40px;
-      width: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background-color: var(--grey-100);
-      color: var(--grey-700);
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .header-notification:hover {
-      background-color: var(--grey-200);
-    }
-
-    .notification-indicator {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      height: 8px;
-      width: 8px;
-      border-radius: 50%;
-      background-color: var(--accent-color);
-    }
-
-    .header-avatar {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      background-color: var(--primary-color);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Main Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background-color: white;
-      border-right: 1px solid var(--grey-200);
-      height: calc(100vh - 64px);
-      position: sticky;
-      top: 64px;
-      overflow-y: auto;
-      padding: 24px 0;
-    }
-
-    .sidebar-menu {
-      list-style: none;
-    }
-
-    .sidebar-section {
-      margin-bottom: 8px;
-    }
-
-    .sidebar-title {
-      padding: 8px 24px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--grey-600);
-      font-weight: 600;
-    }
-
-    .sidebar-item {
-      padding: 10px 24px;
-      display: flex;
-      align-items: center;
-      color: var(--grey-700);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
-    .sidebar-item:hover {
-      background-color: var(--grey-100);
-    }
-
-    .sidebar-item.active {
-      background-color: var(--primary-light);
-      color: var(--primary-color);
-      font-weight: 600;
-      position: relative;
-    }
-
-    .sidebar-item.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background-color: var(--primary-color);
-    }
-
-    .sidebar-icon {
-      margin-right: 12px;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sidebar-label {
-      flex: 1;
-    }
-
-    .sidebar-badge {
-      background-color: var(--grey-200);
-      color: var(--grey-700);
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    .badge-accent {
-      background-color: var(--accent-color);
-      color: white;
-    }
-
-    /* Main Content */
+       /* Main Content */
     .content {
       flex: 1;
       padding: 24px;
@@ -292,6 +33,71 @@
 
     .page-subtitle {
       color: var(--grey-600);
+    }
+
+    /* Progress Indicator */
+    .progress-steps {
+      display: flex;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--grey-300);
+      z-index: -1;
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-indicator {
+      width: 40px;
+      height: 40px;
+      background-color: var(--grey-300);
+      color: var(--grey-700);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+
+    .progress-step.active .step-indicator {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .progress-step.completed .step-indicator {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--grey-700);
+    }
+
+    .progress-step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .progress-step.completed .step-label {
+      color: var(--success-color);
     }
 
     /* Buttons */
@@ -349,6 +155,351 @@
       background-color: #e55a2b;
     }
 
+    .btn-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Agent Search Section */
+    .agent-search-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .agent-search-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .agent-search-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .auto-populated {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .search-container {
+      position: relative;
+    }
+
+    .agent-search-input {
+      width: 100%;
+      padding: 10px 16px;
+      padding-left: 40px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .agent-search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .agent-search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-600);
+    }
+
+    /* Suggested Coaching Section */
+    .suggested-coaching {
+      background-color: var(--primary-light);
+      border-radius: var(--border-radius);
+      margin-top: 16px;
+      padding: 16px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .suggested-coaching-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .suggested-coaching-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .suggested-coaching-title i {
+      margin-right: 8px;
+    }
+
+    .suggested-coaching-subtitle {
+      font-size: 14px;
+      color: var(--grey-700);
+      margin-bottom: 16px;
+    }
+
+    .kpi-overview {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      flex: 1;
+      min-width: 150px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .kpi-value.low {
+      color: var(--danger-color);
+    }
+
+    .kpi-value.medium {
+      color: var(--warning-color);
+    }
+
+    .kpi-value.high {
+      color: var(--success-color);
+    }
+
+    .kpi-trend {
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .behavior-recommendations {
+      margin-top: 16px;
+    }
+
+    .behavior-recommendations-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--grey-700);
+    }
+
+    .behavior-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .behavior-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      border: 2px solid var(--success-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .behavior-item.selected {
+      border-color: var(--success-color);
+      background-color: var(--grow-light);
+    }
+
+    .behavior-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--grow-light);
+      color: var(--grow-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .behavior-info {
+      flex: 1;
+    }
+
+    .behavior-name {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--grow-color);
+    }
+
+    .behavior-impact {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .impact-high {
+      color: var(--success-color);
+      font-weight: 500;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    /* Setup Wizard Section */
+    .setup-wizard {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .wizard-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wizard-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .wizard-content {
+      padding: 24px;
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    .wizard-section {
+      margin-bottom: 24px;
+    }
+
+    .wizard-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .required-indicator {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    .form-helper {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .wizard-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--grey-100);
+    }
+
     /* Coaching Form */
     .coaching-form-container {
       background-color: white;
@@ -398,30 +549,6 @@
       font-size: 15px;
       font-weight: 500;
       color: var(--grey-800);
-    }
-
-    .form-template-selector {
-      min-width: 280px;
-    }
-
-    .form-template-label {
-      font-size: 13px;
-      color: var(--grey-600);
-      margin-bottom: 6px;
-    }
-
-    .template-select {
-      width: 100%;
-      padding: 10px 16px;
-      border-radius: var(--border-radius);
-      border: 1px solid var(--grey-300);
-      font-size: 14px;
-      background-color: white;
-    }
-
-    .template-select:focus {
-      outline: none;
-      border-color: var(--primary-color);
     }
 
     .coaching-form-tabs {
@@ -592,12 +719,6 @@
       border-color: var(--primary-color);
     }
 
-    .field-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
     .field-help {
       font-size: 13px;
       color: var(--grey-600);
@@ -651,9 +772,100 @@
       border-color: var(--primary-color);
     }
 
-    /* Actions section */
+    /* GROW and SMARTER specific styling */
+    .grow-section {
+      border-left: 3px solid var(--grow-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .grow-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--grow-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .smarter-section {
+      border-left: 3px solid var(--smarter-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .smarter-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--smarter-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Action Items */
     .action-items-container {
       margin-bottom: 16px;
+    }
+
+    .action-items-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .action-items-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .action-items-count {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+    }
+
+    .coach-count {
+      background-color: var(--coach-light);
+      color: var(--coach-color);
+      border: 1px solid var(--coach-color);
+    }
+
+    .agent-count {
+      background-color: var(--agent-light);
+      color: var(--agent-color);
+      border: 1px solid var(--agent-color);
     }
 
     .action-item {
@@ -664,6 +876,16 @@
       border-radius: var(--border-radius);
       margin-bottom: 8px;
       align-items: flex-start;
+    }
+
+    .action-item.coach {
+      border-left: 3px solid var(--coach-color);
+      background-color: white;
+    }
+
+    .action-item.agent {
+      border-left: 3px solid var(--agent-color);
+      background-color: white;
     }
 
     .action-checkbox {
@@ -720,6 +942,7 @@
       font-size: 14px;
       font-weight: 500;
       justify-content: center;
+      margin-bottom: 8px;
     }
 
     .add-action-btn:hover {
@@ -731,20 +954,82 @@
       margin-right: 8px;
     }
 
-    /* Commitment section */
-    .commitment-section {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid var(--grey-200);
+    /* Form Helper */
+    .form-helper {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+      margin-bottom: 16px;
     }
 
-    .dual-textarea-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
+    /* Coach and Agent Commitment Sections */
+    .coach-commitment-section {
+      background-color: var(--coach-light);
+      border: 2px solid var(--coach-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
     }
 
-    /* Footer */
+    .agent-commitment-section {
+      background-color: var(--agent-light);
+      border: 2px solid var(--agent-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .coach-textarea {
+      border-color: var(--coach-color);
+    }
+
+    .agent-textarea {
+      border-color: var(--agent-color);
+    }
+
+    .coach-action-btn {
+      background-color: var(--coach-light);
+      border: 1px dashed var(--coach-color);
+      color: var(--coach-color);
+    }
+
+    .coach-action-btn:hover {
+      background-color: rgba(44, 110, 203, 0.2);
+    }
+
+    .agent-action-btn {
+      background-color: var(--agent-light);
+      border: 1px dashed var(--agent-color);
+      color: var(--agent-color);
+    }
+
+    .agent-action-btn:hover {
+      background-color: rgba(250, 99, 49, 0.2);
+    }
+
+    /* Focus Badge */
+    .behavior-focus {
+      display: flex;
+      align-items: center;
+      margin-left: 12px;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    /* Coaching Form Footer */
     .coaching-form-footer {
       padding: 20px 24px;
       border-top: 1px solid var(--grey-200);
@@ -766,172 +1051,7 @@
       gap: 12px;
     }
 
-    /* GROW and SMARTER specific styling */
-    .grow-section {
-      border-left: 3px solid var(--grow-color);
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .grow-section::before {
-      content: attr(data-letter);
-      position: absolute;
-      left: -16px;
-      top: 0;
-      width: 28px;
-      height: 28px;
-      background-color: var(--grow-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    .smarter-section {
-      border-left: 3px solid var(--smarter-color);
-      padding-left: 16px;
-      position: relative;
-    }
-
-    .smarter-section::before {
-      content: attr(data-letter);
-      position: absolute;
-      left: -16px;
-      top: 0;
-      width: 28px;
-      height: 28px;
-      background-color: var(--smarter-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    /* Previous Sessions */
-    .previous-sessions {
-      margin-top: 32px;
-    }
-
-    .previous-sessions-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .previous-sessions-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--grey-800);
-    }
-
-    .previous-sessions-toggle {
-      font-size: 14px;
-      color: var(--primary-color);
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-
-    .previous-sessions-toggle i {
-      margin-left: 4px;
-    }
-
-    .session-timeline {
-      position: relative;
-      padding-left: 24px;
-    }
-
-    .session-timeline::before {
-      content: '';
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      bottom: 8px;
-      width: 2px;
-      background-color: var(--grey-300);
-    }
-
-    .timeline-item {
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -24px;
-      top: 4px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: var(--primary-color);
-      z-index: 2;
-    }
-
-    .timeline-item:last-child::before {
-      background-color: var(--success-color);
-    }
-
-    .timeline-date {
-      font-size: 13px;
-      color: var(--grey-600);
-      margin-bottom: 2px;
-    }
-
-    .timeline-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .timeline-description {
-      font-size: 14px;
-      color: var(--grey-700);
-    }
-
-    .timeline-kpis {
-      display: flex;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .timeline-kpi {
-      font-size: 13px;
-      padding: 2px 8px;
-      background-color: var(--grey-100);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-    }
-
-    .timeline-kpi.positive {
-      background-color: rgba(52, 168, 83, 0.1);
-      color: var(--success-color);
-    }
-
-    .timeline-kpi.negative {
-      background-color: rgba(234, 67, 53, 0.1);
-      color: var(--danger-color);
-    }
-
-    .timeline-kpi.neutral {
-      background-color: rgba(246, 186, 21, 0.1);
-      color: var(--warning-color);
-    }
-
-    .timeline-kpi i {
-      margin-right: 4px;
-    }
-
-    /* Add Action Modal */
+    /* Calendar Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -950,6 +1070,163 @@
       visibility: visible;
     }
 
+    .calendar-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .calendar-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .calendar-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .calendar-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .calendar-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .calendar-body {
+      padding: 24px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .calendar-month {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .calendar-prev,
+    .calendar-next {
+      background: none;
+      border: none;
+      color: var(--grey-700);
+      cursor: pointer;
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .calendar-prev:hover,
+    .calendar-next:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-600);
+      padding-bottom: 8px;
+    }
+
+    .calendar-day {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .calendar-day:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-day.today {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .calendar-day.selected {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .calendar-day.disabled {
+      color: var(--grey-400);
+      cursor: not-allowed;
+    }
+
+    .calendar-day.other-month {
+      color: var(--grey-400);
+    }
+
+    .time-select {
+      margin-top: 24px;
+    }
+
+    .time-select-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .time-select-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .calendar-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Add Action Modal */
     .add-action-modal {
       background-color: white;
       border-radius: var(--border-radius);
@@ -1048,6 +1325,18 @@
       opacity: 1;
     }
 
+    /* Validation States */
+    .is-invalid .field-input,
+    .is-invalid .field-select,
+    .is-invalid .field-textarea,
+    .is-invalid .editor-content {
+      border-color: var(--danger-color);
+    }
+
+    .is-invalid .field-help {
+      color: var(--danger-color);
+    }
+
     /* Responsive */
     @media (max-width: 992px) {
       .coaching-form-header {
@@ -1060,6 +1349,10 @@
 
       .form-template-selector {
         width: 100%;
+      }
+
+      .commitment-container {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -1079,6 +1372,30 @@
         display: none;
       }
 
+      .progress-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 16px;
+      }
+
+      .progress-steps::before {
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+      }
+
+      .progress-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .step-indicator {
+        margin: 0 16px 0 0;
+      }
+
       .coaching-form-footer {
         flex-direction: column;
         gap: 16px;
@@ -1088,10 +1405,6 @@
       .form-actions-right {
         width: 100%;
         justify-content: center;
-      }
-
-      .dual-textarea-container {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -1105,175 +1418,328 @@
         padding: 12px 16px;
       }
 
-      .field-row {
+      .form-row {
         grid-template-columns: 1fr;
+      }
+
+      .wizard-footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .wizard-footer .btn {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="app-container">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-left">
-        <div class="header-brand">
-          <div class="header-logo">
-            <i class="fas fa-headset"></i>
-          </div>
-          <div class="header-title">Call Center Coach</div>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="header-search">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" class="search-input" placeholder="Search agents, behaviors...">
-        </div>
-        <div class="header-notification">
-          <i class="fas fa-bell"></i>
-          <div class="notification-indicator"></div>
-        </div>
-        <div class="header-avatar">
-          ML
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Layout -->
+    <div id="header-container"></div>
     <div class="main-container">
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <ul class="sidebar-menu">
-          <li class="sidebar-section">
-            <div class="sidebar-title">Coaching</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="index.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-tachometer-alt"></i></div>
-                  <div class="sidebar-label">Dashboard</div>
-                </a>
-              </li>
-              <li>
-                <a href="active-coaching.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
-                  <div class="sidebar-label">Active Coaching</div>
-                  <div class="sidebar-badge badge-accent">2</div>
-                </a>
-              </li>
-              <li>
-                <a href="scheduled-sessions.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
-                  <div class="sidebar-label">Scheduled Sessions</div>
-                  <div class="sidebar-badge">3</div>
-                </a>
-              </li>
-              <li>
-                <a href="action-items.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-clipboard-check"></i></div>
-                  <div class="sidebar-label">Action Items</div>
-                  <div class="sidebar-badge badge-accent">5</div>
-                </a>
-              </li>
-              <li>
-                <a href="coaching-history.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-history"></i></div>
-                  <div class="sidebar-label">Coaching History</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Insights</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="agent-performance.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-chart-line"></i></div>
-                  <div class="sidebar-label">Agent Performance</div>
-                </a>
-              </li>
-              <li>
-                <a href="team-overview.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-users"></i></div>
-                  <div class="sidebar-label">My Team</div>
-                </a>
-              </li>
-              <li>
-                <a href="reports.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
-                  <div class="sidebar-label">Reports</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Resources</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="coaching-guides.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-book"></i></div>
-                  <div class="sidebar-label">Coaching Guides</div>
-                </a>
-              </li>
-              <li>
-                <a href="templates.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
-                  <div class="sidebar-label">Templates</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </aside>
-
-      <!-- Main Content -->
+      <div id="sidebar-container"></div>
       <main class="content">
         <div class="page-header">
-          <div>
-            <h1 class="page-title">Coaching Session</h1>
-            <p class="page-subtitle">Complete your coaching session with the form below</p>
+          <h1 class="page-title">Active Coaching Session</h1>
+          <p class="page-subtitle">You are coaching........</p>
+        </div>
+       </header>
+
+      <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="progress-step completed">
+            <div class="step-indicator">1</div>
+            <div class="step-label">Agent & Form</div>
+          </div>
+          <div class="progress-step active">
+            <div class="step-indicator">2</div>
+            <div class="step-label">Behavior Focus</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">3</div>
+            <div class="step-label">Coaching Session</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">4</div>
+            <div class="step-label">Action Items</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">5</div>
+            <div class="step-label">Schedule Follow-up</div>
+          </div>
+        </div>
+
+        <!-- Agent Search Section -->
+        <div class="agent-search-container">
+          <div class="agent-search-header">
+            <div class="agent-search-title">Agent Information <span class="auto-populated">Auto-populated from Coaching Opportunities</span></div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Agent Name</label>
+              <input type="text" class="form-input" value="Michael Brown" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Agent ID</label>
+              <input type="text" class="form-input" value="MB-1234" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Coach</label>
+              <input type="text" class="form-input" value="Marcus Latham" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="text" class="form-input" value="05/14/2025" disabled>
+            </div>
+          </div>
+
+          <!-- Suggested Coaching Section - For Step 2: Behavior Focus -->
+          <div class="suggested-coaching" id="suggestedCoaching">
+            <div class="suggested-coaching-header">
+              <div class="suggested-coaching-title">
+                <i class="fas fa-lightbulb"></i>
+                Suggested Coaching Opportunities
+              </div>
+            </div>
+            <div class="suggested-coaching-subtitle">
+              Based on the agent's performance data, we've identified the following coaching opportunities:
+            </div>
+
+            <div class="kpi-overview">
+              <div class="kpi-item">
+                <div class="kpi-label">CSAT Score</div>
+                <div class="kpi-value low">3.8 <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 0.3</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">First Call Resolution</div>
+                <div class="kpi-value low">65% <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 5%</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">Call Quality</div>
+                <div class="kpi-value low">76% <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 4%</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">Average Handle Time</div>
+                <div class="kpi-value medium">7:45 <span class="kpi-trend"><i class="fas fa-arrow-up"></i> 0:30</span></div>
+              </div>
+            </div>
+
+            <div class="behavior-recommendations">
+              <div class="behavior-recommendations-title">Recommended Behaviors to Address</div>
+              <div class="behavior-list">
+                <div class="behavior-item selected">
+                  <div class="behavior-icon">
+                    <i class="fas fa-book"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Product Knowledge</div>
+                    <div class="behavior-impact impact-high">
+                      <i class="fas fa-chart-line"></i>
+                      High Impact (FCR +15%, CSAT +0.6)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio" checked>
+                  </div>
+                </div>
+                <div class="behavior-item">
+                  <div class="behavior-icon">
+                    <i class="fas fa-headset"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Active Listening</div>
+                    <div class="behavior-impact">
+                      <i class="fas fa-chart-line"></i>
+                      Medium Impact (CSAT +0.4, Call Quality +10%)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio">
+                  </div>
+                </div>
+                <div class="behavior-item">
+                  <div class="behavior-icon">
+                    <i class="fas fa-stopwatch"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Call Efficiency</div>
+                    <div class="behavior-impact">
+                      <i class="fas fa-chart-line"></i>
+                      Medium Impact (AHT -1:30, FCR +8%)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Coaching Section - For Step 3: Coaching Session (Initially Hidden) -->
+          <div class="selected-coaching" id="selectedCoaching" style="display: none;">
+            <div class="selected-coaching-header">
+              <div class="selected-coaching-title">
+                <i class="fas fa-check-circle"></i>
+                Selected Coaching Focus
+              </div>
+            </div>
+            <div class="selected-coaching-subtitle">
+              You're now coaching Michael Brown on the following selected behavior:
+            </div>
+
+            <div class="behavior-selected">
+              <div class="behavior-item selected">
+                <div class="behavior-icon">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="behavior-info">
+                  <div class="behavior-name">Product Knowledge</div>
+                  <div class="behavior-impact impact-high">
+                    <i class="fas fa-chart-line"></i>
+                    High Impact Behavior
+                  </div>
+                  <div class="focus-area">
+                    <span class="focus-badge">Feature Knowledge</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Impacted KPIs - Separate Cards -->
+              <div class="impacted-kpis-container">
+                <div class="kpi-card primary-kpi">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">FCR</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">65%</span>
+                      <span class="kpi-target">→ 80%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-smile"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">CSAT</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">3.8</span>
+                      <span class="kpi-target">→ 4.4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup Wizard Section - Step 1: Form Selection -->
+        <div class="setup-wizard">
+          <div class="wizard-header">
+            <div class="wizard-title">Coaching Session Setup</div>
+          </div>
+          <div class="wizard-content">
+            <div class="wizard-step active" id="step1">
+              <div class="wizard-section">
+                <h3 class="wizard-section-title">Select Coaching Form Template</h3>
+                <div class="form-group">
+                  <label class="form-label">Template <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select a coaching template</option>
+                    <option value="standard">Standard Coaching Template</option>
+                    <option value="product" selected>Product Knowledge Coaching</option>
+                    <option value="active-listening">Active Listening Coaching</option>
+                    <option value="de-escalation">Call De-escalation Coaching</option>
+                    <option value="efficiency">Call Efficiency Coaching</option>
+                  </select>
+                  <div class="form-helper">Select the coaching template that best fits the behavior focus</div>
+                </div>
+              </div>
+              <div class="wizard-section">
+                <h3 class="wizard-section-title">Behavior Focus</h3>
+                <div class="form-group">
+                  <label class="form-label">Primary Behavior <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="product" selected>Product Knowledge</option>
+                    <option value="active-listening">Active Listening</option>
+                    <option value="de-escalation">Call De-escalation</option>
+                    <option value="efficiency">Call Efficiency</option>
+                    <option value="empathy">Customer Empathy</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Specific Focus Area <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select a focus area</option>
+                    <option value="features" selected>Feature Knowledge</option>
+                    <option value="troubleshooting">Troubleshooting Steps</option>
+                    <option value="systems">System Navigation</option>
+                    <option value="policies">Policy Application</option>
+                    <option value="updates">Recent Product Updates</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Primary KPI to Improve <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select primary KPI</option>
+                    <option value="fcr" selected>First Call Resolution</option>
+                    <option value="csat">CSAT Score</option>
+                    <option value="quality">Call Quality</option>
+                    <option value="aht">Average Handle Time</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Session Notes (Optional)</label>
+                  <textarea class="form-textarea" placeholder="Enter any preliminary notes for this coaching session"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-outline-primary">Back</button>
+            <button class="btn btn-primary" id="continueToCoachingBtn">Continue to Coaching Form</button>
           </div>
         </div>
 
         <!-- Coaching Form -->
-        <div class="coaching-form-container">
+        <div class="coaching-form-container" style="display: none;" id="coachingForm">
           <div class="coaching-form-header">
             <div class="form-session-info">
               <h2 class="session-info-title">Session Information</h2>
               <div class="session-info-grid">
                 <div class="info-item">
-                  <div class="info-label">Coaching For</div>
-                  <div class="info-value">Emilio Bran</div>
+                  <div class="info-label">Agent</div>
+                  <div class="info-value">Michael Brown</div>
                 </div>
                 <div class="info-item">
-                  <div class="info-label">Coaching By</div>
+                  <div class="info-label">Coach</div>
                   <div class="info-value">Marcus Latham</div>
                 </div>
                 <div class="info-item">
-                  <div class="info-label">Coached On</div>
-                  <div class="info-value">05/13/2025</div>
-                </div>
-                <div class="info-item">
-                  <div class="info-label">Follow-up Date</div>
-                  <div class="info-value">05/18/2025</div>
-                </div>
-                <div class="info-item">
-                  <div class="info-label">Metric Focus</div>
-                  <div class="info-value">CSAT</div>
+                  <div class="info-label">Date</div>
+                  <div class="info-value">05/14/2025</div>
                 </div>
                 <div class="info-item">
                   <div class="info-label">Behavior</div>
-                  <div class="info-value">Active Listening</div>
+                  <div class="info-value">Product Knowledge</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Focus Area</div>
+                  <div class="info-value">Feature Knowledge</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Primary KPI</div>
+                  <div class="info-value">First Call Resolution</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Template</div>
+                  <div class="info-value">Product Knowledge Coaching</div>
                 </div>
               </div>
-            </div>
-            <div class="form-template-selector">
-              <div class="form-template-label">Coaching Form Template</div>
-              <select class="template-select">
-                <option value="standard">Standard Coaching Template</option>
-                <option value="active-listening" selected>Active Listening Coaching</option>
-                <option value="product">Product Knowledge Coaching</option>
-                <option value="de-escalation">Call De-escalation Coaching</option>
-                <option value="quick-followup">Quick Follow-up</option>
-              </select>
             </div>
           </div>
 
@@ -1285,13 +1751,7 @@
                 <span class="tooltip-text">Goal, Reality, Options, Way Forward - A proven coaching framework</span>
               </div>
             </div>
-            <div class="coaching-tab smarter" data-tab="smarter">
-              SMARTER Action Plan
-              <div class="coaching-tab-info tooltip">
-                <i class="fas fa-circle-info"></i>
-                <span class="tooltip-text">Specific, Measurable, Achievable, Relevant, Time-bound, Evaluated, Reviewed</span>
-              </div>
-            </div>
+            <!-- Follow-up tabs would appear here in future sessions -->
           </div>
 
           <!-- GROW Tab Content -->
@@ -1324,9 +1784,9 @@
                 </div>
                 <div class="editor-content" contenteditable="true">
                   <ul>
-                    <li>Improve active listening score from current 75% to 85% within 30 days</li>
-                    <li>Reduce interruptions during customer calls by 50%</li>
-                    <li>Increase customer acknowledgment phrases by 25%</li>
+                    <li>Improve product knowledge score from 76% to 85% within 30 days</li>
+                    <li>Increase first call resolution rate from 65% to 80% for product-related issues</li>
+                    <li>Reduce escalations due to product knowledge gaps by 50%</li>
                   </ul>
                 </div>
               </div>
@@ -1361,15 +1821,16 @@
                 <div class="editor-content" contenteditable="true">
                   <p><strong>Current Performance:</strong></p>
                   <ul>
-                    <li>Current active listening score is 75% based on last 5 calls</li>
-                    <li>Interrupting customers on average 4 times per call</li>
-                    <li>Using acknowledgment phrases 3-4 times per call (goal is 6-8)</li>
+                    <li>Product knowledge score at 76% based on last QA assessment</li>
+                    <li>First call resolution at 65% for product-related calls</li>
+                    <li>3-4 escalations per week due to product knowledge gaps</li>
                   </ul>
                   <p><strong>Obstacles:</strong></p>
                   <ul>
-                    <li>High call volume creating pressure to complete calls quickly</li>
-                    <li>Difficulty with technical troubleshooting scenarios</li>
-                    <li>Challenges with customers who are verbose or disorganized</li>
+                    <li>Limited hands-on practice with new product features</li>
+                    <li>Recent product updates not fully understood</li>
+                    <li>Complex technical troubleshooting scenarios</li>
+                    <li>Knowledge base organization makes finding information difficult</li>
                   </ul>
                 </div>
               </div>
@@ -1402,18 +1863,19 @@
                   <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
                 </div>
                 <div class="editor-content" contenteditable="true">
-                  <p><strong>Active Listening Strategies:</strong></p>
+                  <p><strong>Product Knowledge Strategies:</strong></p>
                   <ol>
-                    <li>Use physical notes or digital tool to mark key points during customer explanations</li>
-                    <li>Practice counting to 2 after customer stops speaking before responding</li>
-                    <li>Implement "3 acknowledgment minimum" rule for each customer explanation</li>
-                    <li>Use paraphrasing techniques to confirm understanding</li>
-                    <li>Add standard acknowledgment phrases to desktop reference card</li>
+                    <li>Complete Product Knowledge online module with focus on new features</li>
+                    <li>Shadow top-performing agent (James) for 2 hours to observe product discussions</li>
+                    <li>Create personal quick-reference guides for frequently used features</li>
+                    <li>Join weekly product update webinars</li>
+                    <li>Collaborate with tech support team on complex troubleshooting scenarios</li>
                   </ol>
                   <p><strong>Other Considerations:</strong></p>
                   <ul>
-                    <li>Shadow top-performing agent Marie for 2 hours to observe techniques</li>
-                    <li>Review recordings of 3 calls with highest CSAT ratings</li>
+                    <li>Request additional hands-on time with product demo units</li>
+                    <li>Join product team Slack channel for real-time updates and answers</li>
+                    <li>Contribute to knowledge base improvements</li>
                   </ul>
                 </div>
               </div>
@@ -1448,492 +1910,99 @@
                 <div class="editor-content" contenteditable="true">
                   <p><strong>Action Plan:</strong></p>
                   <ol>
-                    <li>Create desktop acknowledgment phrases card by end of day (Coach to provide template)</li>
-                    <li>Complete Active Listening online module by 5/15/2025</li>
-                    <li>Shadow Marie on 5/16/2025 from 10am-12pm</li>
-                    <li>Implement "count to 2" and "3 acknowledgment minimum" rule starting tomorrow</li>
-                    <li>Coach will provide 3 recordings of top CSAT calls by 5/14/2025</li>
-                    <li>Daily self-assessment using Active Listening Checklist (Coach to provide)</li>
+                    <li>Complete Product Knowledge online module by 5/18/2025</li>
+                    <li>Shadow James on 5/17/2025 from 10am-12pm</li>
+                    <li>Create personal quick-reference guides for top 5 features by 5/21/2025</li>
+                    <li>Join next product update webinar on 5/20/2025</li>
+                    <li>Schedule 30-minute session with tech support by 5/25/2025</li>
+                    <li>Join product team Slack channel by end of day</li>
                   </ol>
                   <p><strong>Key Metrics:</strong></p>
                   <ul>
-                    <li>QA Listening Score (Target: 85% by 6/13/2025)</li>
-                    <li>Customer Interruptions (Target: Max 2 per call by 5/27/2025)</li>
-                    <li>Acknowledgment phrases (Target: 6-8 per call by 5/20/2025)</li>
+                    <li>Product Knowledge Score (Target: 85% by 6/14/2025)</li>
+                    <li>First Call Resolution (Target: 80% by 6/14/2025)</li>
+                    <li>Escalations (Target: Reduce to 1-2 per week by 6/1/2025)</li>
                   </ul>
                 </div>
               </div>
+            </div>
 
-              <!-- Action Items -->
-              <div class="form-section">
-                <div class="form-section-header">
-                  <h3 class="form-section-title">
-                    Action Items
+            <!-- Action Items and Commitments -->
+            <div id="actionCommitmentSection">
+              <!-- Coach Commitment Section -->
+              <div class="form-section coach-commitment-section">
+                <div class="action-items-header">
+                  <h3 class="action-items-title coach-commitment-title">
+                    <i class="fas fa-user-tie"></i>
+                    Coach Commitment
+                    <span class="action-items-count coach-count">0</span>
                     <span class="field-required">*</span>
                   </h3>
                 </div>
-                <div class="action-items-container">
-                  <div class="action-item">
-                    <input type="checkbox" class="action-checkbox">
-                    <div class="action-content">
-                      <div class="action-title">Complete Active Listening online module</div>
-                      <div class="action-description">Go through all lessons and take the final assessment</div>
-                      <div class="action-meta">
-                        <div class="action-assignee">
-                          <i class="fas fa-user"></i>
-                          Emilio Bran
-                        </div>
-                        <div class="action-date">
-                          <i class="fas fa-calendar"></i>
-                          Due by 05/15/2025
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="action-item">
-                    <input type="checkbox" class="action-checkbox">
-                    <div class="action-content">
-                      <div class="action-title">Shadow Marie for active listening techniques</div>
-                      <div class="action-description">Observe and take notes during customer interactions</div>
-                      <div class="action-meta">
-                        <div class="action-assignee">
-                          <i class="fas fa-user"></i>
-                          Emilio Bran
-                        </div>
-                        <div class="action-date">
-                          <i class="fas fa-calendar"></i>
-                          Due by 05/16/2025
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="action-item">
-                    <input type="checkbox" class="action-checkbox">
-                    <div class="action-content">
-                      <div class="action-title">Provide top CSAT call recordings</div>
-                      <div class="action-description">Share 3 examples of excellent active listening</div>
-                      <div class="action-meta">
-                        <div class="action-assignee">
-                          <i class="fas fa-user"></i>
-                          Marcus Latham
-                        </div>
-                        <div class="action-date">
-                          <i class="fas fa-calendar"></i>
-                          Due by 05/14/2025
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="form-field">
+                  <textarea class="field-textarea coach-textarea" placeholder="Enter your commitment as a coach to support the agent's development" id="coachCommitment"></textarea>
+                  <div class="form-helper">Required to enable "Submit & Schedule Follow-up"</div>
                 </div>
-                <button class="add-action-btn" id="addActionBtn">
+                <div class="action-items-container coach-items">
+                  <!-- Coach action items will be added here dynamically -->
+                </div>
+                <button class="add-action-btn coach-action-btn" id="addCoachActionBtn">
                   <i class="fas fa-plus"></i>
-                  Add Action Item
+                  Add Coach Action Item
                 </button>
               </div>
-            </div>
 
-            <!-- Commitment Section -->
-            <div class="commitment-section">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Commitment
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">Provide commitment details for both coach and person being coached</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="dual-textarea-container">
-                <div class="form-field">
-                  <label class="field-label">
-                    Coach Commitment
-                    <span class="field-required">*</span>
-                  </label>
-                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I will provide the acknowledgment phrases template by end of day today, share the 3 top CSAT call recordings by 5/14, and coordinate the shadowing session with Marie. I'll also check in on 5/15 to see how the online module went and answer any questions.</textarea>
-                </div>
-
-                <div class="form-field">
-                  <label class="field-label">
+              <!-- Agent Commitment Section -->
+              <div class="form-section agent-commitment-section" style="margin-top: 24px;">
+                <div class="action-items-header">
+                  <h3 class="action-items-title agent-commitment-title">
+                    <i class="fas fa-user"></i>
                     Agent Commitment
+                    <span class="action-items-count agent-count">0</span>
                     <span class="field-required">*</span>
-                  </label>
-                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I commit to implementing the "count to 2" technique starting tomorrow, completing the online module by 5/15, and maintaining the daily self-assessment checklist. I'll shadow Marie as scheduled and work on increasing my acknowledgment phrases to the target of 6-8 per call.</textarea>
+                  </h3>
                 </div>
-              </div>
-            </div>
-
-            <!-- Previous Sessions Section (Collapsed by default) -->
-            <div class="previous-sessions">
-              <div class="previous-sessions-header">
-                <h3 class="previous-sessions-title">Previous Coaching Sessions</h3>
-                <button class="previous-sessions-toggle">
-                  Show History
-                  <i class="fas fa-chevron-down"></i>
+                <div class="form-field">
+                  <textarea class="field-textarea agent-textarea" placeholder="Enter the agent's commitment to completing the action items" id="agentCommitment"></textarea>
+                  <div class="form-helper">Required to enable "Submit & Schedule Follow-up"</div>
+                </div>
+                <div class="action-items-container agent-items">
+                  <!-- Agent action items will be added here dynamically -->
+                </div>
+                <button class="add-action-btn agent-action-btn" id="addAgentActionBtn">
+                  <i class="fas fa-plus"></i>
+                  Add Agent Action Item
                 </button>
-              </div>
-              <div class="session-timeline" style="display: none;">
-                <div class="timeline-item">
-                  <div class="timeline-date">04/15/2025</div>
-                  <div class="timeline-title">Initial Active Listening Coaching</div>
-                  <div class="timeline-description">
-                    Focused on basic active listening techniques and introduced acknowledgment phrases.
-                  </div>
-                  <div class="timeline-kpis">
-                    <div class="timeline-kpi">
-                      <i class="fas fa-chart-simple"></i>
-                      Listening Score: 68%
-                    </div>
-                    <div class="timeline-kpi">
-                      <i class="fas fa-chart-simple"></i>
-                      CSAT: 4.1
-                    </div>
-                  </div>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-date">04/29/2025</div>
-                  <div class="timeline-title">Active Listening Follow-up</div>
-                  <div class="timeline-description">
-                    Reviewed progress and identified challenges with technical troubleshooting calls.
-                  </div>
-                  <div class="timeline-kpis">
-                    <div class="timeline-kpi positive">
-                      <i class="fas fa-arrow-up"></i>
-                      Listening Score: 75%
-                    </div>
-                    <div class="timeline-kpi positive">
-                      <i class="fas fa-arrow-up"></i>
-                      CSAT: 4.3
-                    </div>
-                  </div>
-                </div>
-
-                <div class="timeline-item">
-                  <div class="timeline-date">05/13/2025 (Today)</div>
-                  <div class="timeline-title">Current Coaching Session</div>
-                  <div class="timeline-description">
-                    Working on advanced active listening skills and reducing interruptions.
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
           <!-- SMARTER Tab Content -->
-          <div class="coaching-tab-content" id="smarter-tab">
-            <!-- Specific Section -->
-            <div class="form-section smarter-section" data-letter="S">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Specific
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">What exactly needs to be accomplished? Be precise about what you want to achieve.</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Define exactly what needs to be accomplished with clear, concise details.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Specific Goal Description
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Describe the specific goal that needs to be accomplished">Improve active listening behaviors during customer calls by reducing interruptions and increasing acknowledgment phrases to improve customer satisfaction scores.</textarea>
-              </div>
-            </div>
-
-            <!-- Measurable Section -->
-            <div class="form-section smarter-section" data-letter="M">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Measurable
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">How will you measure progress and success? Define concrete criteria.</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Identify how you'll track progress and know when the goal has been achieved.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Success Metrics
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Define the specific measurements that will track progress">1. QA Active Listening Score: Increase from 75% to 85%
-2. Customer Interruptions: Reduce from 4 per call to max 2 per call
-3. Acknowledgment Phrases: Increase from 3-4 per call to 6-8 per call
-4. CSAT Score: Increase from current 4.3 to target 4.5+</textarea>
-              </div>
-            </div>
-
-            <!-- Achievable Section -->
-            <div class="form-section smarter-section" data-letter="A">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Achievable
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">Is the goal realistic and attainable? What resources or support are needed?</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Ensure the goal is realistic and attainable given available resources and constraints.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Achievability Assessment
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Assess if this goal is achievable with current resources">This goal is achievable because:
-1. Emilio has already improved listening score from 68% to 75% in the past month
-2. The online training module provides specific techniques
-3. Shadowing opportunities with top performers are available
-4. No system or process barriers exist to prevent implementation
-5. Time required to implement techniques is minimal</textarea>
-              </div>
-            </div>
-
-            <!-- Relevant Section -->
-            <div class="form-section smarter-section" data-letter="R">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Relevant
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">Does this goal align with broader objectives? Why is it important?</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Explain why this goal matters and how it aligns with team and organizational objectives.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Relevance Explanation
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Explain why this goal is relevant and important">This goal directly aligns with:
-1. Department KPI target to increase CSAT scores by 0.3 points this quarter
-2. Company-wide initiative to improve first call resolution rates
-3. Emilio's career development plan to strengthen customer engagement skills
-4. Team objectives to reduce escalations by 15% through better customer interactions</textarea>
-              </div>
-            </div>
-
-            <!-- Time-bound Section -->
-            <div class="form-section smarter-section" data-letter="T">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Time-bound
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">Set a deadline or timeframe for completion. When will it be done?</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Set clear deadlines for when the goal and its components should be completed.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Timeline
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Set specific deadlines and milestones">Overall target completion: 06/13/2025 (30 days)
-
-Key milestones:
-1. Complete Active Listening module by 5/15/2025
-2. Shadow top performer by 5/16/2025
-3. Implement "count to 2" technique starting 5/14/2025
-4. Achieve 6-8 acknowledgments per call by 5/20/2025
-5. Reduce interruptions to max 2 per call by 5/27/2025
-6. Mid-point assessment on 5/27/2025
-7. Final assessment on 6/13/2025</textarea>
-              </div>
-            </div>
-
-            <!-- Evaluated Section -->
-            <div class="form-section smarter-section" data-letter="E">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Evaluated
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">How will progress be evaluated? What will constitute success?</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Define how and when progress will be evaluated throughout the process.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Evaluation Method
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Describe how progress will be evaluated">Evaluation methods:
-1. Daily self-assessments using Active Listening Checklist
-2. Weekly QA reviews of 2 randomly selected calls
-3. Bi-weekly check-in with coach (5/27 and 6/10)
-4. Mid-point formal assessment on 5/27/2025
-5. Final assessment on 6/13/2025
-6. CSAT trend review for calls between 5/14 and 6/13
-7. Customer verbatim comments analysis</textarea>
-              </div>
-            </div>
-
-            <!-- Reviewed Section -->
-            <div class="form-section smarter-section" data-letter="R">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Reviewed
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">How will you review progress and make adjustments as needed?</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="form-section-description">
-                Plan for how progress will be reviewed and what adjustments can be made if needed.
-              </div>
-              <div class="form-field">
-                <label class="field-label">
-                  Review Plan
-                  <span class="field-required">*</span>
-                </label>
-                <textarea class="field-textarea" placeholder="Describe the review process and potential adjustments">Review plan:
-1. Daily 5-minute self-review using Active Listening Checklist
-2. Weekly 15-minute check-in with team lead for quick feedback
-3. Bi-weekly coaching meeting on 5/27/2025 and 6/10/2025
-4. Mid-point detailed assessment (5/27/2025) with adjustment options:
-   - If on track, continue with current plan
-   - If below target, add call shadowing with senior agent (2 hours/week)
-   - If struggling with specific call types, develop focused scenarios
-5. Final review on 6/13/2025 with determination for next steps</textarea>
-              </div>
-            </div>
-
-            <!-- Action Items for SMARTER -->
-            <div class="form-section">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Action Items
-                  <span class="field-required">*</span>
-                </h3>
-              </div>
-              <div class="action-items-container">
-                <div class="action-item">
-                  <input type="checkbox" class="action-checkbox">
-                  <div class="action-content">
-                    <div class="action-title">Complete Active Listening online module</div>
-                    <div class="action-description">Go through all lessons and take the final assessment</div>
-                    <div class="action-meta">
-                      <div class="action-assignee">
-                        <i class="fas fa-user"></i>
-                        Emilio Bran
-                      </div>
-                      <div class="action-date">
-                        <i class="fas fa-calendar"></i>
-                        Due by 05/15/2025
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="action-item">
-                  <input type="checkbox" class="action-checkbox">
-                  <div class="action-content">
-                    <div class="action-title">Shadow Marie for active listening techniques</div>
-                    <div class="action-description">Observe and take notes during customer interactions</div>
-                    <div class="action-meta">
-                      <div class="action-assignee">
-                        <i class="fas fa-user"></i>
-                        Emilio Bran
-                      </div>
-                      <div class="action-date">
-                        <i class="fas fa-calendar"></i>
-                        Due by 05/16/2025
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="action-item">
-                  <input type="checkbox" class="action-checkbox">
-                  <div class="action-content">
-                    <div class="action-title">Provide top CSAT call recordings</div>
-                    <div class="action-description">Share 3 examples of excellent active listening</div>
-                    <div class="action-meta">
-                      <div class="action-assignee">
-                        <i class="fas fa-user"></i>
-                        Marcus Latham
-                      </div>
-                      <div class="action-date">
-                        <i class="fas fa-calendar"></i>
-                        Due by 05/14/2025
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button class="add-action-btn" id="addActionBtnSmarter">
-                <i class="fas fa-plus"></i>
-                Add Action Item
-              </button>
-            </div>
-
-            <!-- Commitment Section for SMARTER -->
-            <div class="commitment-section">
-              <div class="form-section-header">
-                <h3 class="form-section-title">
-                  Commitment
-                  <div class="tooltip">
-                    <i class="fas fa-circle-info"></i>
-                    <span class="tooltip-text">Provide commitment details for both coach and person being coached</span>
-                  </div>
-                </h3>
-              </div>
-              <div class="dual-textarea-container">
-                <div class="form-field">
-                  <label class="field-label">
-                    Coach Commitment
-                    <span class="field-required">*</span>
-                  </label>
-                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I will provide the acknowledgment phrases template by end of day today, share the 3 top CSAT call recordings by 5/14, and coordinate the shadowing session with Marie. I'll also check in on 5/15 to see how the online module went and answer any questions.</textarea>
-                </div>
-
-                <div class="form-field">
-                  <label class="field-label">
-                    Agent Commitment
-                    <span class="field-required">*</span>
-                  </label>
-                  <textarea class="field-textarea" placeholder="Provide details for commitments made during the coaching session">I commit to implementing the "count to 2" technique starting tomorrow, completing the online module by 5/15, and maintaining the daily self-assessment checklist. I'll shadow Marie as scheduled and work on increasing my acknowledgment phrases to the target of 6-8 per call.</textarea>
-                </div>
-              </div>
+          <div class="coaching-tab-content" id="smarter-tab" style="display: none;">
+            <!-- This tab is hidden in the first session but would appear in follow-up sessions -->
+            <div class="empty-state" style="text-align: center; padding: 40px 20px;">
+              <i class="fas fa-info-circle" style="font-size: 48px; color: var(--grey-400); margin-bottom: 16px;"></i>
+              <h3 style="font-size: 18px; margin-bottom: 8px;">SMARTER Action Plan</h3>
+              <p style="color: var(--grey-600); max-width: 600px; margin: 0 auto;">
+                This tab is available for follow-up sessions. Please complete the current GROW coaching session first.
+              </p>
             </div>
           </div>
 
           <div class="coaching-form-footer">
             <div class="form-actions-left">
+              <button class="btn btn-outline-primary" id="backToSetupBtn">
+                <i class="fas fa-arrow-left btn-icon"></i>
+                Back to Setup
+              </button>
               <button class="btn btn-outline-primary">
                 <i class="fas fa-save btn-icon"></i>
                 Save Draft
               </button>
             </div>
             <div class="form-actions-right">
-              <button class="btn btn-primary">
-                <i class="fas fa-check-circle btn-icon"></i>
-                Complete Session
-              </button>
-              <button class="btn btn-success">
-                <i class="fas fa-paper-plane btn-icon"></i>
+              <button class="btn btn-success btn-disabled" id="scheduleFollowupBtn" disabled>
+                <i class="fas fa-calendar-plus btn-icon"></i>
                 Submit & Schedule Follow-up
               </button>
             </div>
@@ -1973,8 +2042,8 @@ Key milestones:
             <span class="field-required">*</span>
           </label>
           <select class="field-select" id="actionAssignee">
-            <option value="emilio">Emilio Bran</option>
-            <option value="marcus">Marcus Latham</option>
+            <option value="michael" selected>Michael Brown (Agent)</option>
+            <option value="marcus">Marcus Latham (Coach)</option>
           </select>
         </div>
         <div class="form-field">
@@ -1982,7 +2051,7 @@ Key milestones:
             Due Date
             <span class="field-required">*</span>
           </label>
-          <input type="date" class="field-input" id="actionDueDate" value="2025-05-18">
+          <input type="date" class="field-input" id="actionDueDate" min="2025-05-14" value="2025-05-18">
         </div>
       </div>
     </div>
@@ -1996,10 +2065,144 @@ Key milestones:
     </div>
   </div>
 
+  <!-- Calendar Modal for Follow-up -->
+  <div class="modal-overlay" id="calendarModalOverlay"></div>
+  <div class="calendar-modal" id="calendarModal">
+    <div class="calendar-header">
+      <h3 class="calendar-title">Schedule Follow-up Session</h3>
+      <button class="calendar-close" id="calendarClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="calendar-body">
+      <div class="calendar-nav">
+        <button class="calendar-prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="calendar-month">May 2025</div>
+        <button class="calendar-next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-day-header">Sun</div>
+        <div class="calendar-day-header">Mon</div>
+        <div class="calendar-day-header">Tue</div>
+        <div class="calendar-day-header">Wed</div>
+        <div class="calendar-day-header">Thu</div>
+        <div class="calendar-day-header">Fri</div>
+        <div class="calendar-day-header">Sat</div>
+        
+        <!-- Calendar days would be dynamically generated, here's a static example -->
+        <div class="calendar-day other-month">27</div>
+        <div class="calendar-day other-month">28</div>
+        <div class="calendar-day other-month">29</div>
+        <div class="calendar-day other-month">30</div>
+        <div class="calendar-day">1</div>
+        <div class="calendar-day">2</div>
+        <div class="calendar-day">3</div>
+        
+        <div class="calendar-day">4</div>
+        <div class="calendar-day">5</div>
+        <div class="calendar-day">6</div>
+        <div class="calendar-day">7</div>
+        <div class="calendar-day">8</div>
+        <div class="calendar-day">9</div>
+        <div class="calendar-day">10</div>
+        
+        <div class="calendar-day">11</div>
+        <div class="calendar-day">12</div>
+        <div class="calendar-day">13</div>
+        <div class="calendar-day today">14</div>
+        <div class="calendar-day">15</div>
+        <div class="calendar-day">16</div>
+        <div class="calendar-day">17</div>
+        
+        <div class="calendar-day">18</div>
+        <div class="calendar-day selected">19</div>
+        <div class="calendar-day">20</div>
+        <div class="calendar-day">21</div>
+        <div class="calendar-day">22</div>
+        <div class="calendar-day">23</div>
+        <div class="calendar-day">24</div>
+        
+        <div class="calendar-day">25</div>
+        <div class="calendar-day">26</div>
+        <div class="calendar-day">27</div>
+        <div class="calendar-day">28</div>
+        <div class="calendar-day">29</div>
+        <div class="calendar-day">30</div>
+        <div class="calendar-day">31</div>
+        
+        <div class="calendar-day other-month">1</div>
+        <div class="calendar-day other-month">2</div>
+        <div class="calendar-day other-month">3</div>
+        <div class="calendar-day other-month">4</div>
+        <div class="calendar-day other-month">5</div>
+        <div class="calendar-day other-month">6</div>
+        <div class="calendar-day other-month">7</div>
+      </div>
+
+      <div class="time-select">
+        <div class="time-select-label">Select Time</div>
+        <input type="time" class="time-select-input" value="10:30">
+      </div>
+
+      <div class="form-field" style="margin-top: 16px;">
+        <label class="field-label">Follow-up Notes (Optional)</label>
+        <textarea class="field-textarea" placeholder="Add any notes for the follow-up session" style="min-height: 80px;"></textarea>
+      </div>
+    </div>
+    <div class="calendar-footer">
+      <button class="btn btn-outline-primary" id="cancelFollowup">
+        Cancel
+      </button>
+      <button class="btn btn-primary" id="confirmFollowup">
+        Confirm Follow-up
+      </button>
+      <button class="btn btn-outline-primary" id="endCoachingBtn" style="display: none;">
+        End Coaching
+      </button>
+    </div>
+  </div>
+
   <script>
     // Toggle sidebar on mobile
     document.querySelector('.header-logo').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('show');
+      document.getElementById('actionModalOverlay').classList.toggle('show');
+    });
+
+    // Continue to Coaching Form button
+    document.getElementById('continueToCoachingBtn').addEventListener('click', function() {
+      // Hide setup wizard and show coaching form
+      document.querySelector('.setup-wizard').style.display = 'none';
+      document.getElementById('coachingForm').style.display = 'block';
+      
+      // Hide suggested coaching and show selected coaching
+      document.getElementById('suggestedCoaching').style.display = 'none';
+      document.getElementById('selectedCoaching').style.display = 'block';
+      
+      // Update progress steps
+      document.querySelectorAll('.progress-step')[1].classList.remove('active');
+      document.querySelectorAll('.progress-step')[1].classList.add('completed');
+      document.querySelectorAll('.progress-step')[2].classList.add('active');
+    });
+
+    // Back to Setup button
+    document.getElementById('backToSetupBtn').addEventListener('click', function() {
+      // Show setup wizard and hide coaching form
+      document.querySelector('.setup-wizard').style.display = 'block';
+      document.getElementById('coachingForm').style.display = 'none';
+      
+      // Show suggested coaching and hide selected coaching
+      document.getElementById('suggestedCoaching').style.display = 'block';
+      document.getElementById('selectedCoaching').style.display = 'none';
+      
+      // Update progress steps
+      document.querySelectorAll('.progress-step')[1].classList.add('active');
+      document.querySelectorAll('.progress-step')[1].classList.remove('completed');
+      document.querySelectorAll('.progress-step')[2].classList.remove('active');
     });
 
     // Tab switching functionality
@@ -2007,6 +2210,13 @@ Key milestones:
     tabs.forEach(tab => {
       tab.addEventListener('click', function() {
         const tabId = this.getAttribute('data-tab');
+        
+        // For first session, only allow GROW tab
+        if (tabId === 'smarter') {
+          // Just show a message that this tab is for follow-up sessions
+          alert('The SMARTER Action Plan will be available for follow-up sessions.');
+          return;
+        }
         
         // Remove active class from all tabs
         tabs.forEach(t => t.classList.remove('active'));
@@ -2048,29 +2258,38 @@ Key milestones:
       });
     });
 
-    // Previous sessions toggle
-    const historyToggle = document.querySelector('.previous-sessions-toggle');
-    const timeline = document.querySelector('.session-timeline');
-    historyToggle.addEventListener('click', function() {
-      const isHidden = timeline.style.display === 'none';
-      timeline.style.display = isHidden ? 'block' : 'none';
-      historyToggle.innerHTML = isHidden ? 
-        'Hide History <i class="fas fa-chevron-up"></i>' : 
-        'Show History <i class="fas fa-chevron-down"></i>';
-    });
-
     // Action Items Modal
     const actionModal = document.getElementById('addActionModal');
     const actionOverlay = document.getElementById('actionModalOverlay');
-    const addActionBtn = document.getElementById('addActionBtn');
-    const addActionBtnSmarter = document.getElementById('addActionBtnSmarter');
+    const addCoachActionBtn = document.getElementById('addCoachActionBtn');
+    const addAgentActionBtn = document.getElementById('addAgentActionBtn');
     const closeActionBtn = document.getElementById('addActionClose');
     const cancelActionBtn = document.getElementById('addActionCancel');
     const saveActionBtn = document.getElementById('addActionSave');
+    
+    let currentActionType = 'coach'; // Default to coach action
 
-    function openActionModal() {
+    function openActionModal(type) {
       actionModal.classList.add('show');
       actionOverlay.classList.add('show');
+      currentActionType = type;
+      
+      // Set default assignee based on action type and customize modal appearance
+      const assigneeSelect = document.getElementById('actionAssignee');
+      const modalTitle = document.querySelector('.add-action-title');
+      const saveButton = document.getElementById('addActionSave');
+      
+      if (type === 'coach') {
+        assigneeSelect.value = 'marcus';
+        modalTitle.textContent = 'Add Coach Action Item';
+        modalTitle.style.color = 'var(--coach-color)';
+        saveButton.style.backgroundColor = 'var(--coach-color)';
+      } else {
+        assigneeSelect.value = 'michael';
+        modalTitle.textContent = 'Add Agent Action Item';
+        modalTitle.style.color = 'var(--agent-color)';
+        saveButton.style.backgroundColor = 'var(--agent-color)';
+      }
     }
 
     function closeActionModal() {
@@ -2078,8 +2297,14 @@ Key milestones:
       actionOverlay.classList.remove('show');
     }
 
-    addActionBtn.addEventListener('click', openActionModal);
-    addActionBtnSmarter.addEventListener('click', openActionModal);
+    addCoachActionBtn.addEventListener('click', function() {
+      openActionModal('coach');
+    });
+    
+    addAgentActionBtn.addEventListener('click', function() {
+      openActionModal('agent');
+    });
+    
     closeActionBtn.addEventListener('click', closeActionModal);
     cancelActionBtn.addEventListener('click', closeActionModal);
     actionOverlay.addEventListener('click', closeActionModal);
@@ -2088,7 +2313,8 @@ Key milestones:
     saveActionBtn.addEventListener('click', function() {
       const title = document.getElementById('actionTitle').value;
       const description = document.getElementById('actionDescription').value;
-      const assignee = document.getElementById('actionAssignee').value === 'emilio' ? 'Emilio Bran' : 'Marcus Latham';
+      const assigneeValue = document.getElementById('actionAssignee').value;
+      const assignee = assigneeValue === 'michael' ? 'Michael Brown' : 'Marcus Latham';
       const dueDate = document.getElementById('actionDueDate').value;
       
       if (!title || !dueDate) {
@@ -2103,9 +2329,12 @@ Key milestones:
         year: 'numeric'
       });
       
+      // Determine action type based on assignee
+      const actionType = assigneeValue === 'michael' ? 'agent' : 'coach';
+      
       // Create the new action item HTML
       const actionItem = document.createElement('div');
-      actionItem.className = 'action-item';
+      actionItem.className = `action-item ${actionType}`;
       actionItem.innerHTML = `
         <input type="checkbox" class="action-checkbox">
         <div class="action-content">
@@ -2124,9 +2353,16 @@ Key milestones:
         </div>
       `;
       
-      // Add the action item to both GROW and SMARTER tabs
-      const activeTab = document.querySelector('.coaching-tab-content.active');
-      activeTab.querySelector('.action-items-container').appendChild(actionItem);
+      // Add the action item to the appropriate container
+      if (actionType === 'coach') {
+        document.querySelector('.coach-items').appendChild(actionItem);
+        const coachCount = document.querySelectorAll('.action-item.coach').length;
+        document.querySelector('.coach-count').textContent = coachCount;
+      } else {
+        document.querySelector('.agent-items').appendChild(actionItem);
+        const agentCount = document.querySelectorAll('.action-item.agent').length;
+        document.querySelector('.agent-count').textContent = agentCount;
+      }
       
       // Clear the form
       document.getElementById('actionTitle').value = '';
@@ -2134,20 +2370,142 @@ Key milestones:
       
       // Close the modal
       closeActionModal();
+      
+      // Check if we can enable the submit buttons
+      checkActionRequirements();
+    });
+
+    // Function to check if action and commitment requirements are met
+    function checkActionRequirements() {
+      const coachActions = document.querySelectorAll('.action-item.coach').length;
+      const agentActions = document.querySelectorAll('.action-item.agent').length;
+      const coachCommitment = document.getElementById('coachCommitment').value.trim();
+      const agentCommitment = document.getElementById('agentCommitment').value.trim();
+      
+      const scheduleBtn = document.getElementById('scheduleFollowupBtn');
+      
+      if (coachActions >= 1 && agentActions >= 1 && coachCommitment && agentCommitment) {
+        scheduleBtn.classList.remove('btn-disabled');
+        scheduleBtn.disabled = false;
+      } else {
+        scheduleBtn.classList.add('btn-disabled');
+        scheduleBtn.disabled = true;
+      }
+      
+      // Update helper text with missing requirements
+      let helperText = "";
+      if (coachActions < 1) helperText += "Add at least one coach action item. ";
+      if (agentActions < 1) helperText += "Add at least one agent action item. ";
+      if (!coachCommitment) helperText += "Add coach commitment. ";
+      if (!agentCommitment) helperText += "Add agent commitment. ";
+      
+      const coachHelper = document.querySelector('.coach-items + .add-action-btn + .form-helper');
+      const agentHelper = document.querySelector('.agent-items + .add-action-btn + .form-helper');
+      
+      if (coachHelper) {
+        coachHelper.textContent = coachActions >= 1 ? "Coach action item added ✓" : "At least one coach action item required";
+      }
+      
+      if (agentHelper) {
+        agentHelper.textContent = agentActions >= 1 ? "Agent action item added ✓" : "At least one agent action item required";
+      }
+    }
+
+    // Listen for changes in commitment text areas
+    document.getElementById('coachCommitment').addEventListener('input', checkActionRequirements);
+    document.getElementById('agentCommitment').addEventListener('input', checkActionRequirements);
+
+    // Calendar Modal for scheduling follow-ups
+    const calendarModal = document.getElementById('calendarModal');
+    const calendarOverlay = document.getElementById('calendarModalOverlay');
+    const calendarClose = document.getElementById('calendarClose');
+    const cancelFollowup = document.getElementById('cancelFollowup');
+    const confirmFollowup = document.getElementById('confirmFollowup');
+    const scheduleFollowupBtn = document.getElementById('scheduleFollowupBtn');
+    const submitFormBtn = document.getElementById('submitFormBtn');
+
+    function openCalendarModal() {
+      calendarModal.classList.add('show');
+      calendarOverlay.classList.add('show');
+    }
+
+    function closeCalendarModal() {
+      calendarModal.classList.remove('show');
+      calendarOverlay.classList.remove('show');
+    }
+
+    scheduleFollowupBtn.addEventListener('click', openCalendarModal);
+    calendarClose.addEventListener('click', closeCalendarModal);
+    cancelFollowup.addEventListener('click', closeCalendarModal);
+    calendarOverlay.addEventListener('click', closeCalendarModal);
+
+    // Calendar day selection
+    document.querySelectorAll('.calendar-day:not(.other-month):not(.disabled)').forEach(day => {
+      day.addEventListener('click', function() {
+        document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+        this.classList.add('selected');
+      });
     });
 
     // Form submit functionality
-    document.querySelector('.btn-success').addEventListener('click', function() {
-      // Validation logic would go here
-      alert('Coaching session submitted and follow-up scheduled for 05/18/2025!');
-      // In a real app, this would redirect to the dashboard or next action
+    confirmFollowup.addEventListener('click', function() {
+      const selectedDay = document.querySelector('.calendar-day.selected');
+      const selectedTime = document.querySelector('.time-select-input').value;
+      
+      if (!selectedDay) {
+        alert('Please select a follow-up date');
+        return;
+      }
+      
+      // Get the selected date
+      const day = selectedDay.textContent;
+      const month = document.querySelector('.calendar-month').textContent.split(' ')[0];
+      const year = document.querySelector('.calendar-month').textContent.split(' ')[1];
+      
+      alert(`Follow-up scheduled for ${month} ${day}, ${year} at ${selectedTime}. Coaching session has been submitted successfully!`);
+      window.location.href = 'index.html'; // Redirect to dashboard
     });
 
-    document.querySelector('.btn-primary').addEventListener('click', function() {
-      // Validation logic would go here
+    submitFormBtn.addEventListener('click', function() {
       alert('Coaching session completed successfully!');
-      // In a real app, this would redirect to the dashboard
+      window.location.href = 'index.html'; // Redirect to dashboard
+    });
+
+    // Behavior selection
+    document.querySelectorAll('.behavior-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.behavior-item').forEach(i => i.classList.remove('selected'));
+        this.classList.add('selected');
+        this.querySelector('.behavior-radio').checked = true;
+        
+        // Update the behavior value in the form
+        const behaviorName = this.querySelector('.behavior-name').textContent;
+        const behaviorSelect = document.querySelector('.form-select[name="primary-behavior"]');
+        if (behaviorSelect) {
+          // Find and select the matching option
+          behaviorSelect.value = behaviorName.toLowerCase().replace(' ', '-');
+        }
+      });
+    });
+
+    // End Coaching button (visible after at least one follow-up)
+    // This would be conditionally shown based on previous follow-ups
+    document.getElementById('endCoachingBtn').addEventListener('click', function() {
+      alert('Coaching cycle has been completed and marked as finished.');
+      window.location.href = 'index.html'; // Redirect to dashboard
     });
   </script>
+  <!-- JavaScript -->
+        <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
 </body>
 </html>
+
+
