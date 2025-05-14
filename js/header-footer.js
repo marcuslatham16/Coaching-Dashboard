@@ -132,12 +132,24 @@ document.addEventListener("DOMContentLoaded", function() {
           <div class="sidebar-title">Resources</div>
           <ul class="sidebar-menu">
             <li>
-              <a href="coaching-guides.html" class="sidebar-item ${currentPage === 'coaching-guides.html' ? 'active' : ''}">
-                <div class="sidebar-icon"><i class="fas fa-book"></i></div>
-                <div class="sidebar-label">Coaching Guides</div>
+              <a href="global-settings.html" class="sidebar-item ${currentPage === 'global-settings.html' ? 'active' : ''}">
+                <div class="sidebar-icon"><i class="fa-light fa-globe"></i></div>
+                <div class="sidebar-label">Global Settings</div>
               </a>
             </li>
             <li>
+              <a href="behaviors-management.html" class="sidebar-item ${currentPage === 'behaviors-management.html' ? 'active' : ''}">
+                <div class="sidebar-icon"><i class="fa-regular fa-map"></i></div>
+                <div class="sidebar-label">Manage Behaviors</div>
+              </a>
+            </li>
+            <li>
+              <a href="kpi-management.html" class="sidebar-item ${currentPage === 'kpimanagement.html' ? 'active' : ''}">
+                <div class="sidebar-icon"><i class="fa-regular fa-map"></i></div>
+                <div class="sidebar-label">Manage KPIs</div>
+              </a>
+            </li>
+             <li>
               <a href="templates.html" class="sidebar-item ${currentPage === 'templates.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
                 <div class="sidebar-label">Templates</div>

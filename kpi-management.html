@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPI Management - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c6ecb;
+      --primary-light: #e8f0fe;
+      --secondary-color: #5f6369;
+      --accent-color: #fa6331;
+      --warning-color: #f6ba15;
+      --success-color: #34a853;
+      --danger-color: #ea4335;
+      --grey-100: #f8f9fa;
+      --grey-200: #e9ecef;
+      --grey-300: #dee2e6;
+      --grey-400: #ced4da;
+      --grey-500: #adb5bd;
+      --grey-600: #6c757d;
+      --grey-700: #495057;
+      --grey-800: #343a40;
+      --grey-900: #212529;
+      --border-radius: 8px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --brand-pink: #e91e63;
+      --brand-pink-light: #f8bbd0;
+      --brand-purple: #9c27b0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--grey-100);
+      color: var(--grey-800);
+      line-height: 1.5;
+    }
+
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header/Toolbar */
+    .header {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-logo {
+      height: 32px;
+      width: 32px;
+      background-color: var(--primary-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-search {
+      position: relative;
+    }
+
+    .search-input {
+      padding: 8px 16px 8px 40px;
+      border: 1px solid var(--grey-300);
+      border-radius: 24px;
+      font-size: 14px;
+      width: 240px;
+      background-color: var(--grey-100);
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      background-color: white;
+      border-color: var(--primary-color);
+      width: 280px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-600);
+      font-size: 14px;
+    }
+
+    .header-notification {
+      position: relative;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--grey-100);
+      color: var(--grey-700);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .header-notification:hover {
+      background-color: var(--grey-200);
+    }
+
+    .notification-indicator {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+    }
+
+    .header-avatar {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background-color: white;
+      border-right: 1px solid var(--grey-200);
+      height: calc(100vh - 64px);
+      position: sticky;
+      top: 64px;
+      overflow-y: auto;
+      padding: 16px 0;
+    }
+
+    /* START COACHING BUTTON */
+    .start-coaching-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 16px 16px;
+      padding: 12px;
+      background-color: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .start-coaching-btn:hover {
+      background-color: #e55a2b;
+    }
+
+    .start-coaching-icon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-section {
+      margin-bottom: 8px;
+    }
+
+    .sidebar-title {
+      padding: 8px 24px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--grey-600);
+      font-weight: 600;
+    }
+
+    .sidebar-item {
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      color: var(--grey-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background-color: var(--grey-100);
+    }
+
+    .sidebar-item.active {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+    }
+
+    .sidebar-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--primary-color);
+    }
+
+    .sidebar-icon {
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-label {
+      flex: 1;
+    }
+
+    .sidebar-badge {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .badge-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: var(--grey-600);
+    }
+
+    /* KPI Summary Cards */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .summary-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+    }
+
+    .summary-card-title {
+      color: var(--grey-600);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .summary-card-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--grey-800);
+      margin-bottom: 4px;
+    }
+
+    .summary-card-info {
+      font-size: 14px;
+      color: var(--grey-600);
+      display: flex;
+      align-items: center;
+    }
+
+    .summary-card-info i {
+      margin-right: 4px;
+    }
+
+    .trend-up {
+      color: var(--success-color);
+    }
+
+    .trend-down {
+      color: var(--danger-color);
+    }
+
+    /* KPI Management Header */
+    .kpi-management-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .kpi-header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    /* Filters */
+    .kpi-filters {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      background-color: white;
+      padding: 16px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .filter-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .filter-input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      color: var(--grey-800);
+      background-color: white;
+    }
+
+    .filter-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    /* KPI List Table */
+    .kpi-list {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .kpi-list-header {
+      display: grid;
+      grid-template-columns: minmax(200px, 3fr) 1fr 1fr 1fr 1fr 120px;
+      background-color: var(--grey-100);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .kpi-list-item {
+      display: grid;
+      grid-template-columns: minmax(200px, 3fr) 1fr 1fr 1fr 1fr 120px;
+      padding: 16px;
+      border-bottom: 1px solid var(--grey-200);
+      transition: background-color 0.2s;
+      align-items: center;
+    }
+
+    .kpi-list-item:hover {
+      background-color: var(--grey-100);
+    }
+
+    .kpi-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .kpi-name {
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .kpi-description {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .kpi-category {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .category-csat {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+    }
+
+    .category-efficiency {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success-color);
+    }
+
+    .category-quality {
+      background-color: rgba(246, 186, 21, 0.1);
+      color: var(--warning-color);
+    }
+
+    .category-revenue {
+      background-color: rgba(233, 30, 99, 0.1);
+      color: var(--brand-pink);
+    }
+
+    .kpi-target {
+      font-weight: 600;
+    }
+
+    .kpi-threshold {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .threshold-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .threshold-good {
+      background-color: var(--success-color);
+    }
+
+    .threshold-average {
+      background-color: var(--warning-color);
+    }
+
+    .threshold-poor {
+      background-color: var(--danger-color);
+    }
+    
+    .threshold-text {
+      font-size: 13px;
+    }
+
+    .kpi-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--grey-100);
+      color: var(--grey-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-icon:hover {
+      background-color: var(--grey-200);
+    }
+
+    .action-edit:hover {
+      color: var(--primary-color);
+    }
+
+    .action-delete:hover {
+      color: var(--danger-color);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--grey-600);
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      color: var(--grey-400);
+      margin-bottom: 16px;
+    }
+
+    .empty-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--grey-700);
+    }
+
+    .empty-message {
+      font-size: 14px;
+      max-width: 400px;
+      margin: 0 auto 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+
+    .btn-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .btn-accent:hover {
+      background-color: #e55a2b;
+    }
+
+    /* Modal Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Add KPI Modal */
+    .kpi-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 700px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .kpi-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .kpi-modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 10;
+    }
+
+    .kpi-modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .kpi-modal-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--grey-600);
+      cursor: pointer;
+    }
+
+    .kpi-modal-body {
+      padding: 20px;
+    }
+
+    .form-section {
+      margin-bottom: 24px;
+    }
+
+    .form-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--grey-800);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .form-row {
+      margin-bottom: 16px;
+    }
+
+    .form-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      background-color: white;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-6-6 1.5-1.5L8 8.5 12.5 4 14 5.5l-6 6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .form-checkbox {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      color: var(--grey-800);
+      cursor: pointer;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 16px;
+    }
+
+    .threshold-group {
+      margin-bottom: 16px;
+    }
+
+    .threshold-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .threshold-color {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+    }
+
+    .threshold-color.good {
+      background-color: var(--success-color);
+    }
+
+    .threshold-color.average {
+      background-color: var(--warning-color);
+    }
+
+    .threshold-color.poor {
+      background-color: var(--danger-color);
+    }
+
+    .threshold-label {
+      min-width: 80px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .threshold-input {
+      width: 100px;
+      padding: 6px 12px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+    }
+
+    .threshold-direction {
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .kpi-modal-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      position: sticky;
+      bottom: 0;
+      background-color: white;
+    }
+
+    /* Responsive Fixes */
+    @media (max-width: 992px) {
+      .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .header-search {
+        display: none;
+      }
+
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi-list-header {
+        grid-template-columns: 2fr 1fr 80px;
+      }
+
+      .kpi-list-item {
+        grid-template-columns: 2fr 1fr 80px;
+      }
+
+      .kpi-list-header div:nth-child(3),
+      .kpi-list-header div:nth-child(4),
+      .kpi-list-header div:nth-child(5),
+      .kpi-list-item div:nth-child(3),
+      .kpi-list-item div:nth-child(4),
+      .kpi-list-item div:nth-child(5) {
+        display: none;
+      }
+      
+      .form-row-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .filter-group {
+        flex: 0 0 100%;
+      }
+
+      .kpi-filters {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-brand">
+          <div class="header-logo">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="header-title">Call Center Coach</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-search">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search KPIs, metrics...">
+        </div>
+        <div class="header-notification">
+          <i class="fas fa-bell"></i>
+          <div class="notification-indicator"></div>
+        </div>
+        <div class="header-avatar">
+          SM
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <!-- Start Coaching Button -->
+        <div class="start-coaching-btn" id="startCoachingBtn">
+          <i class="fas fa-play-circle start-coaching-icon"></i>
+          <span>Start Coaching Session</span>
+        </div>
+        
+        <ul class="sidebar-menu">
+          <li class="sidebar-section">
+            <div class="sidebar-title">Coaching</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-tachometer-alt"></i></div>
+                  <div class="sidebar-label">Dashboard</div>
+                </a>
+              </li>
+              <li>
+                <a href="active-coaching.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
+                  <div class="sidebar-label">Active Coaching</div>
+                  <div class="sidebar-badge badge-accent">2</div>
+                </a>
+              </li>
+              <li>
+                <a href="upcoming-sessions.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
+                  <div class="sidebar-label">Upcoming Sessions</div>
+                  <div class="sidebar-badge">3</div>
+                </a>
+              </li>
+              <li>
+                <a href="action-items.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-clipboard-check"></i></div>
+                  <div class="sidebar-label">Action Items</div>
+                  <div class="sidebar-badge badge-accent">5</div>
+                </a>
+              </li>
+              <li>
+                <a href="coaching-history.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-history"></i></div>
+                  <div class="sidebar-label">Coaching History</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-section">
+            <div class="sidebar-title">Insights</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="agent-performance.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-chart-line"></i></div>
+                  <div class="sidebar-label">Agent Performance</div>
+                </a>
+              </li>
+              <li>
+                <a href="team-overview.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                  <div class="sidebar-label">My Team</div>
+                </a>
+              </li>
+              <li>
+                <a href="reports.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
+                  <div class="sidebar-label">Reports</div>
+                </a>
+              </li>
+              <li>
+                <a href="kpi-management.html" class="sidebar-item active">
+                  <div class="sidebar-icon"><i class="fas fa-chart-bar"></i></div>
+                  <div class="sidebar-label">KPI Management</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-section">
+            <div class="sidebar-title">Resources</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="coaching-guides.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-book"></i></div>
+                  <div class="sidebar-label">Coaching Guides</div>
+                </a>
+              </li>
+              <li>
+                <a href="templates.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
+                  <div class="sidebar-label">Templates</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">KPI Management</h1>
+          <p class="page-subtitle">Create, edit and manage key performance indicators for coaching sessions</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-card-title">Total KPIs</div>
+            <div class="summary-card-value">16</div>
+            <div class="summary-card-info">
+              <i class="fas fa-info-circle"></i>
+              <span>Across 4 categories</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">Active KPIs</div>
+            <div class="summary-card-value">12</div>
+            <div class="summary-card-info">
+              <i class="fas fa-arrow-up trend-up"></i>
+              <span>2 added in last 30 days</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">KPIs Reaching Target</div>
+            <div class="summary-card-value">75%</div>
+            <div class="summary-card-info">
+              <i class="fas fa-arrow-up trend-up"></i>
+              <span>5% increase from previous period</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-card-title">KPIs Needing Attention</div>
+            <div class="summary-card-value">3</div>
+            <div class="summary-card-info">
+              <i class="fas fa-arrow-down trend-down"></i>
+              <span>1 more than previous period</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Management Header -->
+        <div class="kpi-management-header">
+          <h2 class="kpi-header-title">KPI Directory</h2>
+          <button class="btn btn-accent" id="addKpiBtn">
+            <i class="fas fa-plus btn-icon"></i>
+            Add New KPI
+          </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="kpi-filters">
+          <div class="filter-group">
+            <label for="categoryFilter" class="filter-label">Category</label>
+            <select id="categoryFilter" class="filter-input">
+              <option value="all">All Categories</option>
+              <option value="customer-satisfaction">Customer Satisfaction</option>
+              <option value="efficiency">Efficiency</option>
+              <option value="quality">Quality</option>
+              <option value="revenue">Revenue</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="statusFilter" class="filter-label">Status</label>
+            <select id="statusFilter" class="filter-input">
+              <option value="all">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="performanceFilter" class="filter-label">Performance</label>
+            <select id="performanceFilter" class="filter-input">
+              <option value="all">All Performance Levels</option>
+              <option value="on-target">On Target</option>
+              <option value="near-target">Near Target</option>
+              <option value="off-target">Off Target</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- KPI List -->
+        <div class="kpi-list">
+          <div class="kpi-list-header">
+            <div>KPI Name</div>
+            <div>Category</div>
+            <div>Target</div>
+            <div>Current Avg.</div>
+            <div>Thresholds</div>
+            <div>Actions</div>
+          </div>
+
+          <!-- KPI Items -->
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">Customer Satisfaction Score (CSAT)</div>
+              <div class="kpi-description">Post-call satisfaction rating (1-5 scale)</div>
+            </div>
+            <div>
+              <span class="kpi-category category-csat">Customer Satisfaction</span>
+            </div>
+            <div class="kpi-target">4.5+</div>
+            <div>4.3</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-average"></div>
+              <div class="threshold-text">Average (4.0-4.4)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="csat">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="csat">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">First Call Resolution (FCR)</div>
+              <div class="kpi-description">Percentage of calls resolved without follow-up</div>
+            </div>
+            <div>
+              <span class="kpi-category category-efficiency">Efficiency</span>
+            </div>
+            <div class="kpi-target">85%+</div>
+            <div>87%</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-good"></div>
+              <div class="threshold-text">Good (85%+)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="fcr">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="fcr">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">Average Handle Time (AHT)</div>
+              <div class="kpi-description">Average duration of customer interactions</div>
+            </div>
+            <div>
+              <span class="kpi-category category-efficiency">Efficiency</span>
+            </div>
+            <div class="kpi-target">&lt; 5:00</div>
+            <div>5:35</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-poor"></div>
+              <div class="threshold-text">Poor (5:30+)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="aht">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="aht">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">Net Promoter Score (NPS)</div>
+              <div class="kpi-description">Likelihood to recommend our service</div>
+            </div>
+            <div>
+              <span class="kpi-category category-csat">Customer Satisfaction</span>
+            </div>
+            <div class="kpi-target">40+</div>
+            <div>38</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-average"></div>
+              <div class="threshold-text">Average (30-39)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="nps">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="nps">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">Call Quality Score</div>
+              <div class="kpi-description">Internal quality assessment score (0-100)</div>
+            </div>
+            <div>
+              <span class="kpi-category category-quality">Quality</span>
+            </div>
+            <div class="kpi-target">90+</div>
+            <div>87</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-average"></div>
+              <div class="threshold-text">Average (80-89)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="quality">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="quality">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="kpi-list-item">
+            <div>
+              <div class="kpi-name">Upsell Conversion Rate</div>
+              <div class="kpi-description">Percentage of calls with successful upsells</div>
+            </div>
+            <div>
+              <span class="kpi-category category-revenue">Revenue</span>
+            </div>
+            <div class="kpi-target">15%+</div>
+            <div>12%</div>
+            <div class="kpi-threshold">
+              <div class="threshold-indicator threshold-average"></div>
+              <div class="threshold-text">Average (10-14%)</div>
+            </div>
+            <div class="kpi-actions">
+              <div class="action-icon action-edit" title="Edit KPI" data-kpi="upsell">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-icon action-delete" title="Delete KPI" data-kpi="upsell">
+                <i class="fas fa-trash-alt"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Add/Edit KPI Modal -->
+  <div class="kpi-modal" id="kpiModal">
+    <div class="kpi-modal-header">
+      <h3 class="kpi-modal-title" id="kpiModalTitle">Add New KPI</h3>
+      <button class="kpi-modal-close" id="kpiModalClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="kpi-modal-body">
+      <form id="kpiForm">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h4 class="form-section-title">Basic Information</h4>
+          
+          <div class="form-row">
+            <label for="kpiName" class="form-label">KPI Name*</label>
+            <input type="text" id="kpiName" class="form-input" placeholder="e.g., Customer Satisfaction Score (CSAT)" required>
+          </div>
+          
+          <div class="form-row">
+            <label for="kpiDescription" class="form-label">Description*</label>
+            <textarea id="kpiDescription" class="form-textarea" placeholder="Describe what this KPI measures and why it's important" required></textarea>
+          </div>
+          
+          <div class="form-row-grid">
+            <div>
+              <label for="kpiCategory" class="form-label">Category*</label>
+              <select id="kpiCategory" class="form-select" required>
+                <option value="">Select a category</option>
+                <option value="customer-satisfaction">Customer Satisfaction</option>
+                <option value="efficiency">Efficiency</option>
+                <option value="quality">Quality</option>
+                <option value="revenue">Revenue</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="kpiDataSource" class="form-label">Data Source*</label>
+              <select id="kpiDataSource" class="form-select" required>
+                <option value="">Select a data source</option>
+                <option value="crm">CRM System</option>
+                <option value="survey">Customer Surveys</option>
+                <option value="phone">Phone System</option>
+                <option value="quality">Quality Assessment</option>
+                <option value="manual">Manual Entry</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Measurement Configuration Section -->
+        <div class="form-section">
+          <h4 class="form-section-title">Measurement Configuration</h4>
+          
+          <div class="form-row-grid">
+            <div>
+              <label for="kpiUnit" class="form-label">Unit of Measurement*</label>
+              <select id="kpiUnit" class="form-select" required>
+                <option value="">Select a unit</option>
+                <option value="percentage">Percentage (%)</option>
+                <option value="number">Number</option>
+                <option value="time">Time (mm:ss)</option>
+                <option value="currency">Currency ($)</option>
+                <option value="rating">Rating (1-5)</option>
+                <option value="score">Score (0-100)</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="kpiFrequency" class="form-label">Measurement Frequency*</label>
+              <select id="kpiFrequency" class="form-select" required>
+                <option value="">Select frequency</option>
+                <option value="per-call">Per Call</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <label for="kpiDirection" class="form-label">Direction of Improvement*</label>
+            <div class="radio-group">
+              <div class="form-checkbox-group">
+                <input type="radio" id="directionHigher" name="kpiDirection" value="higher" class="form-checkbox" checked>
+                <label for="directionHigher" class="checkbox-label">Higher is better (e.g., CSAT, FCR)</label>
+              </div>
+              <div class="form-checkbox-group">
+                <input type="radio" id="directionLower" name="kpiDirection" value="lower" class="form-checkbox">
+                <label for="directionLower" class="checkbox-label">Lower is better (e.g., AHT, Abandonment Rate)</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <label for="kpiTarget" class="form-label">Target Value*</label>
+            <input type="text" id="kpiTarget" class="form-input" placeholder="e.g., 90 or 4.5 or 5:00" required>
+            <span class="form-hint">Enter the target value agents should aim to achieve</span>
+          </div>
+        </div>
+        
+        <!-- Thresholds Section -->
+        <div class="form-section">
+          <h4 class="form-section-title">Performance Thresholds</h4>
+          <p class="form-hint" style="margin-bottom: 16px;">Define what values constitute good, average, and poor performance</p>
+          
+          <div class="threshold-group">
+            <div class="threshold-row">
+              <div class="threshold-color good"></div>
+              <div class="threshold-label">Good</div>
+              <input type="text" id="thresholdGood" class="threshold-input" placeholder="e.g., 90+" required>
+              <div class="threshold-direction" id="goodDirection">Values ≥ 90 are considered good</div>
+            </div>
+            
+            <div class="threshold-row">
+              <div class="threshold-color average"></div>
+              <div class="threshold-label">Average</div>
+              <input type="text" id="thresholdAverage" class="threshold-input" placeholder="e.g., 80-89" required>
+              <div class="threshold-direction" id="averageDirection">Values between 80-89 are considered average</div>
+            </div>
+            
+            <div class="threshold-row">
+              <div class="threshold-color poor"></div>
+              <div class="threshold-label">Poor</div>
+              <input type="text" id="thresholdPoor" class="threshold-input" placeholder="e.g., <80" required>
+              <div class="threshold-direction" id="poorDirection">Values < 80 are considered poor</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Coaching Configuration -->
+        <div class="form-section">
+          <h4 class="form-section-title">Coaching Configuration</h4>
+          
+          <div class="form-row">
+            <label for="kpiBehaviors" class="form-label">Associated Behaviors</label>
+            <div class="form-checkbox-group">
+              <input type="checkbox" id="behaviorActiveListening" name="behaviors" value="active-listening" class="form-checkbox">
+              <label for="behaviorActiveListening" class="checkbox-label">Active Listening</label>
+            </div>
+            <div class="form-checkbox-group">
+              <input type="checkbox" id="behaviorCallDeescalation" name="behaviors" value="call-de-escalation" class="form-checkbox">
+              <label for="behaviorCallDeescalation" class="checkbox-label">Call De-escalation</label>
+            </div>
+            <div class="form-checkbox-group">
+              <input type="checkbox" id="behaviorProductKnowledge" name="behaviors" value="product-knowledge" class="form-checkbox">
+              <label for="behaviorProductKnowledge" class="checkbox-label">Product Knowledge</label>
+            </div>
+            <div class="form-checkbox-group">
+              <input type="checkbox" id="behaviorCustomerEmpathy" name="behaviors" value="customer-empathy" class="form-checkbox">
+              <label for="behaviorCustomerEmpathy" class="checkbox-label">Customer Empathy</label>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <label for="kpiCoachingNotes" class="form-label">Coaching Guidelines</label>
+            <textarea id="kpiCoachingNotes" class="form-textarea" placeholder="Enter notes and guidelines for coaches to help improve this KPI"></textarea>
+            <span class="form-hint">Include specific techniques, questions, or exercises that can help improve this KPI</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="kpi-modal-footer">
+      <button class="btn btn-outline-primary" id="cancelKpi">Cancel</button>
+      <button class="btn btn-primary" id="saveKpi">Save KPI</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle sidebar on mobile
+    document.querySelector('.header-logo').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('show');
+      document.getElementById('overlay').classList.toggle('show');
+    });
+
+    // Close sidebar when overlay is clicked
+    document.getElementById('overlay').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+      document.getElementById('kpiModal').classList.remove('show');
+    });
+
+    // KPI Modal Functionality
+    const addKpiBtn = document.getElementById('addKpiBtn');
+    const kpiModal = document.getElementById('kpiModal');
+    const kpiModalClose = document.getElementById('kpiModalClose');
+    const cancelKpi = document.getElementById('cancelKpi');
+    const saveKpi = document.getElementById('saveKpi');
+    const kpiModalTitle = document.getElementById('kpiModalTitle');
+    const kpiForm = document.getElementById('kpiForm');
+    
+    // Open modal for adding new KPI
+    addKpiBtn.addEventListener('click', function() {
+      kpiModalTitle.textContent = 'Add New KPI';
+      kpiForm.reset(); // Clear the form
+      document.getElementById('overlay').classList.add('show');
+      kpiModal.classList.add('show');
+    });
+    
+    // Close modal
+    function closeKpiModal() {
+      document.getElementById('overlay').classList.remove('show');
+      kpiModal.classList.remove('show');
+    }
+    
+    kpiModalClose.addEventListener('click', closeKpiModal);
+    cancelKpi.addEventListener('click', closeKpiModal);
+    
+    // Direction of Improvement Radio Buttons
+    const directionHigher = document.getElementById('directionHigher');
+    const directionLower = document.getElementById('directionLower');
+    const goodDirection = document.getElementById('goodDirection');
+    const averageDirection = document.getElementById('averageDirection');
+    const poorDirection = document.getElementById('poorDirection');
+    
+    // Update threshold direction text based on selected direction
+    function updateThresholdDirections() {
+      if (directionHigher.checked) {
+        goodDirection.textContent = 'Values ≥ 90 are considered good';
+        averageDirection.textContent = 'Values between 80-89 are considered average';
+        poorDirection.textContent = 'Values < 80 are considered poor';
+      } else {
+        goodDirection.textContent = 'Values ≤ 5:00 are considered good';
+        averageDirection.textContent = 'Values between 5:01-5:30 are considered average';
+        poorDirection.textContent = 'Values > 5:30 are considered poor';
+      }
+    }
+    
+    directionHigher.addEventListener('change', updateThresholdDirections);
+    directionLower.addEventListener('change', updateThresholdDirections);
+    
+    // Edit KPI functionality
+    const editButtons = document.querySelectorAll('.action-edit');
+    
+    editButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const kpiId = this.getAttribute('data-kpi');
+        kpiModalTitle.textContent = 'Edit KPI';
+        
+        // In a real app, you would fetch the KPI data here and populate the form
+        // For demo purposes, we'll just open the modal with some sample data
+        
+        // Populate form with sample data based on the KPI ID
+        if (kpiId === 'csat') {
+          document.getElementById('kpiName').value = 'Customer Satisfaction Score (CSAT)';
+          document.getElementById('kpiDescription').value = 'Post-call satisfaction rating (1-5 scale)';
+          document.getElementById('kpiCategory').value = 'customer-satisfaction';
+          document.getElementById('kpiDataSource').value = 'survey';
+          document.getElementById('kpiUnit').value = 'rating';
+          document.getElementById('kpiFrequency').value = 'per-call';
+          document.getElementById('directionHigher').checked = true;
+          document.getElementById('kpiTarget').value = '4.5';
+          document.getElementById('thresholdGood').value = '4.5+';
+          document.getElementById('thresholdAverage').value = '4.0-4.4';
+          document.getElementById('thresholdPoor').value = '<4.0';
+          document.getElementById('behaviorCustomerEmpathy').checked = true;
+          document.getElementById('behaviorActiveListening').checked = true;
+          updateThresholdDirections();
+        } else if (kpiId === 'aht') {
+          document.getElementById('kpiName').value = 'Average Handle Time (AHT)';
+          document.getElementById('kpiDescription').value = 'Average duration of customer interactions';
+          document.getElementById('kpiCategory').value = 'efficiency';
+          document.getElementById('kpiDataSource').value = 'phone';
+          document.getElementById('kpiUnit').value = 'time';
+          document.getElementById('kpiFrequency').value = 'daily';
+          document.getElementById('directionLower').checked = true;
+          document.getElementById('kpiTarget').value = '5:00';
+          document.getElementById('thresholdGood').value = '≤5:00';
+          document.getElementById('thresholdAverage').value = '5:01-5:30';
+          document.getElementById('thresholdPoor').value = '>5:30';
+          document.getElementById('behaviorProductKnowledge').checked = true;
+          updateThresholdDirections();
+        }
+        
+        // Show the modal
+        document.getElementById('overlay').classList.add('show');
+        kpiModal.classList.add('show');
+      });
+    });
+    
+    // Delete KPI functionality
+    const deleteButtons = document.querySelectorAll('.action-delete');
+    
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const kpiId = this.getAttribute('data-kpi');
+        const kpiName = this.closest('.kpi-list-item').querySelector('.kpi-name').textContent;
+        
+        if (confirm(`Are you sure you want to delete the KPI "${kpiName}"? This action cannot be undone.`)) {
+          // In a real app, you would send a request to delete the KPI
+          // For demo purposes, we'll just show an alert
+          alert(`KPI "${kpiName}" has been deleted.`);
+          
+          // Remove the KPI item from the list
+          this.closest('.kpi-list-item').remove();
+        }
+      });
+    });
+    
+    // Save KPI functionality
+    saveKpi.addEventListener('click', function() {
+      // In a real app, you would validate and save the KPI data here
+      // For demo purposes, we'll just show an alert and close the modal
+      
+      // Simple validation
+      const kpiName = document.getElementById('kpiName').value;
+      const kpiDescription = document.getElementById('kpiDescription').value;
+      const kpiCategory = document.getElementById('kpiCategory').value;
+      
+      if (!kpiName || !kpiDescription || !kpiCategory) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+      
+      alert(`KPI "${kpiName}" has been saved successfully.`);
+      closeKpiModal();
+    });
+    
+    // Filter functionality
+    document.querySelectorAll('.filter-input').forEach(filter => {
+      filter.addEventListener('change', function() {
+        // In a real app, you would filter the KPI list based on the selected values
+        // For demo purposes, we'll just show an alert with the selected filters
+        
+        const categoryFilter = document.getElementById('categoryFilter').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+        const performanceFilter = document.getElementById('performanceFilter').value;
+        
+        alert(`Filtering KPIs by:\nCategory: ${categoryFilter}\nStatus: ${statusFilter}\nPerformance: ${performanceFilter}`);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Behavior KPI Management - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c6ecb;
+      --primary-light: #e8f0fe;
+      --secondary-color: #5f6369;
+      --accent-color: #fa6331;
+      --warning-color: #f6ba15;
+      --success-color: #34a853;
+      --danger-color: #ea4335;
+      --grey-100: #f8f9fa;
+      --grey-200: #e9ecef;
+      --grey-300: #dee2e6;
+      --grey-400: #ced4da;
+      --grey-500: #adb5bd;
+      --grey-600: #6c757d;
+      --grey-700: #495057;
+      --grey-800: #343a40;
+      --grey-900: #212529;
+      --border-radius: 8px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --brand-pink: #e91e63;
+      --brand-pink-light: #fce4ec;
+      --grow-color: #e91e63;
+      --grow-light: #fce4ec;
+      --smarter-color: #7b1fa2;
+      --smarter-light: #f3e5f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--grey-100);
+      color: var(--grey-800);
+      line-height: 1.5;
+    }
+
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header/Toolbar */
+    .header {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-logo {
+      height: 32px;
+      width: 32px;
+      background-color: var(--primary-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-search {
+      position: relative;
+    }
+
+    .search-input {
+      padding: 8px 16px 8px 40px;
+      border: 1px solid var(--grey-300);
+      border-radius: 24px;
+      font-size: 14px;
+      width: 240px;
+      background-color: var(--grey-100);
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      background-color: white;
+      border-color: var(--primary-color);
+      width: 280px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-600);
+      font-size: 14px;
+    }
+
+    .header-notification {
+      position: relative;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--grey-100);
+      color: var(--grey-700);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .header-notification:hover {
+      background-color: var(--grey-200);
+    }
+
+    .notification-indicator {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+    }
+
+    .header-avatar {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background-color: white;
+      border-right: 1px solid var(--grey-200);
+      height: calc(100vh - 64px);
+      position: sticky;
+      top: 64px;
+      overflow-y: auto;
+      padding: 24px 0;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-section {
+      margin-bottom: 8px;
+    }
+
+    .sidebar-title {
+      padding: 8px 24px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--grey-600);
+      font-weight: 600;
+    }
+
+    .sidebar-item {
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      color: var(--grey-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background-color: var(--grey-100);
+    }
+
+    .sidebar-item.active {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+    }
+
+    .sidebar-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--primary-color);
+    }
+
+    .sidebar-icon {
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-label {
+      flex: 1;
+    }
+
+    .sidebar-badge {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .badge-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: var(--grey-600);
+    }
+
+    /* Behavior KPI Management Styles */
+    .management-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+
+    .management-tabs {
+      display: flex;
+      background-color: var(--grey-100);
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .management-tab {
+      padding: 16px 24px;
+      font-weight: 600;
+      color: var(--grey-700);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .management-tab:hover {
+      color: var(--primary-color);
+    }
+
+    .management-tab.active {
+      color: var(--primary-color);
+      background-color: white;
+    }
+
+    .management-tab.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    .management-body {
+      padding: 24px;
+    }
+
+    .management-section {
+      margin-bottom: 32px;
+    }
+
+    .management-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .management-section-title i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+
+    .management-section-description {
+      font-size: 14px;
+      color: var(--grey-600);
+      margin-bottom: 20px;
+    }
+
+    .kpi-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      border: 1px solid var(--grey-300);
+      transition: all 0.2s;
+    }
+
+    .kpi-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .kpi-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--grey-800);
+    }
+
+    .kpi-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .kpi-action {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: white;
+      border: 1px solid var(--grey-300);
+      color: var(--grey-700);
+      transition: all 0.2s;
+    }
+
+    .kpi-action:hover {
+      background-color: var(--primary-light);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .kpi-action.delete:hover {
+      background-color: #ffebee;
+      border-color: var(--danger-color);
+      color: var(--danger-color);
+    }
+
+    .kpi-description {
+      font-size: 14px;
+      color: var(--grey-600);
+      margin-bottom: 8px;
+    }
+
+    .kpi-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .kpi-code {
+      font-family: 'Courier New', monospace;
+      background-color: var(--grey-200);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .add-kpi-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      border: 1px dashed var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--primary-color);
+      transition: all 0.2s;
+      height: 100%;
+    }
+
+    .add-kpi-card:hover {
+      background-color: var(--primary-light);
+    }
+
+    .add-kpi-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .add-kpi-text {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .behavior-list {
+      margin-bottom: 24px;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    .behavior-item {
+      border-bottom: 1px solid var(--grey-300);
+      background-color: white;
+    }
+
+    .behavior-item:last-child {
+      border-bottom: none;
+    }
+
+    .behavior-header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .behavior-header:hover {
+      background-color: var(--grey-100);
+    }
+
+    .behavior-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .behavior-title i {
+      margin-right: 12px;
+      color: var(--primary-color);
+    }
+
+    .behavior-toggle {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grey-600);
+      transition: transform 0.3s;
+    }
+
+    .behavior-item.expanded .behavior-toggle {
+      transform: rotate(180deg);
+    }
+
+    .behavior-content {
+      padding: 0 16px 16px;
+      display: none;
+      background-color: var(--grey-50);
+      border-top: 1px solid var(--grey-200);
+    }
+
+    .behavior-item.expanded .behavior-content {
+      display: block;
+    }
+
+    .behavior-description {
+      margin-bottom: 16px;
+      color: var(--grey-700);
+      font-size: 14px;
+    }
+
+    .kpi-checkbox-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+
+    .kpi-checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      background-color: white;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+    }
+
+    .kpi-checkbox-item input {
+      margin-right: 10px;
+    }
+
+    .kpi-checkbox-item label {
+      font-size: 14px;
+      color: var(--grey-800);
+      cursor: pointer;
+    }
+
+    .kpi-checkbox-item.checked {
+      background-color: var(--primary-light);
+      border-color: var(--primary-color);
+    }
+
+    .kpi-checkbox-item.primary {
+      background-color: rgba(52, 168, 83, 0.1);
+      border-color: var(--success-color);
+    }
+
+    .primary-toggle {
+      margin-left: auto;
+      padding: 2px 6px;
+      border-radius: 12px;
+      font-size: 11px;
+      background-color: var(--success-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .kpi-checkbox-item:hover .primary-toggle {
+      opacity: 1;
+    }
+
+    .kpi-checkbox-item.primary .primary-toggle {
+      opacity: 1;
+      background-color: var(--grey-600);
+    }
+
+    .kpi-actions-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .add-behavior-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border: 1px dashed var(--primary-color);
+      background-color: white;
+      color: var(--primary-color);
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .add-behavior-btn:hover {
+      background-color: var(--primary-light);
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #2d9247;
+    }
+
+    .btn-outline-secondary {
+      border: 1px solid var(--grey-500);
+      color: var(--grey-700);
+      background-color: transparent;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: var(--grey-200);
+    }
+
+    .btn-danger {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c62828;
+    }
+
+    /* Template Creator Preview Section */
+    .template-preview {
+      margin-top: 32px;
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .template-preview-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .template-preview-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .template-preview-body {
+      padding: 24px;
+    }
+
+    .template-preview-description {
+      color: var(--grey-600);
+      margin-bottom: 20px;
+    }
+
+    .template-preview-image {
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .template-preview-image img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .kpi-list {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .header-search {
+        display: none;
+      }
+
+      .kpi-list {
+        grid-template-columns: 1fr;
+      }
+
+      .management-tab {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .kpi-checkbox-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-brand">
+          <div class="header-logo">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="header-title">Call Center Coach</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-search">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search agents, behaviors...">
+        </div>
+        <div class="header-notification">
+          <i class="fas fa-bell"></i>
+          <div class="notification-indicator"></div>
+        </div>
+        <div class="header-avatar">
+          ML
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+          <li class="sidebar-section">
+            <div class="sidebar-title">Coaching</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-tachometer-alt"></i></div>
+                  <div class="sidebar-label">Dashboard</div>
+                </a>
+              </li>
+              <li>
+                <a href="active-coaching.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
+                  <div class="sidebar-label">Active Coaching</div>
+                  <div class="sidebar-badge badge-accent">2</div>
+                </a>
+              </li>
+              <li>
+                <a href="scheduled-sessions.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
+                  <div class="sidebar-label">Scheduled Sessions</div>
+                  <div class="sidebar-badge">3</div>
+                </a>
+              </li>
+              <li>
+                <a href="action-items.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-clipboard-check"></i></div>
+                  <div class="sidebar-label">Action Items</div>
+                  <div class="sidebar-badge badge-accent">5</div>
+                </a>
+              </li>
+              <li>
+                <a href="coaching-history.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-history"></i></div>
+                  <div class="sidebar-label">Coaching History</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-section">
+            <div class="sidebar-title">Settings</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="global-settings.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
+                  <div class="sidebar-label">Global Settings</div>
+                </a>
+              </li>
+              <li>
+                <a href="behavior-kpi.html" class="sidebar-item active">
+                  <div class="sidebar-icon"><i class="fas fa-link"></i></div>
+                  <div class="sidebar-label">Behaviors & KPIs</div>
+                </a>
+              </li>
+              <li>
+                <a href="templates.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
+                  <div class="sidebar-label">Templates</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-section">
+            <div class="sidebar-title">Insights</div>
+            <ul class="sidebar-menu">
+              <li>
+                <a href="agent-performance.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-chart-line"></i></div>
+                  <div class="sidebar-label">Agent Performance</div>
+                </a>
+              </li>
+              <li>
+                <a href="team-overview.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-users"></i></div>
+                  <div class="sidebar-label">My Team</div>
+                </a>
+              </li>
+              <li>
+                <a href="reports.html" class="sidebar-item">
+                  <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
+                  <div class="sidebar-label">Reports</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Behaviors & KPIs</h1>
+            <p class="page-subtitle">Manage behaviors and their associated KPIs across all templates</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="addBehaviorBtn">
+              <i class="fas fa-plus btn-icon"></i>
+              Add New Behavior
+            </button>
+          </div>
+        </div>
+
+        <!-- Management Container -->
+        <div class="management-container">
+          <div class="management-tabs">
+            <div class="management-tab active" data-tab="behaviors">Behaviors & KPI Mappings</div>
+            </div>
+
+          <div class="management-body">
+            <!-- Behaviors Tab -->
+            <div class="management-tab-content active" id="behaviors-tab">
+              <div class="management-section">
+                <h3 class="management-section-title">
+                  <i class="fas fa-link"></i>
+                  Behavior to KPI Connections
+                </h3>
+                <p class="management-section-description">
+                  Configure which KPIs are impacted by each behavior. Each behavior can have multiple KPIs, with one designated as the primary KPI.
+                  These settings will apply globally across all coaching templates.
+                </p>
+
+                <button class="add-behavior-btn">
+                  <i class="fas fa-plus"></i>
+                  Add New Behavior
+                </button>
+
+                <!-- Behavior list -->
+                <div class="behavior-list">
+                  <!-- Active Listening Behavior -->
+                  <div class="behavior-item expanded">
+                    <div class="behavior-header">
+                      <h4 class="behavior-title">
+                        <i class="fas fa-headphones"></i>
+                        Active Listening
+                      </h4>
+                      <div class="behavior-toggle">
+                        <i class="fas fa-chevron-up"></i>
+                      </div>
+                    </div>
+                    <div class="behavior-content">
+                      <p class="behavior-description">
+                        Active listening involves fully concentrating on what a customer is saying, understanding their message, and responding thoughtfully.
+                      </p>
+                      <div class="kpi-checkbox-list">
+                        <div class="kpi-checkbox-item checked primary">
+                          <input type="checkbox" id="al-csat" checked>
+                          <label for="al-csat">CSAT</label>
+                          <button class="primary-toggle">Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="al-nps" checked>
+                          <label for="al-nps">NPS</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="al-fcr" checked>
+                          <label for="al-fcr">First Call Resolution</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="al-aht">
+                          <label for="al-aht">Average Handle Time</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="al-quality" checked>
+                          <label for="al-quality">Quality Score</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="al-escalation">
+                          <label for="al-escalation">Escalation Rate</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                      </div>
+                      <div class="kpi-actions-row">
+                        <button class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Call De-escalation Behavior -->
+                  <div class="behavior-item">
+                    <div class="behavior-header">
+                      <h4 class="behavior-title">
+                        <i class="fas fa-volume-down"></i>
+                        Call De-escalation
+                      </h4>
+                      <div class="behavior-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <div class="behavior-content">
+                      <p class="behavior-description">
+                        Call de-escalation focuses on calming upset customers and resolving issues before they escalate to management.
+                      </p>
+                      <div class="kpi-checkbox-list">
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="de-csat" checked>
+                          <label for="de-csat">CSAT</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="de-nps" checked>
+                          <label for="de-nps">NPS</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="de-fcr">
+                          <label for="de-fcr">First Call Resolution</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="de-aht" checked>
+                          <label for="de-aht">Average Handle Time</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="de-quality" checked>
+                          <label for="de-quality">Quality Score</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked primary">
+                          <input type="checkbox" id="de-escalation" checked>
+                          <label for="de-escalation">Escalation Rate</label>
+                          <button class="primary-toggle">Primary</button>
+                        </div>
+                      </div>
+                      <div class="kpi-actions-row">
+                        <button class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Product Knowledge Behavior -->
+                  <div class="behavior-item">
+                    <div class="behavior-header">
+                      <h4 class="behavior-title">
+                        <i class="fas fa-book"></i>
+                        Product Knowledge
+                      </h4>
+                      <div class="behavior-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <div class="behavior-content">
+                      <p class="behavior-description">
+                        Product knowledge covers agent's understanding of product features, capabilities, and troubleshooting solutions.
+                      </p>
+                      <div class="kpi-checkbox-list">
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="pk-csat" checked>
+                          <label for="pk-csat">CSAT</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="pk-nps">
+                          <label for="pk-nps">NPS</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked primary">
+                          <input type="checkbox" id="pk-fcr" checked>
+                          <label for="pk-fcr">First Call Resolution</label>
+                          <button class="primary-toggle">Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="pk-aht" checked>
+                          <label for="pk-aht">Average Handle Time</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="pk-quality" checked>
+                          <label for="pk-quality">Quality Score</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="pk-escalation">
+                          <label for="pk-escalation">Escalation Rate</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                      </div>
+                      <div class="kpi-actions-row">
+                        <button class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Customer Empathy Behavior -->
+                  <div class="behavior-item">
+                    <div class="behavior-header">
+                      <h4 class="behavior-title">
+                        <i class="fas fa-heart"></i>
+                        Customer Empathy
+                      </h4>
+                      <div class="behavior-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <div class="behavior-content">
+                      <p class="behavior-description">
+                        Customer empathy involves understanding customer emotions and responding appropriately to build rapport and trust.
+                      </p>
+                      <div class="kpi-checkbox-list">
+                        <div class="kpi-checkbox-item checked primary">
+                          <input type="checkbox" id="ce-csat" checked>
+                          <label for="ce-csat">CSAT</label>
+                          <button class="primary-toggle">Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="ce-nps" checked>
+                          <label for="ce-nps">NPS</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="ce-fcr">
+                          <label for="ce-fcr">First Call Resolution</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="ce-aht">
+                          <label for="ce-aht">Average Handle Time</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item checked">
+                          <input type="checkbox" id="ce-quality" checked>
+                          <label for="ce-quality">Quality Score</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                        <div class="kpi-checkbox-item">
+                          <input type="checkbox" id="ce-escalation">
+                          <label for="ce-escalation">Escalation Rate</label>
+                          <button class="primary-toggle">Set Primary</button>
+                        </div>
+                      </div>
+                      <div class="kpi-actions-row">
+                        <button class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KPIs Tab -->
+            <div class="management-tab-content" id="kpis-tab" style="display:none;">
+              <div class="management-section">
+                <h3 class="management-section-title">
+                  <i class="fas fa-chart-line"></i>
+                  Key Performance Indicators
+                </h3>
+                <p class="management-section-description">
+                  Manage the KPIs that are tracked and measured across your coaching programs. All KPIs defined here will be available when configuring behaviors.
+                </p>
+
+                <div class="kpi-list">
+                  <!-- CSAT KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">CSAT</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Customer Satisfaction Score (1-5 scale)</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 12 behaviors</div>
+                      <div>Code: <span class="kpi-code">csat</span></div>
+                    </div>
+                  </div>
+
+                  <!-- NPS KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">NPS</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Net Promoter Score (-100 to 100)</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 8 behaviors</div>
+                      <div>Code: <span class="kpi-code">nps</span></div>
+                    </div>
+                  </div>
+
+                  <!-- FCR KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">First Call Resolution</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Percentage of calls resolved without follow-up</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 9 behaviors</div>
+                      <div>Code: <span class="kpi-code">fcr</span></div>
+                    </div>
+                  </div>
+
+                  <!-- AHT KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">Average Handle Time</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Average time to handle a customer call</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 10 behaviors</div>
+                      <div>Code: <span class="kpi-code">aht</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Quality Score KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">Quality Score</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Internal quality assessment score (0-100%)</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 14 behaviors</div>
+                      <div>Code: <span class="kpi-code">quality</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Escalation Rate KPI -->
+                  <div class="kpi-card">
+                    <div class="kpi-header">
+                      <h4 class="kpi-title">Escalation Rate</h4>
+                      <div class="kpi-actions">
+                        <div class="kpi-action">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="kpi-action delete">
+                          <i class="fas fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="kpi-description">Percentage of calls escalated to management</div>
+                    <div class="kpi-meta">
+                      <div>Used in: 5 behaviors</div>
+                      <div>Code: <span class="kpi-code">escalation</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Add KPI Card -->
+                  <div class="add-kpi-card" id="addKpiBtn">
+                    <div class="add-kpi-icon">
+                      <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="add-kpi-text">Add New KPI</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Creator Preview -->
+        <div class="template-preview">
+          <div class="template-preview-header">
+            <h3 class="template-preview-title">How This Affects Template Creation</h3>
+          </div>
+          <div class="template-preview-body">
+            <p class="template-preview-description">
+              When creating a new coaching template, the behavior selection will automatically show the related KPIs based on your global behavior-to-KPI mappings.
+              This ensures consistency across all coaching sessions and simplifies the template creation process.
+            </p>
+           </div>
+            
+            <button class="btn btn-primary">
+              <i class="fas fa-file-alt btn-icon"></i>
+              <href="templates.html">Create New Template</button>
+              Go to Template Management
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add KPI Modal -->
+  <div class="modal-overlay" id="kpiModalOverlay"></div>
+  <div class="modal" id="addKpiModal">
+    <div class="modal-header">
+      <h3 class="modal-title">Add New KPI</h3>
+      <button class="modal-close" id="closeKpiModal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">KPI Name</label>
+        <input type="text" class="form-control" placeholder="E.g., Customer Retention Rate">
+      </div>
+      <div class="form-group">
+        <label class="form-label">KPI Code</label>
+        <input type="text" class="form-control" placeholder="E.g., retention">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" placeholder="Describe what this KPI measures and how it's calculated"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Unit</label>
+        <input type="text" class="form-control" placeholder="E.g., %, minutes, points, etc.">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" id="cancelKpiBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveKpiBtn">Add KPI</button>
+    </div>
+  </div>
+
+  <!-- Add Behavior Modal -->
+  <div class="modal-overlay" id="behaviorModalOverlay"></div>
+  <div class="modal" id="addBehaviorModal">
+    <div class="modal-header">
+      <h3 class="modal-title">Add New Behavior</h3>
+      <button class="modal-close" id="closeBehaviorModal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Behavior Name</label>
+        <input type="text" class="form-control" placeholder="E.g., First Call Resolution Focus">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Icon</label>
+        <input type="text" class="form-control" placeholder="E.g., fa-check-circle">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" placeholder="Describe this behavior and how it impacts customer experience"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Select Applicable KPIs</label>
+        <div class="kpi-checkbox-list">
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-csat">
+            <label for="new-csat">CSAT</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-nps">
+            <label for="new-nps">NPS</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-fcr">
+            <label for="new-fcr">First Call Resolution</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-aht">
+            <label for="new-aht">Average Handle Time</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-quality">
+            <label for="new-quality">Quality Score</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+          <div class="kpi-checkbox-item">
+            <input type="checkbox" id="new-escalation">
+            <label for="new-escalation">Escalation Rate</label>
+            <button class="primary-toggle">Set Primary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" id="cancelBehaviorBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveBehaviorBtn">Add Behavior</button>
+    </div>
+  </div>
+ <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-form.js"></script>
+  <script src="js/insights-modal.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/active-coaching.js"></script>
+  <script>
+    // Toggle sidebar on mobile
+    document.querySelector('.header-logo').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('show');
+    });
+
+    // Tab switching
+    document.querySelectorAll('.management-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active class from all tabs
+        document.querySelectorAll('.management-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Hide all tab content
+        document.querySelectorAll('.management-tab-content').forEach(content => {
+          content.style.display = 'none';
+        });
+        
+        // Show the corresponding tab content
+        const tabId = this.getAttribute('data-tab') + '-tab';
+        document.getElementById(tabId).style.display = 'block';
+      });
+    });
+
+    // Behavior accordion toggle
+    document.querySelectorAll('.behavior-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const behaviorItem = this.parentNode;
+        behaviorItem.classList.toggle('expanded');
+      });
+    });
+
+    // KPI checkbox toggle
+    document.querySelectorAll('.kpi-checkbox-item input').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          this.closest('.kpi-checkbox-item').classList.add('checked');
+        } else {
+          this.closest('.kpi-checkbox-item').classList.remove('checked');
+          this.closest('.kpi-checkbox-item').classList.remove('primary');
+        }
+      });
+    });
+
+    // Primary KPI toggle
+    document.querySelectorAll('.primary-toggle').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Check the checkbox if not already checked
+        const checkbox = this.closest('.kpi-checkbox-item').querySelector('input[type="checkbox"]');
+        checkbox.checked = true;
+        this.closest('.kpi-checkbox-item').classList.add('checked');
+        
+        // Remove primary class from all items in this behavior
+        const behaviorContent = this.closest('.behavior-content');
+        behaviorContent.querySelectorAll('.kpi-checkbox-item').forEach(item => {
+          item.classList.remove('primary');
+        });
+        
+        // Add primary class to this item
+        this.closest('.kpi-checkbox-item').classList.add('primary');
+        
+        // Update button text
+        behaviorContent.querySelectorAll('.primary-toggle').forEach(button => {
+          button.textContent = 'Set Primary';
+        });
+        this.textContent = 'Primary';
+      });
+    });
+
+    // Add KPI Modal
+    const kpiModalOverlay = document.getElementById('kpiModalOverlay');
+    const addKpiModal = document.getElementById('addKpiModal');
+    const addKpiBtn = document.getElementById('addKpiBtn');
+    const closeKpiModal = document.getElementById('closeKpiModal');
+    const cancelKpiBtn = document.getElementById('cancelKpiBtn');
+    const saveKpiBtn = document.getElementById('saveKpiBtn');
+
+    function openKpiModal() {
+      kpiModalOverlay.classList.add('show');
+      addKpiModal.classList.add('show');
+    }
+
+    function closeKpiModal() {
+      kpiModalOverlay.classList.remove('show');
+      addKpiModal.classList.remove('show');
+    }
+
+    addKpiBtn.addEventListener('click', openKpiModal);
+    closeKpiModal.addEventListener('click', closeKpiModal);
+    cancelKpiBtn.addEventListener('click', closeKpiModal);
+    kpiModalOverlay.addEventListener('click', closeKpiModal);
+
+    saveKpiBtn.addEventListener('click', function() {
+      // Logic to save new KPI would go here
+      closeKpiModal();
+      alert('New KPI added successfully!');
+    });
+
+    // Add Behavior Modal
+    const behaviorModalOverlay = document.getElementById('behaviorModalOverlay');
+    const addBehaviorModal = document.getElementById('addBehaviorModal');
+    const addBehaviorBtn = document.getElementById('addBehaviorBtn');
+    const closeBehaviorModal = document.getElementById('closeBehaviorModal');
+    const cancelBehaviorBtn = document.getElementById('cancelBehaviorBtn');
+    const saveBehaviorBtn = document.getElementById('saveBehaviorBtn');
+
+    function openBehaviorModal() {
+      behaviorModalOverlay.classList.add('show');
+      addBehaviorModal.classList.add('show');
+    }
+
+    function closeBehaviorModal() {
+      behaviorModalOverlay.classList.remove('show');
+      addBehaviorModal.classList.remove('show');
+    }
+
+    // Add event listeners for both Add Behavior buttons
+    document.querySelectorAll('#addBehaviorBtn, .add-behavior-btn').forEach(btn => {
+      btn.addEventListener('click', openBehaviorModal);
+    });
+    
+    closeBehaviorModal.addEventListener('click', closeBehaviorModal);
+    cancelBehaviorBtn.addEventListener('click', closeBehaviorModal);
+    behaviorModalOverlay.addEventListener('click', closeBehaviorModal);
+
+    saveBehaviorBtn.addEventListener('click', function() {
+      // Logic to save new behavior would go here
+      closeBehaviorModal();
+      alert('New behavior added successfully!');
+    });
+
+    // Add KPI checkbox functionality in behavior modal
+    document.querySelectorAll('#addBehaviorModal .kpi-checkbox-item input').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          this.closest('.kpi-checkbox-item').classList.add('checked');
+        } else {
+          this.closest('.kpi-checkbox-item').classList.remove('checked');
+          this.closest('.kpi-checkbox-item').classList.remove('primary');
+        }
+      });
+    });
+
+    // Primary KPI toggle in behavior modal
+    document.querySelectorAll('#addBehaviorModal .primary-toggle').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Check the checkbox if not already checked
+        const checkbox = this.closest('.kpi-checkbox-item').querySelector('input[type="checkbox"]');
+        checkbox.checked = true;
+        this.closest('.kpi-checkbox-item').classList.add('checked');
+        
+        // Remove primary class from all items
+        document.querySelectorAll('#addBehaviorModal .kpi-checkbox-item').forEach(item => {
+          item.classList.remove('primary');
+        });
+        
+        // Add primary class to this item
+        this.closest('.kpi-checkbox-item').classList.add('primary');
+        
+        // Update button text
+        document.querySelectorAll('#addBehaviorModal .primary-toggle').forEach(button => {
+          button.textContent = 'Set Primary';
+        });
+        this.textContent = 'Primary';
+      });
+    });
+  </script>
+</body>
+</html>
