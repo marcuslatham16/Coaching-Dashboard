@@ -132,12 +132,6 @@ document.addEventListener("DOMContentLoaded", function() {
           <div class="sidebar-title">Resources</div>
           <ul class="sidebar-menu">
             <li>
-              <a href="global-settings.html" class="sidebar-item ${currentPage === 'global-settings.html' ? 'active' : ''}">
-                <div class="sidebar-icon"><i class="fa-light fa-globe"></i></div>
-                <div class="sidebar-label">Global Settings</div>
-              </a>
-            </li>
-            <li>
               <a href="behaviors-management.html" class="sidebar-item ${currentPage === 'behaviors-management.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fa-regular fa-map"></i></div>
                 <div class="sidebar-label">Manage Behaviors</div>

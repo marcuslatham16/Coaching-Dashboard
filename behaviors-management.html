@@ -3,299 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Behavior KPI Management - Call Center Coach</title>
+  <title>Action Items - Call Center Coach</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
   <style>
-    :root {
-      --primary-color: #2c6ecb;
-      --primary-light: #e8f0fe;
-      --secondary-color: #5f6369;
-      --accent-color: #fa6331;
-      --warning-color: #f6ba15;
-      --success-color: #34a853;
-      --danger-color: #ea4335;
-      --grey-100: #f8f9fa;
-      --grey-200: #e9ecef;
-      --grey-300: #dee2e6;
-      --grey-400: #ced4da;
-      --grey-500: #adb5bd;
-      --grey-600: #6c757d;
-      --grey-700: #495057;
-      --grey-800: #343a40;
-      --grey-900: #212529;
-      --border-radius: 8px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --brand-pink: #e91e63;
-      --brand-pink-light: #fce4ec;
-      --grow-color: #e91e63;
-      --grow-light: #fce4ec;
-      --smarter-color: #7b1fa2;
-      --smarter-light: #f3e5f5;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--grey-100);
-      color: var(--grey-800);
-      line-height: 1.5;
-    }
-
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Header/Toolbar */
-    .header {
-      background-color: white;
-      box-shadow: var(--shadow-sm);
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .header-brand {
-      display: flex;
-      align-items: center;
-    }
-
-    .header-logo {
-      height: 32px;
-      width: 32px;
-      background-color: var(--primary-color);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      margin-right: 12px;
-      font-weight: bold;
-    }
-
-    .header-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--grey-800);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-search {
-      position: relative;
-    }
-
-    .search-input {
-      padding: 8px 16px 8px 40px;
-      border: 1px solid var(--grey-300);
-      border-radius: 24px;
-      font-size: 14px;
-      width: 240px;
-      background-color: var(--grey-100);
-      transition: all 0.2s;
-    }
-
-    .search-input:focus {
-      outline: none;
-      background-color: white;
-      border-color: var(--primary-color);
-      width: 280px;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--grey-600);
-      font-size: 14px;
-    }
-
-    .header-notification {
-      position: relative;
-      height: 40px;
-      width: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background-color: var(--grey-100);
-      color: var(--grey-700);
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .header-notification:hover {
-      background-color: var(--grey-200);
-    }
-
-    .notification-indicator {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      height: 8px;
-      width: 8px;
-      border-radius: 50%;
-      background-color: var(--accent-color);
-    }
-
-    .header-avatar {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      background-color: var(--primary-color);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Main Layout */
-    .main-container {
-      display: flex;
-      flex: 1;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background-color: white;
-      border-right: 1px solid var(--grey-200);
-      height: calc(100vh - 64px);
-      position: sticky;
-      top: 64px;
-      overflow-y: auto;
-      padding: 24px 0;
-    }
-
-    .sidebar-menu {
-      list-style: none;
-    }
-
-    .sidebar-section {
-      margin-bottom: 8px;
-    }
-
-    .sidebar-title {
-      padding: 8px 24px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--grey-600);
-      font-weight: 600;
-    }
-
-    .sidebar-item {
-      padding: 10px 24px;
-      display: flex;
-      align-items: center;
-      color: var(--grey-700);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
-    .sidebar-item:hover {
-      background-color: var(--grey-100);
-    }
-
-    .sidebar-item.active {
-      background-color: var(--primary-light);
-      color: var(--primary-color);
-      font-weight: 600;
-      position: relative;
-    }
-
-    .sidebar-item.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background-color: var(--primary-color);
-    }
-
-    .sidebar-icon {
-      margin-right: 12px;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sidebar-label {
-      flex: 1;
-    }
-
-    .sidebar-badge {
-      background-color: var(--grey-200);
-      color: var(--grey-700);
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    .badge-accent {
-      background-color: var(--accent-color);
-      color: white;
-    }
-
-    /* Main Content */
-    .content {
-      flex: 1;
-      padding: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .page-header {
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .page-title {
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--grey-800);
-      margin-bottom: 8px;
-    }
-
-    .page-subtitle {
-      color: var(--grey-600);
-    }
-
+   
     /* Behavior KPI Management Styles */
     .management-container {
       background-color: white;
@@ -913,139 +626,17 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-left">
-        <div class="header-brand">
-          <div class="header-logo">
-            <i class="fas fa-headset"></i>
-          </div>
-          <div class="header-title">Call Center Coach</div>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="header-search">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" class="search-input" placeholder="Search agents, behaviors...">
-        </div>
-        <div class="header-notification">
-          <i class="fas fa-bell"></i>
-          <div class="notification-indicator"></div>
-        </div>
-        <div class="header-avatar">
-          ML
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Layout -->
+    <div id="header-container"></div>
     <div class="main-container">
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <ul class="sidebar-menu">
-          <li class="sidebar-section">
-            <div class="sidebar-title">Coaching</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="index.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-tachometer-alt"></i></div>
-                  <div class="sidebar-label">Dashboard</div>
-                </a>
-              </li>
-              <li>
-                <a href="active-coaching.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-play-circle"></i></div>
-                  <div class="sidebar-label">Active Coaching</div>
-                  <div class="sidebar-badge badge-accent">2</div>
-                </a>
-              </li>
-              <li>
-                <a href="scheduled-sessions.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-calendar-alt"></i></div>
-                  <div class="sidebar-label">Scheduled Sessions</div>
-                  <div class="sidebar-badge">3</div>
-                </a>
-              </li>
-              <li>
-                <a href="action-items.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-clipboard-check"></i></div>
-                  <div class="sidebar-label">Action Items</div>
-                  <div class="sidebar-badge badge-accent">5</div>
-                </a>
-              </li>
-              <li>
-                <a href="coaching-history.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-history"></i></div>
-                  <div class="sidebar-label">Coaching History</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Settings</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="global-settings.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-cog"></i></div>
-                  <div class="sidebar-label">Global Settings</div>
-                </a>
-              </li>
-              <li>
-                <a href="behavior-kpi.html" class="sidebar-item active">
-                  <div class="sidebar-icon"><i class="fas fa-link"></i></div>
-                  <div class="sidebar-label">Behaviors & KPIs</div>
-                </a>
-              </li>
-              <li>
-                <a href="templates.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-download"></i></div>
-                  <div class="sidebar-label">Templates</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="sidebar-section">
-            <div class="sidebar-title">Insights</div>
-            <ul class="sidebar-menu">
-              <li>
-                <a href="agent-performance.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-chart-line"></i></div>
-                  <div class="sidebar-label">Agent Performance</div>
-                </a>
-              </li>
-              <li>
-                <a href="team-overview.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-users"></i></div>
-                  <div class="sidebar-label">My Team</div>
-                </a>
-              </li>
-              <li>
-                <a href="reports.html" class="sidebar-item">
-                  <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
-                  <div class="sidebar-label">Reports</div>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </aside>
-
-      <!-- Main Content -->
+      <div id="sidebar-container"></div>
       <main class="content">
         <div class="page-header">
-          <div>
-            <h1 class="page-title">Behaviors & KPIs</h1>
-            <p class="page-subtitle">Manage behaviors and their associated KPIs across all templates</p>
-          </div>
-          <div>
-            <button class="btn btn-primary" id="addBehaviorBtn">
-              <i class="fas fa-plus btn-icon"></i>
-              Add New Behavior
-            </button>
-          </div>
+          <h1 class="page-title">Manage Behaviors</h1>
+          <p class="page-subtitle">
+            Manage behaviors and their associated KPIs across all templates<br>            
+          </p>
         </div>
-
-        <!-- Management Container -->
+       <!-- Management Container -->
         <div class="management-container">
           <div class="management-tabs">
             <div class="management-tab active" data-tab="behaviors">Behaviors & KPI Mappings</div>
@@ -1732,5 +1323,16 @@
       });
     });
   </script>
+<!-- JavaScript -->
+        <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
+  <div id="toastContainer" class="toast-container"></div>
 </body>
-</html>
+</html>l>

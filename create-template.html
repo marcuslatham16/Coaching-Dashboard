@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Items - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+    <style>
+    
+    /* Create Template Section */
+    .create-template-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 32px;
+    }
+
+    .create-template-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .create-template-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .create-template-body {
+      padding: 24px;
+    }
+
+    .template-form-section {
+      margin-bottom: 32px;
+    }
+
+    .template-form-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .template-form-title i {
+      margin-right: 10px;
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+
+    .template-form-description {
+      color: var(--grey-600);
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .form-check-input {
+      margin-right: 8px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .template-type-container {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .template-type-option {
+      flex: 1;
+      border: 1px solid var(--grey-300);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .template-type-option:hover {
+      border-color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    .template-type-option.selected {
+      border-color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    .template-type-option.selected::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: var(--primary-color);
+    }
+
+    .template-type-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .template-type-title i {
+      margin-right: 8px;
+    }
+
+    .template-type-description {
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .template-sections-container {
+      margin-bottom: 24px;
+    }
+
+    .template-section-item {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid var(--grey-300);
+      position: relative;
+    }
+
+    .template-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .drag-handle {
+      cursor: move;
+      color: var(--grey-500);
+      margin-right: 12px;
+    }
+
+    .section-title-input {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .section-title-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .section-delete {
+      background: none;
+      border: none;
+      color: var(--danger-color);
+      cursor: pointer;
+      padding: 8px;
+      margin-left: 8px;
+    }
+
+    .section-description-input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .section-description-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .section-required-toggle {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .section-required-toggle input {
+      margin-right: 8px;
+    }
+
+    .add-section-btn {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background-color: var(--primary-light);
+      border: 1px dashed var(--primary-color);
+      border-radius: var(--border-radius);
+      color: var(--primary-color);
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+      justify-content: center;
+    }
+
+    .add-section-btn:hover {
+      background-color: rgba(44, 110, 203, 0.15);
+    }
+
+    .add-section-btn i {
+      margin-right: 8px;
+    }
+
+    .behavior-kpi-mapping {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .behavior-mapping-title {
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .behavior-mapping-description {
+      font-size: 14px;
+      color: var(--grey-600);
+      margin-bottom: 16px;
+    }
+
+    .behavior-kpi-pair {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .behavior-select, .kpi-select {
+      flex: 1;
+    }
+
+    .remove-pair {
+      background: none;
+      border: none;
+      color: var(--danger-color);
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .add-pair-btn {
+      display: flex;
+      align-items: center;
+      color: var(--primary-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .add-pair-btn i {
+      margin-right: 8px;
+    }
+
+    .preview-container {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px dashed var(--grey-400);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .preview-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .preview-toggle {
+      font-size: 14px;
+      color: var(--primary-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .preview-toggle i {
+      margin-left: 8px;
+    }
+
+    .preview-body {
+      display: none;
+    }
+
+    .preview-body.show {
+      display: block;
+    }
+
+    .create-template-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #2d9247;
+    }
+
+    .btn-outline-secondary {
+      border: 1px solid var(--grey-500);
+      color: var(--grey-700);
+      background-color: transparent;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: var(--grey-200);
+    }
+
+    .btn-light {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+    }
+
+    .btn-light:hover {
+      background-color: var(--grey-300);
+    }
+
+    .form-text {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .required-indicator {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .template-type-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .header-search {
+        display: none;
+      }
+      
+      .behavior-kpi-pair {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .create-template-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      
+      .create-template-footer {
+        flex-direction: column;
+      }
+      
+      .create-template-footer .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+ <body>
+  <div class="app-container">
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Action Items</h1>
+          <p class="page-subtitle">
+            Track and manage follow-up tasks from coaching sessions.<br>            
+          </p>
+        </div>
+
+        <!-- Create Template Form -->
+        <div class="create-template-container">
+          <div class="create-template-header">
+            <div class="create-template-title">Template Details</div>
+          </div>
+          <div class="create-template-body">
+            <!-- Template Info Section -->
+            <div class="template-form-section">
+              <h3 class="template-form-title">
+                <i class="fas fa-info-circle"></i>
+                Basic Information
+              </h3>
+              <p class="template-form-description">
+                Enter the general information about your coaching template.
+              </p>
+
+              <div class="form-group">
+                <label class="form-label">Template Name<span class="required-indicator">*</span></label>
+                <input type="text" class="form-control" placeholder="E.g., Active Listening Coaching" value="Customer Empathy Coaching">
+                <div class="form-text">Choose a descriptive name for your template.</div>
+              </div>
+
+              <div class="template-type-container">
+                <div class="template-type-option selected">
+                  <div class="template-type-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    Coaching
+                  </div>
+                  <div class="template-type-description">
+                    Used for initial coaching sessions to establish goals and development plans.
+                  </div>
+                </div>
+
+                <div class="template-type-option">
+                  <div class="template-type-title">
+                    <i class="fas fa-reply"></i>
+                    Follow-up
+                  </div>
+                  <div class="template-type-description">
+                    Used after initial coaching to check progress and offer additional guidance.
+                  </div>
+                </div>
+
+                <div class="template-type-option">
+                  <div class="template-type-title">
+                    <i class="fas fa-users"></i>
+                    Team Huddle
+                  </div>
+                  <div class="template-type-description">
+                    Used for group coaching sessions with multiple team members.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Template Description</label>
+                <textarea class="form-textarea" placeholder="Describe the purpose and use cases for this template">This template is designed to help coach agents on developing better customer empathy skills. It focuses on understanding customer emotions, responding appropriately, and building rapport.</textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Coaching Framework<span class="required-indicator">*</span></label>
+                <select class="form-select">
+                  <option value="grow" selected>GROW Model (Goal, Reality, Options, Way Forward)</option>
+                  <option value="smarter">SMARTER Plan (Specific, Measurable, Achievable, Relevant, Time-bound, Evaluated, Reviewed)</option>
+                  <option value="custom">Custom Framework</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Template Sections -->
+            <div class="template-form-section">
+              <h3 class="template-form-title">
+                <i class="fas fa-th-list"></i>
+                Template Sections
+              </h3>
+              <p class="template-form-description">
+                Define the sections and fields that will appear in your coaching template.
+              </p>
+
+              <div class="template-sections-container">
+                <!-- Section 1: Goals -->
+                <div class="template-section-item">
+                  <div class="template-section-header">
+                    <i class="fas fa-grip-lines drag-handle"></i>
+                    <input type="text" class="section-title-input" value="Goals">
+                    <button class="section-delete"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <input type="text" class="section-description-input" value="Define specific performance goals for this coaching session. What does success look like?">
+                  <div class="section-required-toggle">
+                    <input type="checkbox" id="required1" checked>
+                    <label for="required1">Required field</label>
+                  </div>
+                </div>
+
+                <!-- Section 2: Reality -->
+                <div class="template-section-item">
+                  <div class="template-section-header">
+                    <i class="fas fa-grip-lines drag-handle"></i>
+                    <input type="text" class="section-title-input" value="Reality">
+                    <button class="section-delete"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <input type="text" class="section-description-input" value="What is happening now? What are the impacts of this? What are the obstacles?">
+                  <div class="section-required-toggle">
+                    <input type="checkbox" id="required2" checked>
+                    <label for="required2">Required field</label>
+                  </div>
+                </div>
+
+                <!-- Section 3: Customer Empathy Assessment -->
+                <div class="template-section-item">
+                  <div class="template-section-header">
+                    <i class="fas fa-grip-lines drag-handle"></i>
+                    <input type="text" class="section-title-input" value="Customer Empathy Assessment">
+                    <button class="section-delete"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <input type="text" class="section-description-input" value="Evaluate the agent's current empathy skills across different customer interaction scenarios.">
+                  <div class="section-required-toggle">
+                    <input type="checkbox" id="required3" checked>
+                    <label for="required3">Required field</label>
+                  </div>
+                </div>
+
+                <!-- Section 4: Options -->
+                <div class="template-section-item">
+                  <div class="template-section-header">
+                    <i class="fas fa-grip-lines drag-handle"></i>
+                    <input type="text" class="section-title-input" value="Options">
+                    <button class="section-delete"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <input type="text" class="section-description-input" value="What alternatives do we have? What else could we try? What approaches might work best?">
+                  <div class="section-required-toggle">
+                    <input type="checkbox" id="required4" checked>
+                    <label for="required4">Required field</label>
+                  </div>
+                </div>
+
+                <!-- Section 5: Way Forward -->
+                <div class="template-section-item">
+                  <div class="template-section-header">
+                    <i class="fas fa-grip-lines drag-handle"></i>
+                    <input type="text" class="section-title-input" value="Way Forward">
+                    <button class="section-delete"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <input type="text" class="section-description-input" value="What will you do? When will you do it? How will we measure success? What support do you need?">
+                  <div class="section-required-toggle">
+                    <input type="checkbox" id="required5" checked>
+                    <label for="required5">Required field</label>
+                  </div>
+                </div>
+              </div>
+
+              <button class="add-section-btn">
+                <i class="fas fa-plus"></i>
+                Add New Section
+              </button>
+            </div>
+
+            
+          <div class="create-template-footer">
+            <button class="btn btn-outline-secondary">
+              <i class="fas fa-save btn-icon"></i>
+              Save as Draft
+            </button>
+            <button class="btn btn-outline-primary">
+              <i class="fas fa-eye btn-icon"></i>
+              Preview
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-check btn-icon"></i>
+              Create Template
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- External JavaScript files -->
+<script src="js/header-footer.js"></script>
+<script src="js/main.js"></script>
+<script src="js/coaching-form.js"></script>
+<script src="js/insights-modal.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/active-coaching.js"></script>
+
+<!-- Inline custom script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Toggle sidebar on mobile
+    const headerLogo = document.querySelector('.header-logo');
+    if (headerLogo) {
+      headerLogo.addEventListener('click', function () {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('show');
+        }
+      });
+    }
+
+    // Template type selection
+    document.querySelectorAll('.template-type-option').forEach(option => {
+      option.addEventListener('click', function () {
+        document.querySelectorAll('.template-type-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+
+    // Add new section
+    const addSectionBtn = document.querySelector('.add-section-btn');
+    const sectionContainer = document.querySelector('.template-sections-container');
+    if (addSectionBtn && sectionContainer) {
+      addSectionBtn.addEventListener('click', function () {
+        const newIndex = sectionContainer.children.length + 1;
+
+        const sectionItem = document.createElement('div');
+        sectionItem.className = 'template-section-item';
+        sectionItem.innerHTML = `
+          <div class="template-section-header">
+            <i class="fas fa-grip-lines drag-handle"></i>
+            <input type="text" class="section-title-input" value="New Section">
+            <button class="section-delete"><i class="fas fa-trash"></i></button>
+          </div>
+          <input type="text" class="section-description-input" value="Enter a description for this section">
+          <div class="section-required-toggle">
+            <input type="checkbox" id="required${newIndex}" checked>
+            <label for="required${newIndex}">Required field</label>
+          </div>
+        `;
+
+        sectionContainer.appendChild(sectionItem);
+
+        // Add delete handler for new section
+        sectionItem.querySelector('.section-delete').addEventListener('click', function () {
+          sectionItem.remove();
+        });
+      });
+    }
+
+    // Attach delete handler to existing section delete buttons
+    document.querySelectorAll('.section-delete').forEach(button => {
+      button.addEventListener('click', function () {
+        const sectionItem = this.closest('.template-section-item');
+        sectionItem?.remove();
+      });
+    });
+
+    // Create Template button alert
+    const createBtn = document.querySelector('.btn-primary');
+    if (createBtn) {
+      createBtn.addEventListener('click', function () {
+        alert('Template created successfully! It is now available in your templates list.');
+        // Optional: window.location.href = 'your-templates.html';
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
