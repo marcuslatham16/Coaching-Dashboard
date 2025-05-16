@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Sessions | Call Center Coaching Tool</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Container (populated by JS) -->
+    <div id="header-container"></div>
+
+    <!-- Main Layout -->
+    <div class="main-container">
+      <!-- Sidebar Container (populated by JS) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Main Content -->
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Team Huddles</h1>
+          <p class="page-subtitle">View and manage your upcoming Team Meetings</p>
+        </div>
+
+        <!-- Upcoming Sessions List -->
+        <div class="sessions-list upcoming-sessions">
+          <div class="sessions-card-header">
+            <div class="sessions-title">Upcoming Sessions</div>
+            <div class="sessions-filter">
+              <div class="filter-label">Filter by:</div>
+              <select class="filter-select">
+                <option value="all">Huddle Types</option>
+                <option value="Announcements">Announcements</option>
+                <option value="call-de-escalation">Compliance</option>
+                <option value="product-knowledge">Product Updates</option>
+                <option value="customer-empathy">Other</option>
+              </select>
+            </div>
+          </div>
+
+           <!-- Today's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">MR</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">Maria Rodriguez</div>
+                <div class="session-time">Today at 10:30 AM</div>
+              </div>
+              <div class="session-secondary">
+                <div class="behavior-tag">Announcements</div>
+                <div class="session-metrics"></div>
+              </div>
+            </div>
+            <div class="session-action">              
+              <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Start Huddle
+              </button>
+            </div>
+          </div>
+
+          <!-- Tomorrow's Session -->
+          <div class="sessions-list-item">
+            <div class="session-avatar">JW</div>
+            <div class="session-details">
+              <div class="session-primary">
+                <div class="session-name">James Wilson</div>
+                <div class="session-time">Tomorrow at 2:00 PM</div>
+                </div>
+                <div class="session-secondary">
+                <div class="behavior-tag">Announcements</div>
+                <div class="session-metrics"></div>
+              </div>
+            </div>
+            <div class="session-action">              
+              <button class="btn btn-primary session-btn" data-agent="Maria Rodriguez" data-behavior="Active Listening">
+                <i class="fas fa-clipboard btn-icon"></i>
+                Start Huddle
+              </button>
+            </div>
+          </div>
+             
+   
+       <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Calendar View</h1>          
+        </div>
+        <body>
+        <!-- Calendar Placeholder -->
+        <div class="calendar-list">
+          <div class="sessions-card-header">
+            <div class="sessions-title">Add new Team Huddle to Your Caledar</div>
+            <div class="sessions-filter">
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-calendar-plus btn-icon"></i>
+                Schedule Huddle
+              </button>
+            </div>
+          </div>
+          
+          <div style="padding: 32px 24px; text-align: center;">
+            <div class="empty-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3 class="empty-title">Calendar View</h3>
+            <p class="empty-message">In a production environment, this area would display an interactive calendar showing all scheduled coaching sessions.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+  <!-- Load JavaScript -->
+  <script src="js/header-footer.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/coaching-form.js"></script>
+  <script src="js/insights-modal.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/active-coaching.js"></script>
+</body>
+</html>

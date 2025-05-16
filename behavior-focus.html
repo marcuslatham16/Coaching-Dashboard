@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Items - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <style>
+   
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: var(--grey-600);
+    }
+
+    /* Progress Indicator */
+    .progress-steps {
+      display: flex;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--grey-300);
+      z-index: -1;
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-indicator {
+      width: 40px;
+      height: 40px;
+      background-color: var(--grey-300);
+      color: var(--grey-700);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+
+    .progress-step.active .step-indicator {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .progress-step.completed .step-indicator {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--grey-700);
+    }
+
+    .progress-step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .progress-step.completed .step-label {
+      color: var(--success-color);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #2d9247;
+    }
+
+    .btn-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .btn-accent:hover {
+      background-color: #e55a2b;
+    }
+
+    .btn-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Agent Search Section */
+    .agent-search-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .agent-search-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .agent-search-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .auto-populated {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .search-container {
+      position: relative;
+    }
+
+    .agent-search-input {
+      width: 100%;
+      padding: 10px 16px;
+      padding-left: 40px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .agent-search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .agent-search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-600);
+    }
+
+    /* Suggested Coaching Section */
+    .suggested-coaching {
+      background-color: var(--primary-light);
+      border-radius: var(--border-radius);
+      margin-top: 16px;
+      padding: 16px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .suggested-coaching-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .suggested-coaching-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .suggested-coaching-title i {
+      margin-right: 8px;
+    }
+
+    .suggested-coaching-subtitle {
+      font-size: 14px;
+      color: var(--grey-700);
+      margin-bottom: 16px;
+    }
+
+    .kpi-overview {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      flex: 1;
+      min-width: 150px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .kpi-value.low {
+      color: var(--danger-color);
+    }
+
+    .kpi-value.medium {
+      color: var(--warning-color);
+    }
+
+    .kpi-value.high {
+      color: var(--success-color);
+    }
+
+    .kpi-trend {
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .behavior-recommendations {
+      margin-top: 16px;
+    }
+
+    .behavior-recommendations-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--grey-700);
+    }
+
+    .behavior-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .behavior-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .behavior-item.selected {
+      border-color: var(--brand-pink);
+      background-color: var(--grow-light);
+    }
+
+    .behavior-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--brand-pink);
+      color: var(--grey-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .behavior-info {
+      flex: 1;
+    }
+
+    .behavior-name {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--grey-800);
+    }
+
+    .behavior-impact {
+      font-size: 14px;
+      color: var(--grey-600);
+      display: flex;
+      align-items: center;
+    }
+
+    .impact-high {
+      color: var(--danger-color);
+      font-weight: 500;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    /* Setup Wizard Section */
+    .setup-wizard {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .wizard-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wizard-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .wizard-content {
+      padding: 24px;
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    .wizard-section {
+      margin-bottom: 24px;
+    }
+
+    .wizard-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .required-indicator {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    .form-helper {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .wizard-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--grey-100);
+    }
+
+    /* Coaching Form */
+    .coaching-form-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+
+    .coaching-form-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .form-session-info {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .session-info-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--grey-800);
+    }
+
+    .session-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .info-item {
+      margin-bottom: 4px;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-bottom: 2px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--grey-800);
+    }
+
+    .coaching-form-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .coaching-tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .coaching-tab.grow {
+      color: var(--grow-color);
+    }
+
+    .coaching-tab.smarter {
+      color: var(--smarter-color);
+    }
+
+    .coaching-tab.active.grow {
+      background-color: var(--grow-light);
+    }
+
+    .coaching-tab.active.smarter {
+      background-color: var(--smarter-light);
+    }
+
+    .coaching-tab.active.grow::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--grow-color);
+    }
+
+    .coaching-tab.active.smarter::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--smarter-color);
+    }
+
+    .coaching-tab-info {
+      display: flex;
+      align-items: center;
+      margin-left: 4px;
+      color: var(--grey-500);
+      cursor: pointer;
+    }
+
+    .coaching-tab-info:hover {
+      color: var(--grey-700);
+    }
+
+    .coaching-tab-content {
+      display: none;
+      padding: 24px;
+    }
+
+    .coaching-tab-content.active {
+      display: block;
+    }
+
+    /* Form sections */
+    .form-section {
+      margin-bottom: 24px;
+    }
+
+    .form-section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .form-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .form-section-title .fa-circle-info {
+      margin-left: 8px;
+      font-size: 14px;
+      color: var(--grey-500);
+      cursor: pointer;
+    }
+
+    .form-section-title .fa-circle-info:hover {
+      color: var(--primary-color);
+    }
+
+    .form-section-description {
+      font-size: 14px;
+      color: var(--grey-600);
+      margin-bottom: 16px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+      display: flex;
+      align-items: center;
+    }
+
+    .field-required {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .field-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-select {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .field-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-help {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    /* Rich text editor styling */
+    .rich-editor-toolbar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      padding: 8px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      border: 1px solid var(--grey-300);
+      border-bottom: none;
+    }
+
+    .editor-tool {
+      padding: 6px 8px;
+      background: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--grey-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .editor-tool:hover {
+      background-color: var(--grey-200);
+    }
+
+    .editor-tool.active {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+    }
+
+    .editor-content {
+      min-height: 120px;
+      padding: 12px 16px;
+      border: 1px solid var(--grey-300);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      font-size: 14px;
+    }
+
+    .editor-content:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    /* GROW and SMARTER specific styling */
+    .grow-section {
+      border-left: 3px solid var(--grow-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .grow-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--grow-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .smarter-section {
+      border-left: 3px solid var(--smarter-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .smarter-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--smarter-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Action Items */
+    .action-items-container {
+      margin-bottom: 16px;
+    }
+
+    .action-items-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .action-items-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .action-items-count {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+    }
+
+    .coach-count {
+      background-color: var(--coach-light);
+      color: var(--coach-color);
+      border: 1px solid var(--coach-color);
+    }
+
+    .agent-count {
+      background-color: var(--agent-light);
+      color: var(--agent-color);
+      border: 1px solid var(--agent-color);
+    }
+
+    .action-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+
+    .action-item.coach {
+      border-left: 3px solid var(--coach-color);
+      background-color: white;
+    }
+
+    .action-item.agent {
+      border-left: 3px solid var(--agent-color);
+      background-color: white;
+    }
+
+    .action-checkbox {
+      margin-top: 3px;
+    }
+
+    .action-content {
+      flex: 1;
+    }
+
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .action-description {
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .action-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .action-assignee {
+      display: flex;
+      align-items: center;
+    }
+
+    .action-date {
+      display: flex;
+      align-items: center;
+    }
+
+    .action-assignee i,
+    .action-date i {
+      margin-right: 4px;
+    }
+
+    .add-action-btn {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      background-color: var(--grey-100);
+      border: 1px dashed var(--grey-400);
+      border-radius: var(--border-radius);
+      color: var(--grey-700);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .add-action-btn:hover {
+      background-color: var(--grey-200);
+      color: var(--grey-800);
+    }
+
+    .add-action-btn i {
+      margin-right: 8px;
+    }
+
+    /* Form Helper */
+    .form-helper {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+
+    /* Coach and Agent Commitment Sections */
+    .coach-commitment-section {
+      background-color: var(--coach-light);
+      border: 2px solid var(--coach-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+    }
+
+    .agent-commitment-section {
+      background-color: var(--agent-light);
+      border: 2px solid var(--agent-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .coach-textarea {
+      border-color: var(--coach-color);
+    }
+
+    .agent-textarea {
+      border-color: var(--agent-color);
+    }
+
+    .coach-action-btn {
+      background-color: var(--coach-light);
+      border: 1px dashed var(--coach-color);
+      color: var(--coach-color);
+    }
+
+    .coach-action-btn:hover {
+      background-color: rgba(44, 110, 203, 0.2);
+    }
+
+    .agent-action-btn {
+      background-color: var(--agent-light);
+      border: 1px dashed var(--agent-color);
+      color: var(--agent-color);
+    }
+
+    .agent-action-btn:hover {
+      background-color: rgba(250, 99, 49, 0.2);
+    }
+
+    /* Focus Badge */
+    .behavior-focus {
+      display: flex;
+      align-items: center;
+      margin-left: 12px;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    /* Coaching Form Footer */
+    .coaching-form-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--grey-100);
+    }
+
+    .form-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .form-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Calendar Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .calendar-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .calendar-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .calendar-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .calendar-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .calendar-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .calendar-body {
+      padding: 24px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .calendar-month {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .calendar-prev,
+    .calendar-next {
+      background: none;
+      border: none;
+      color: var(--grey-700);
+      cursor: pointer;
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .calendar-prev:hover,
+    .calendar-next:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-600);
+      padding-bottom: 8px;
+    }
+
+    .calendar-day {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .calendar-day:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-day.today {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .calendar-day.selected {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .calendar-day.disabled {
+      color: var(--grey-400);
+      cursor: not-allowed;
+    }
+
+    .calendar-day.other-month {
+      color: var(--grey-400);
+    }
+
+    .time-select {
+      margin-top: 24px;
+    }
+
+    .time-select-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .time-select-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .calendar-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Add Action Modal */
+    .add-action-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .add-action-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .add-action-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .add-action-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .add-action-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .add-action-body {
+      padding: 24px;
+    }
+
+    .add-action-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Tooltips */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 220px;
+      background-color: var(--grey-800);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 12px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      font-weight: normal;
+      box-shadow: var(--shadow-md);
+      pointer-events: none;
+    }
+
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--grey-800) transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Validation States */
+    .is-invalid .field-input,
+    .is-invalid .field-select,
+    .is-invalid .field-textarea,
+    .is-invalid .editor-content {
+      border-color: var(--danger-color);
+    }
+
+    .is-invalid .field-help {
+      color: var(--danger-color);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .coaching-form-header {
+        flex-direction: column;
+      }
+
+      .form-session-info {
+        width: 100%;
+      }
+
+      .form-template-selector {
+        width: 100%;
+      }
+
+      .commitment-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .header-search {
+        display: none;
+      }
+
+      .progress-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 16px;
+      }
+
+      .progress-steps::before {
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+      }
+
+      .progress-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .step-indicator {
+        margin: 0 16px 0 0;
+      }
+
+      .coaching-form-footer {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .form-actions-left,
+      .form-actions-right {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .coaching-form-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .coaching-tab {
+        padding: 12px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .wizard-footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .wizard-footer .btn {
+        width: 100%;
+      }
+    }
+    
+    /* Impacted KPIs Container */
+    .impacted-kpis-container {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    
+    .kpi-card {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--grey-300);
+      min-width: 120px;
+    }
+    
+    .kpi-card.primary-kpi {
+      border: 1px solid var(--primary-color);
+      background-color: var(--primary-light);
+      position: relative;
+    }
+    
+    .kpi-card.primary-kpi::after {
+      content: "Primary";
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 8px;
+    }
+    
+    .kpi-card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--grey-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: var(--grey-700);
+      font-size: 16px;
+    }
+    
+    .primary-kpi .kpi-card-icon {
+      color: var(--primary-color);
+      background-color: white;
+    }
+    
+    .kpi-card-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .kpi-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+      margin-bottom: 2px;
+    }
+    
+    .kpi-card-values {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .kpi-current {
+      font-weight: 700;
+    }
+    
+    .kpi-current.low {
+      color: var(--danger-color);
+    }
+    
+    .kpi-current.medium {
+      color: var(--warning-color);
+    }
+    
+    .kpi-current.high {
+      color: var(--success-color);
+    }
+    
+    .kpi-target {
+      color: var(--grey-600);
+      font-size: 12px;
+    }
+    
+    /* Selected Coaching Styles */
+    .selected-coaching {
+      background-color: var(--grow-light);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--grow-color);
+    }
+    
+    .selected-coaching-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .selected-coaching-title {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grow-color);
+    }
+    
+    .selected-coaching-title i {
+      margin-right: 8px;
+    }
+    
+    .selected-coaching-subtitle {
+      font-size: 15px;
+      color: var(--grey-700);
+      margin-bottom: 16px;
+    }
+    
+    .behavior-selected {
+      margin-bottom: 16px;
+    }
+    
+    /* Performance Metrics Panel */
+    .performance-metrics-panel {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-top: 16px;
+      flex-basis: 100%;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .metrics-panel-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .metrics-panel-title i {
+      margin-right: 8px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 16px;
+    }
+
+    .metric-item {
+      text-align: center;
+      background-color: white;
+      padding: 12px 8px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .metric-value.low {
+      color: var(--danger-color);
+    }
+
+    .metric-value.medium {
+      color: var(--warning-color);
+    }
+
+    .metric-value.high {
+      color: var(--success-color);
+    }
+
+    .metric-trend {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .metric-trend.positive {
+      color: var(--success-color);
+    }
+
+    .metric-trend.negative {
+      color: var(--danger-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Coaching Session</h1>
+          <p class="page-subtitle">
+            Focus on the most impactful behavior<br>            
+          </p>
+        </div>
+
+       <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="progress-step completed">
+            <div class="step-indicator">1</div>
+            <div class="step-label">Select Agent & Form</div>
+          </div>
+          <div class="progress-step completed">
+            <div class="step-indicator">2</div>
+            <div class="step-label">Behavior Focus</div>
+          </div>
+          <div class="progress-step active">
+            <div class="step-indicator">3</div>
+            <div class="step-label">Coaching Session</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">4</div>
+            <div class="step-label">Action Items</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">5</div>
+            <div class="step-label">Schedule Follow-up</div>
+          </div>
+        </div>
+        <!-- Agent Search Section -->
+        <div class="agent-search-container">
+          <div class="agent-search-header">
+            <div class="agent-search-title">Agent Information <span class="auto-populated">Auto-populated from Coaching Opportunities</span></div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Agent Name</label>
+              <input type="text" class="form-input" value="Michael Brown" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Agent ID</label>
+              <input type="text" class="form-input" value="MB-1234" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Coach</label>
+              <input type="text" class="form-input" value="Marcus Latham" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="text" class="form-input" value="05/14/2025" disabled>
+            </div>
+          </div>
+
+          <!-- Suggested Coaching Section - For Step 2: Behavior Focus -->
+          <div class="suggested-coaching" id="suggestedCoaching">
+            <div class="suggested-coaching-header">
+              <div class="suggested-coaching-title">
+                <i class="fas fa-lightbulb"></i>
+                Suggested Coaching Opportunities (7-Day Average)
+              </div>
+            </div>
+            <div class="suggested-coaching-subtitle">
+              Based on the agent's performance data, we've identified the following coaching opportunities:
+            </div>
+
+            <div class="kpi-overview">
+              <div class="kpi-item">
+                <div class="kpi-label">CSAT Score</div>
+                <div class="kpi-value low">3.8 <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 0.3</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">First Call Resolution</div>
+                <div class="kpi-value low">65% <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 5%</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">Call Quality</div>
+                <div class="kpi-value low">76% <span class="kpi-trend"><i class="fas fa-arrow-down"></i> 4%</span></div>
+              </div>
+              <div class="kpi-item">
+                <div class="kpi-label">Average Handle Time</div>
+                <div class="kpi-value medium">7:45 <span class="kpi-trend"><i class="fas fa-arrow-up"></i> 0:30</span></div>
+              </div>
+            </div>
+
+            <div class="behavior-recommendations">
+              <div class="behavior-recommendations-title">Recommended Behaviors to Address</div>
+              <div class="behavior-list">
+                <div class="behavior-item selected">
+                  <div class="behavior-icon">
+                    <i class="fas fa-book"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Product Knowledge</div>
+                    <div class="behavior-impact impact-high">                      
+                      High Impact (FCR -15%, CSAT -0.6)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio" checked>
+                  </div>
+                </div>
+                <div class="behavior-item">
+                  <div class="behavior-icon">
+                    <i class="fas fa-headset"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Active Listening</div>
+                    <div class="behavior-impact">                      
+                      Medium Impact (CSAT -0.4, AHT -10%)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio">
+                  </div>
+                </div>
+                <div class="behavior-item">
+                  <div class="behavior-icon">
+                    <i class="fas fa-stopwatch"></i>
+                  </div>
+                  <div class="behavior-info">
+                    <div class="behavior-name">Call Efficiency</div>
+                    <div class="behavior-impact">                      
+                      Medium Impact (AHT -1:30, FCR -8%)
+                    </div>
+                  </div>
+                  <div class="behavior-select">
+                    <input type="radio" name="behavior" class="behavior-radio">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Coaching Section - For Step 3: Coaching Session (Initially Hidden) -->
+          <div class="selected-coaching" id="selectedCoaching" style="display: none;">
+            <div class="selected-coaching-header">
+              <div class="selected-coaching-title">
+                <i class="fas fa-check-circle"></i>
+                Selected Coaching Focus
+              </div>
+            </div>
+            <div class="selected-coaching-subtitle">
+              You're now coaching Michael Brown on the following selected behavior:
+            </div>
+
+            <div class="behavior-selected">
+              <div class="behavior-item selected">
+                <div class="behavior-icon">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="behavior-info">
+                  <div class="behavior-name">Product Knowledge</div>
+                  <div class="behavior-impact impact-high">
+                    <i class="fas fa-chart-line"></i>
+                    High Impact Behavior
+                  </div>
+                  <div class="focus-area">
+                    <span class="focus-badge">Feature Knowledge</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Impacted KPIs - Separate Cards -->
+              <div class="impacted-kpis-container">
+                <div class="kpi-card primary-kpi">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">FCR</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">65%</span>
+                      <span class="kpi-target">→ 80%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-smile"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">CSAT</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">3.8</span>
+                      <span class="kpi-target">→ 4.4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup Wizard Section - Step 1: Form Selection -->
+        <div class="setup-wizard">
+          <div class="wizard-header">
+            <div class="wizard-title">Coaching Session Setup</div>
+          </div>
+          <div class="wizard-content">
+            <div class="wizard-step active" id="step1">
+              <div class="wizard-section">
+                <h3 class="wizard-section-title">Select Coaching Form Template</h3>
+                <div class="form-group">
+                  <label class="form-label">Template <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select a coaching template</option>
+                    <option value="standard">SMART Plan Coaching</option>
+                    <option value="product" selected>GROW Coaching</option>
+                    <option value="active-listening">Follow-Up Coaching</option>
+                    <option value="de-escalation">Call De-escalation - Huddle</option>
+                    <option value="efficiency">Call Efficiency - Huddle</option>
+                  </select>
+                  <div class="form-helper">Select the coaching template that best fits the behavior focus</div>
+                </div>
+              </div>
+              <div class="wizard-section">
+                <h3 class="wizard-section-title">Behavior Focus</h3>
+                <div class="form-group">
+                  <label class="form-label">Primary Behavior <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="product" selected>Product Knowledge</option>
+                    <option value="active-listening">Active Listening</option>
+                    <option value="de-escalation">Call De-escalation</option>
+                    <option value="efficiency">Call Efficiency</option>
+                    <option value="empathy">Customer Empathy</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Specific Focus Area <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select a focus area</option>
+                    <option value="features" selected>Feature Knowledge</option>
+                    <option value="troubleshooting">Troubleshooting Steps</option>
+                    <option value="systems">System Navigation</option>
+                    <option value="policies">Policy Application</option>
+                    <option value="updates">Recent Product Updates</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Primary KPI to Improve <span class="required-indicator">*</span></label>
+                  <select class="form-select">
+                    <option value="" disabled>Select primary KPI</option>
+                    <option value="fcr" selected>First Call Resolution</option>
+                    <option value="csat">CSAT Score</option>
+                    <option value="quality">Call Quality</option>
+                    <option value="aht">Average Handle Time</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Session Notes (Optional)</label>
+                  <textarea class="form-textarea" placeholder="Enter any preliminary notes for this coaching session"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-outline-primary">Back</button>
+            <button class="btn btn-primary" id="continueToCoachingBtn">Continue to Coaching Form</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+
+    // Behavior selection
+    document.querySelectorAll('.behavior-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.behavior-item').forEach(i => i.classList.remove('selected'));
+        this.classList.add('selected');
+        this.querySelector('.behavior-radio').checked = true;
+        
+        // Update the behavior value in the form
+        const behaviorName = this.querySelector('.behavior-name').textContent;
+        const behaviorSelect = document.querySelector('.form-select[name="primary-behavior"]');
+        if (behaviorSelect) {
+          // Find and select the matching option
+          behaviorSelect.value = behaviorName.toLowerCase().replace(' ', '-');
+        }
+      });
+    });
+
+    // Continue to Coaching Form button (redirects to coaching-session.html)
+    document.getElementById('continueToCoachingBtn').addEventListener('click', function() {
+      window.location.href = 'coaching-session.html';
+    });
+  </script>
+  <!-- JavaScript -->
+        <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
+ </body

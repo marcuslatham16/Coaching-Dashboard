@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Items - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <style>
+   
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: var(--grey-600);
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+      white-space: nowrap;
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-width: 160px;
+      background-color: white;
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 24px;
+      background-color: var(--grey-300);
+      margin: 0 8px;
+    }
+
+    .filter-toggle {
+      display: flex;
+      align-items: center;
+      background-color: var(--grey-200);
+      border-radius: 20px;
+      padding: 4px;
+      margin-left: auto;
+    }
+
+    .toggle-option {
+      padding: 6px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toggle-option.active {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .dashboard-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-600);
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+    }
+
+    .kpi-nps .card-icon {
+      background-color: rgba(103, 58, 183, 0.1);
+      color: var(--nps-color);
+    }
+
+    .kpi-csat .card-icon {
+      background-color: rgba(33, 150, 243, 0.1);
+      color: var(--csat-color);
+    }
+
+    .kpi-nrs .card-icon {
+      background-color: rgba(0, 150, 136, 0.1);
+      color: var(--nrs-color);
+    }
+
+    .kpi-aht .card-icon {
+      background-color: rgba(255, 87, 34, 0.1);
+      color: var(--aht-color);
+    }
+
+    .kpi-fcr .card-icon {
+      background-color: rgba(139, 195, 74, 0.1);
+      color: var(--fcr-color);
+    }
+
+    .card-value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .kpi-nps .card-value {
+      color: var(--nps-color);
+    }
+
+    .kpi-csat .card-value {
+      color: var(--csat-color);
+    }
+
+    .kpi-nrs .card-value {
+      color: var(--nrs-color);
+    }
+
+    .kpi-aht .card-value {
+      color: var(--aht-color);
+    }
+
+    .kpi-fcr .card-value {
+      color: var(--fcr-color);
+    }
+
+    .card-trend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .trend-up {
+      color: var(--success-color);
+    }
+
+    .trend-down {
+      color: var(--danger-color);
+    }
+
+    .trend-neutral {
+      color: var(--grey-600);
+    }
+
+    .card-trend-value {
+      display: flex;
+      align-items: center;
+    }
+
+    .card-trend-period {
+      font-size: 12px;
+      color: var(--grey-600);
+      font-weight: 400;
+    }
+
+    /* Tab Navigation */
+    .tab-navigation {
+      display: flex;
+      border-bottom: 1px solid var(--grey-300);
+      margin-bottom: 24px;
+    }
+
+    .tab-item {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--grey-600);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .tab-item.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
+    /* Data Grid */
+    .data-grid {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .data-grid-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .data-grid-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .data-grid-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .grid-action-btn {
+      padding: 6px 12px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      background-color: white;
+      color: var(--grey-700);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .grid-action-btn:hover {
+      background-color: var(--grey-100);
+      border-color: var(--grey-400);
+    }
+
+    .grid-action-btn.primary {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .grid-action-btn.primary:hover {
+      background-color: #2457a7;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-200);
+      white-space: nowrap;
+    }
+
+    .data-table th {
+      background-color: var(--grey-100);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .data-table tbody tr {
+      transition: background-color 0.2s;
+    }
+
+    .data-table tbody tr:hover {
+      background-color: var(--grey-100);
+    }
+
+    .table-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .table-link:hover {
+      text-decoration: underline;
+    }
+
+    .data-table-footer {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--grey-200);
+      background-color: var(--grey-100);
+    }
+
+    .page-info {
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .pagination {
+      display: flex;
+      gap: 4px;
+    }
+
+    .page-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      border: 1px solid var(--grey-300);
+      background-color: white;
+      color: var(--grey-700);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      background-color: var(--grey-200);
+    }
+
+    .page-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .page-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      min-width: 80px;
+    }
+
+    .status-low {
+      background-color: rgba(234, 67, 53, 0.1);
+      color: var(--danger-color);
+    }
+
+    .status-medium {
+      background-color: rgba(246, 186, 21, 0.1);
+      color: var(--warning-color);
+    }
+
+    .status-high {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success-color);
+    }
+
+    /* Performance Indicator */
+    .performance-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .indicator-bar {
+      height: 8px;
+      width: 100px;
+      background-color: var(--grey-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .indicator-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .indicator-fill.low {
+      background-color: var(--danger-color);
+    }
+
+    .indicator-fill.medium {
+      background-color: var(--warning-color);
+    }
+
+    .indicator-fill.high {
+      background-color: var(--success-color);
+    }
+
+    .indicator-value {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 40px;
+    }
+
+    .indicator-value.low {
+      color: var(--danger-color);
+    }
+
+    .indicator-value.medium {
+      color: var(--warning-color);
+    }
+
+    .indicator-value.high {
+      color: var(--success-color);
+    }
+
+    /* Charts/Visualizations */
+    .chart-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .chart-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .chart-filters {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chart-filter-btn {
+      padding: 4px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--grey-300);
+      background-color: white;
+      color: var(--grey-600);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chart-filter-btn:hover {
+      background-color: var(--grey-100);
+    }
+
+    .chart-filter-btn.active {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .chart-placeholder {
+      height: 300px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grey-600);
+      border: 1px dashed var(--grey-300);
+    }
+
+    /* Heat Map */
+    .heat-map-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .heat-map-cell {
+      padding: 16px;
+      border-radius: var(--border-radius);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .heat-map-cell:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .heat-level-critical {
+      background-color: rgba(234, 67, 53, 0.15);
+      border: 1px solid rgba(234, 67, 53, 0.3);
+    }
+
+    .heat-level-high {
+      background-color: rgba(246, 186, 21, 0.15);
+      border: 1px solid rgba(246, 186, 21, 0.3);
+    }
+
+    .heat-level-medium {
+      background-color: rgba(139, 195, 74, 0.15);
+      border: 1px solid rgba(139, 195, 74, 0.3);
+    }
+
+    .heat-level-low {
+      background-color: rgba(33, 150, 243, 0.15);
+      border: 1px solid rgba(33, 150, 243, 0.3);
+    }
+
+    .heat-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-critical {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .badge-high {
+      background-color: var(--warning-color);
+      color: white;
+    }
+
+    .badge-medium {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .badge-low {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .heat-map-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .heat-map-subtitle {
+      font-size: 12px;
+      color: var(--grey-700);
+      margin-bottom: 12px;
+    }
+
+    .heat-map-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .heat-metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .heat-metric-name {
+      color: var(--grey-700);
+    }
+
+    .heat-metric-value {
+      font-weight: 600;
+    }
+
+    .heat-critical {
+      color: var(--danger-color);
+    }
+
+    .heat-high {
+      color: var(--warning-color);
+    }
+
+    .heat-medium {
+      color: var(--success-color);
+    }
+
+    .heat-low {
+      color: var(--primary-color);
+    }
+
+    /* Behavior Impact Table */
+    .impact-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    .impact-table th,
+    .impact-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .impact-table th {
+      background-color: var(--grey-100);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .impact-table tbody tr {
+      transition: background-color 0.2s;
+    }
+
+    .impact-table tbody tr:hover {
+      background-color: var(--grey-100);
+    }
+
+    .behavior-name {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .behavior-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .impact-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .impact-high {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success-color);
+    }
+
+    .impact-medium {
+      background-color: rgba(246, 186, 21, 0.1);
+      color: var(--warning-color);
+    }
+
+    .impact-low {
+      background-color: rgba(234, 67, 53, 0.1);
+      color: var(--danger-color);
+    }
+
+    .action-btn {
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: #2457a7;
+    }
+
+    /* Focus Areas */
+    .focus-areas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .focus-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .focus-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .focus-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .focus-card-agents {
+      font-size: 13px;
+      padding: 2px 8px;
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .focus-card-description {
+      font-size: 14px;
+      color: var(--grey-700);
+      margin-bottom: 12px;
+    }
+
+    .focus-metrics {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+    }
+
+    .focus-metric {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 8px 12px;
+      min-width: 120px;
+    }
+
+    .focus-metric-name {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 4px;
+    }
+
+    .focus-metric-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .focus-metric-value.negative {
+      color: var(--danger-color);
+    }
+
+    .focus-metric-value.positive {
+      color: var(--success-color);
+    }
+
+    .focus-card-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      gap: 6px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+    
+    /* Agent Details */
+    .agent-details-container {
+      padding: 16px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+    }
+    
+    .agent-details-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--grey-800);
+    }
+    
+    .agent-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .agent-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .agent-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .agent-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .agent-score {
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .agent-score.low {
+      background-color: rgba(234, 67, 53, 0.1);
+      color: var(--danger-color);
+    }
+    
+    .agent-score.medium {
+      background-color: rgba(246, 186, 21, 0.1);
+      color: var(--warning-color);
+    }
+    
+    .agent-score.high {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success-color);
+    }
+    
+    .agent-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    
+    .agent-metric {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+    
+    .agent-metric-label {
+      color: var(--grey-700);
+    }
+    
+    .agent-metric-value {
+      font-weight: 500;
+    }
+    
+    .agent-metric-value.low {
+      color: var(--danger-color);
+    }
+    
+    .agent-metric-value.medium {
+      color: var(--warning-color);
+    }
+    
+    .agent-metric-value.high {
+      color: var(--success-color);
+    }
+    
+    .agent-details-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    
+    .view-all-agents-btn,
+    .mass-coach-btn {
+      font-size: 13px;
+      padding: 6px 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .dashboard-cards {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 992px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .filter-toggle {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-search {
+        display: none;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .filter-toggle {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+
+      .heat-map-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-areas {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dashboard-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .data-grid-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .data-grid-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</main>
+<body>
+  <div class="app-container">
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Coaching Opportunities</h1>
+          <p class="page-subtitle">
+            Identify high-impact coaching opportunities across your organization<br>            
+          </p>
+        </div>
+           <!-- Filter Bar -->
+        <div class="filter-bar">
+          <div class="filter-group">
+            <div class="filter-label">Partners</div>
+            <select class="filter-select">
+              <option value="all">All Partners</option>
+              <option value="nyc">CCI</option>
+              <option value="chi">IQor</option>
+              <option value="dal">Telus</option>
+              <option value="sf">Telvista</option>
+            </select>
+          </div>
+          <div class="filter-divider"></div>
+          <div class="filter-group">
+            <div class="filter-label">Locations</div>
+            <select class="filter-select">
+              <option value="all">All Locations</option>
+              <option value="jsmith">Durban</option>
+              <option value="mlee">Nairobi</option>
+              <option value="rjones">Houston</option>
+            </select>
+          </div>
+          <div class="filter-divider"></div>
+          <div class="filter-group">
+            <div class="filter-label">Supervisor:</div>
+            <select class="filter-select">
+              <option value="all">All Supervisors</option>
+              <option value="agarcia">Alex Garcia</option>
+              <option value="twalker">Tina Walker</option>
+              <option value="jwong">James Wong</option>
+              <option value="pnguyen">Phuong Nguyen</option>
+            </select>
+          </div>
+          <div class="filter-divider"></div>
+          <div class="filter-group">
+            <div class="filter-label">Time Period:</div>
+            <select class="filter-select">
+              <option value="30d">Last 30 Days</option>
+              <option value="90d">Last 90 Days</option>
+              <option value="6m">Last 6 Months</option>
+              <option value="12m">Last 12 Months</option>
+            </select>
+          </div>
+
+          <div class="filter-toggle">
+            <div class="toggle-option active" id="kpiToggle">KPI Focus</div>
+            <div class="toggle-option" id="behaviorToggle">Behavior Focus</div>
+          </div>
+        </div>
+
+        <!-- KPI Dashboard Cards -->
+        <div class="dashboard-cards">
+          <div class="dashboard-card kpi-nps">
+            <div class="card-header">
+              <div class="card-title">Net Promoter Score (NPS)</div>
+              <div class="card-icon">
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <div class="card-value">42</div>
+            <div class="card-trend">
+              <div class="trend-down card-trend-value">
+                <i class="fas fa-arrow-down"></i> 3
+              </div>
+              <div class="card-trend-period">vs last period</div>
+            </div>
+          </div>
+          <div class="dashboard-card kpi-csat">
+            <div class="card-header">
+              <div class="card-title">Customer Satisfaction (CSAT)</div>
+              <div class="card-icon">
+                <i class="fas fa-smile"></i>
+              </div>
+            </div>
+            <div class="card-value">4.2</div>
+            <div class="card-trend">
+              <div class="trend-neutral card-trend-value">
+                <i class="fas fa-minus"></i> 0.1
+              </div>
+              <div class="card-trend-period">vs last period</div>
+            </div>
+          </div>
+          <div class="dashboard-card kpi-nrs">
+            <div class="card-header">
+              <div class="card-title">Net Resolution Score (NRS)</div>
+              <div class="card-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+            </div>
+            <div class="card-value">76%</div>
+            <div class="card-trend">
+              <div class="trend-up card-trend-value">
+                <i class="fas fa-arrow-up"></i> 2%
+              </div>
+              <div class="card-trend-period">vs last period</div>
+            </div>
+          </div>
+          <div class="dashboard-card kpi-aht">
+            <div class="card-header">
+              <div class="card-title">Average Handle Time (AHT)</div>
+              <div class="card-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+            </div>
+            <div class="card-value">8:42</div>
+            <div class="card-trend">
+              <div class="trend-down card-trend-value">
+                <i class="fas fa-arrow-down"></i> 0:18
+              </div>
+              <div class="card-trend-period">vs last period</div>
+            </div>
+          </div>
+          <div class="dashboard-card kpi-fcr">
+            <div class="card-header">
+              <div class="card-title">First Call Resolution (FCR)</div>
+              <div class="card-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+            </div>
+            <div class="card-value">68%</div>
+            <div class="card-trend">
+              <div class="trend-down card-trend-value">
+                <i class="fas fa-arrow-down"></i> 3%
+              </div>
+              <div class="card-trend-period">vs last period</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+          <div class="tab-item active">Company Overview</div>
+          <div class="tab-item">By Location</div>
+          <div class="tab-item">By Team</div>
+          <div class="tab-item">By Agent</div>
+        </div>
+
+        <!-- KPI View - Heat Map -->
+        <div id="kpiView">
+          <div class="data-grid">
+            <div class="data-grid-header">
+              <div class="data-grid-title">
+                <i class="fas fa-lightbulb"></i>
+                Priority Coaching Opportunities
+              </div>
+              <div class="data-grid-actions">
+                <button class="grid-action-btn">
+                  <i class="fas fa-filter"></i> Filter
+                </button>
+                <button class="grid-action-btn">
+                  <i class="fas fa-download"></i> Export
+                </button>
+              </div>
+            </div>
+            <div class="heat-map-grid">
+              <div class="heat-map-cell heat-level-critical">
+                <div class="heat-badge badge-critical">Critical</div>
+                <div class="heat-map-title">FCR - Technical Support</div>
+                <div class="heat-map-subtitle">30 agents below target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current FCR:</div>
+                    <div class="heat-metric-value heat-critical">58%</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">75%</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-critical">-17%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="heat-map-cell heat-level-high">
+                <div class="heat-badge badge-high">High</div>
+                <div class="heat-map-title">CSAT - Billing Team</div>
+                <div class="heat-map-subtitle">24 agents below target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current CSAT:</div>
+                    <div class="heat-metric-value heat-high">3.7</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">4.5</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-high">-0.8</div>
+                  </div>
+                </div>
+              </div>
+              <div class="heat-map-cell heat-level-high">
+                <div class="heat-badge badge-high">High</div>
+                <div class="heat-map-title">NPS - Customer Service</div>
+                <div class="heat-map-subtitle">18 agents below target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current NPS:</div>
+                    <div class="heat-metric-value heat-high">35</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">50</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-high">-15</div>
+                  </div>
+                </div>
+              </div>
+              <div class="heat-map-cell heat-level-medium">
+                <div class="heat-badge badge-medium">Medium</div>
+                <div class="heat-map-title">AHT - Customer Service</div>
+                <div class="heat-map-subtitle">12 agents above target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current AHT:</div>
+                    <div class="heat-metric-value heat-medium">9:12</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">8:00</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-medium">+1:12</div>
+                  </div>
+                </div>
+              </div>
+              <div class="heat-map-cell heat-level-medium">
+                <div class="heat-badge badge-medium">Medium</div>
+                <div class="heat-map-title">NRS - Technical Support</div>
+                <div class="heat-map-subtitle">10 agents below target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current NRS:</div>
+                    <div class="heat-metric-value heat-medium">71%</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">80%</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-medium">-9%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="heat-map-cell heat-level-low">
+                <div class="heat-badge badge-low">Low</div>
+                <div class="heat-map-title">CSAT - Technical Support</div>
+                <div class="heat-map-subtitle">6 agents below target</div>
+                <div class="heat-map-metrics">
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Current CSAT:</div>
+                    <div class="heat-metric-value heat-low">4.1</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Target:</div>
+                    <div class="heat-metric-value">4.5</div>
+                  </div>
+                  <div class="heat-metric">
+                    <div class="heat-metric-name">Gap:</div>
+                    <div class="heat-metric-value heat-low">-0.4</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Performance by KPI -->
+          <div class="chart-container">
+            <div class="chart-header">
+              <div class="chart-title">Team Performance by KPI</div>
+              <div class="chart-filters">
+                <button class="chart-filter-btn active">FCR</button>
+                <button class="chart-filter-btn">CSAT</button>
+                <button class="chart-filter-btn">NPS</button>
+                <button class="chart-filter-btn">AHT</button>
+                <button class="chart-filter-btn">NRS</button>
+              </div>
+            </div>
+            <!-- This would be a real chart in implementation -->
+            <div class="chart-placeholder">
+              [Bar chart showing FCR performance across different teams, highlighting teams below target]
+            </div>
+          </div>
+
+          <!-- Agents Needing Coaching - FCR Focus -->
+          <div class="data-grid">
+            <div class="data-grid-header">
+              <div class="data-grid-title">
+                <i class="fas fa-user-friends"></i>
+                Agents Needing Coaching - FCR Focus
+              </div>
+              <div class="data-grid-actions">
+                <button class="grid-action-btn">
+                  <i class="fas fa-filter"></i> Filter
+                </button>
+                <button class="grid-action-btn">
+                  <i class="fas fa-download"></i> Export
+                </button>
+                <button class="grid-action-btn primary">
+                  <i class="fas fa-calendar-plus"></i> Schedule Coaching
+                </button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Agent</th>
+                    <th>Team</th>
+                    <th>FCR</th>
+                    <th>CSAT</th>
+                    <th>AHT</th>
+                    <th>Tenure</th>
+                    <th>Last Coaching</th>
+                    <th>QA Score</th>
+                    <th>Recommended Focus</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a href="#" class="table-link">Michael Brown</a></td>
+                    <td>Technical Support</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 65%;"></div>
+                        </div>
+                        <div class="indicator-value low">65%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 76%;"></div>
+                        </div>
+                        <div class="indicator-value low">3.8</div>
+                      </div>
+                    </td>
+                    <td>7:45</td>
+                    <td>6 months</td>
+                    <td>Apr 15, 2025</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 76%;"></div>
+                        </div>
+                        <div class="indicator-value low">76%</div>
+                      </div>
+                    </td>
+                    <td><span class="status-badge status-high">Product Knowledge</span></td>
+                    <td>
+                      <button class="action-btn">Coach</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-link">Jennifer Lee</a></td>
+                    <td>Technical Support</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 62%;"></div>
+                        </div>
+                        <div class="indicator-value low">62%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 82%;"></div>
+                        </div>
+                        <div class="indicator-value medium">4.1</div>
+                      </div>
+                    </td>
+                    <td>8:12</td>
+                    <td>4 months</td>
+                    <td>Apr 22, 2025</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 82%;"></div>
+                        </div>
+                        <div class="indicator-value medium">82%</div>
+                      </div>
+                    </td>
+                    <td><span class="status-badge status-high">Troubleshooting</span></td>
+                    <td>
+                      <button class="action-btn">Coach</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-link">David Rodriguez</a></td>
+                    <td>Technical Support</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 58%;"></div>
+                        </div>
+                        <div class="indicator-value low">58%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 70%;"></div>
+                        </div>
+                        <div class="indicator-value low">3.5</div>
+                      </div>
+                    </td>
+                    <td>9:30</td>
+                    <td>3 months</td>
+                    <td>Apr 8, 2025</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 68%;"></div>
+                        </div>
+                        <div class="indicator-value low">68%</div>
+                      </div>
+                    </td>
+                    <td><span class="status-badge status-high">Call Flow</span></td>
+                    <td>
+                      <button class="action-btn">Coach</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-link">Sarah Johnson</a></td>
+                    <td>Technical Support</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 68%;"></div>
+                        </div>
+                        <div class="indicator-value medium">68%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 84%;"></div>
+                        </div>
+                        <div class="indicator-value medium">4.2</div>
+                      </div>
+                    </td>
+                    <td>7:55</td>
+                    <td>8 months</td>
+                    <td>Mar 30, 2025</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 80%;"></div>
+                        </div>
+                        <div class="indicator-value medium">80%</div>
+                      </div>
+                    </td>
+                    <td><span class="status-badge status-medium">Process Adherence</span></td>
+                    <td>
+                      <button class="action-btn">Coach</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><a href="#" class="table-link">James Wilson</a></td>
+                    <td>Technical Support</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill low" style="width: 60%;"></div>
+                        </div>
+                        <div class="indicator-value low">60%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 80%;"></div>
+                        </div>
+                        <div class="indicator-value medium">4.0</div>
+                      </div>
+                    </td>
+                    <td>8:05</td>
+                    <td>5 months</td>
+                    <td>Apr 12, 2025</td>
+                    <td>
+                      <div class="performance-indicator">
+                        <div class="indicator-bar">
+                          <div class="indicator-fill medium" style="width: 78%;"></div>
+                        </div>
+                        <div class="indicator-value medium">78%</div>
+                      </div>
+                    </td>
+                    <td><span class="status-badge status-medium">Troubleshooting</span></td>
+                    <td>
+                      <button class="action-btn">Coach</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="data-table-footer">
+              <div class="page-info">Showing 1-5 of 30 agents</div>
+              <div class="pagination">
+                <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn">6</button>
+                <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Behavior View (Initially Hidden) -->
+        <div id="behaviorView" style="display: none;">
+          <!-- Most Impactful Behaviors -->
+          <div class="data-grid">
+            <div class="data-grid-header">
+              <div class="data-grid-title">
+                <i class="fas fa-bullseye"></i>
+                Most Impactful Behaviors
+              </div>
+              <div class="data-grid-actions">
+                <button class="grid-action-btn">
+                  <i class="fas fa-filter"></i> Filter
+                </button>
+                <button class="grid-action-btn">
+                  <i class="fas fa-download"></i> Export
+                </button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="impact-table">
+                <thead>
+                  <tr>
+                    <th>Behavior</th>
+                    <th>Impact on FCR</th>
+                    <th>Impact on CSAT</th>
+                    <th>Impact on NPS</th>
+                    <th>Impact on AHT</th>
+                    <th>Agents Needing Improvement</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="behavior-name">
+                        <div class="behavior-icon"><i class="fas fa-book"></i></div>
+                        Product Knowledge
+                      </div>
+                    </td>
+                    <td><span class="impact-badge impact-high">+15%</span></td>
+                    <td><span class="impact-badge impact-high">+0.6</span></td>
+                    <td><span class="impact-badge impact-high">+12</span></td>
+                    <td><span class="impact-badge impact-medium">-1:20</span></td>
+                    <td>30</td>
+                    <td>
+                      <button class="grid-action-btn toggle-agents" data-behavior="product-knowledge">
+                        <i class="fas fa-chevron-down"></i> Expand
+                      </button>
+                    </td>
+                  </tr>
+                  <!-- Expandable agents section for Product Knowledge -->
+                  <tr class="agent-details-row" id="product-knowledge-agents" style="display: none;">
+                    <td colspan="7">
+                      <div class="agent-details-container">
+                        <h4 class="agent-details-title">Agents Needing Product Knowledge Coaching</h4>
+                        <div class="agent-details-grid">
+                          <div class="agent-card">
+                            <div class="agent-card-header">
+                              <div class="agent-name">Michael Brown</div>
+                              <div class="agent-score low">65%</div>
+                            </div>
+                            <div class="agent-metrics">
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">FCR:</span>
+                                <span class="agent-metric-value low">58%</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">CSAT:</span>
+                                <span class="agent-metric-value low">3.8</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">Tenure:</span>
+                                <span class="agent-metric-value">6 mo</span>
+                              </div>
+                            </div>
+                            <button class="action-btn">Coach</button>
+                          </div>
+                          <div class="agent-card">
+                            <div class="agent-card-header">
+                              <div class="agent-name">Jennifer Lee</div>
+                              <div class="agent-score low">62%</div>
+                            </div>
+                            <div class="agent-metrics">
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">FCR:</span>
+                                <span class="agent-metric-value low">62%</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">CSAT:</span>
+                                <span class="agent-metric-value medium">4.1</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">Tenure:</span>
+                                <span class="agent-metric-value">4 mo</span>
+                              </div>
+                            </div>
+                            <button class="action-btn">Coach</button>
+                          </div>
+                          <div class="agent-card">
+                            <div class="agent-card-header">
+                              <div class="agent-name">David Rodriguez</div>
+                              <div class="agent-score low">58%</div>
+                            </div>
+                            <div class="agent-metrics">
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">FCR:</span>
+                                <span class="agent-metric-value low">58%</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">CSAT:</span>
+                                <span class="agent-metric-value low">3.5</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">Tenure:</span>
+                                <span class="agent-metric-value">3 mo</span>
+                              </div>
+                            </div>
+                            <button class="action-btn">Coach</button>
+                          </div>
+                          <div class="agent-card">
+                            <div class="agent-card-header">
+                              <div class="agent-name">Sarah Johnson</div>
+                              <div class="agent-score medium">68%</div>
+                            </div>
+                            <div class="agent-metrics">
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">FCR:</span>
+                                <span class="agent-metric-value medium">68%</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">CSAT:</span>
+                                <span class="agent-metric-value medium">4.2</span>
+                              </div>
+                              <div class="agent-metric">
+                                <span class="agent-metric-label">Tenure:</span>
+                                <span class="agent-metric-value">8 mo</span>
+                              </div>
+                            </div>
+                            <button class="action-btn">Coach</button>
+                          </div>
+                        </div>
+                        <div class="agent-details-actions">
+                          <button class="btn btn-outline-primary view-all-agents-btn">
+                            <i class="fas fa-users"></i> View All 30 Agents
+                          </button>
+                          <button class="btn btn-outline-primary mass-coach-btn">
+                            <i class="fas fa-user-check"></i> Select Multiple to Coach
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="behavior-name">
+                        <div class="behavior-icon"><i class="fas fa-headset"></i></div>
+                        Active Listening
+                      </div>
+                    </td>
+                    <td><span class="impact-badge impact-medium">+8%</span></td>
+                    <td><span class="impact-badge impact-high">+0.8</span></td>
+                    <td><span class="impact-badge impact-high">+15</span></td>
+                    <td><span class="impact-badge impact-low">+0:30</span></td>
+                    <td>24</td>
+                    <td>
+                      <button class="grid-action-btn toggle-agents" data-behavior="active-listening">
+                        <i class="fas fa-chevron-down"></i> Expand
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="behavior-name">
+                        <div class="behavior-icon"><i class="fas fa-tools"></i></div>
+                        Troubleshooting
+                      </div>
+                    </td>
+                    <td><span class="impact-badge impact-high">+18%</span></td>
+                    <td><span class="impact-badge impact-medium">+0.4</span></td>
+                    <td><span class="impact-badge impact-medium">+7</span></td>
+                    <td><span class="impact-badge impact-medium">-1:10</span></td>
+                    <td>22</td>
+                    <td>
+                      <button class="grid-action-btn toggle-agents" data-behavior="troubleshooting">
+                        <i class="fas fa-chevron-down"></i> Expand
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="behavior-name">
+                        <div class="behavior-icon"><i class="fas fa-smile"></i></div>
+                        Empathy
+                      </div>
+                    </td>
+                    <td><span class="impact-badge impact-low">+3%</span></td>
+                    <td><span class="impact-badge impact-high">+0.9</span></td>
+                    <td><span class="impact-badge impact-high">+18</span></td>
+                    <td><span class="impact-badge impact-low">+0:45</span></td>
+                    <td>18</td>
+                    <td>
+                      <button class="grid-action-btn toggle-agents" data-behavior="empathy">
+                        <i class="fas fa-chevron-down"></i> Expand
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="behavior-name">
+                        <div class="behavior-icon"><i class="fas fa-tasks"></i></div>
+                        Call Flow Management
+                      </div>
+                    </td>
+                    <td><span class="impact-badge impact-medium">+10%</span></td>
+                    <td><span class="impact-badge impact-medium">+0.3</span></td>
+                    <td><span class="impact-badge impact-low">+4</span></td>
+                    <td><span class="impact-badge impact-high">-2:15</span></td>
+                    <td>15</td>
+                    <td>
+                      <button class="grid-action-btn toggle-agents" data-behavior="call-flow">
+                        <i class="fas fa-chevron-down"></i> Expand
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Behavior Focus Areas -->
+          <div class="chart-container">
+            <div class="chart-header">
+              <div class="chart-title">Behavior Gap Analysis</div>
+              <div class="chart-filters">
+                <button class="chart-filter-btn active">All Metrics</button>
+                <button class="chart-filter-btn">Agent Tenure</button>
+                <button class="chart-filter-btn">Call Type</button>
+                <button class="chart-filter-btn">Behavior Type</button>
+              </div>
+            </div>
+            <!-- This would be a real chart in implementation -->
+            <div class="chart-placeholder">
+              [Radar chart showing behavior gap analysis across key areas]
+            </div>
+          </div>
+
+          <!-- Focus Areas -->
+          <div class="focus-areas">
+            <!-- Product Knowledge Focus Area -->
+            <div class="focus-card">
+              <div class="focus-card-header">
+                <div class="focus-card-title">
+                  <i class="fas fa-book"></i>
+                  Product Knowledge
+                </div>
+                <div class="focus-card-agents">30 Agents</div>
+              </div>
+              <div class="focus-card-description">
+                Agents need coaching on new product features and technical troubleshooting steps.
+              </div>
+              <div class="focus-metrics">
+                <div class="focus-metric">
+                  <div class="focus-metric-name">FCR Impact</div>
+                  <div class="focus-metric-value positive">+15%</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">CSAT Impact</div>
+                  <div class="focus-metric-value positive">+0.6</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">AHT Impact</div>
+                  <div class="focus-metric-value positive">-1:20</div>
+                </div>
+              </div>
+              <div class="focus-card-actions">
+                <button class="btn btn-outline-primary">View Agents</button>
+              </div>
+            </div>
+
+            <!-- Active Listening Focus Area -->
+            <div class="focus-card">
+              <div class="focus-card-header">
+                <div class="focus-card-title">
+                  <i class="fas fa-headset"></i>
+                  Active Listening
+                </div>
+                <div class="focus-card-agents">24 Agents</div>
+              </div>
+              <div class="focus-card-description">
+                Agents need to improve their customer listening skills and response techniques.
+              </div>
+              <div class="focus-metrics">
+                <div class="focus-metric">
+                  <div class="focus-metric-name">NPS Impact</div>
+                  <div class="focus-metric-value positive">+15</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">CSAT Impact</div>
+                  <div class="focus-metric-value positive">+0.8</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">FCR Impact</div>
+                  <div class="focus-metric-value positive">+8%</div>
+                </div>
+              </div>
+              <div class="focus-card-actions">
+                <button class="btn btn-outline-primary">View Agents</button>
+                </div>
+            </div>
+
+            <!-- Troubleshooting Focus Area -->
+            <div class="focus-card">
+              <div class="focus-card-header">
+                <div class="focus-card-title">
+                  <i class="fas fa-tools"></i>
+                  Troubleshooting
+                </div>
+                <div class="focus-card-agents">22 Agents</div>
+              </div>
+              <div class="focus-card-description">
+                Agents need to improve technical troubleshooting methodology and system knowledge.
+              </div>
+              <div class="focus-metrics">
+                <div class="focus-metric">
+                  <div class="focus-metric-name">FCR Impact</div>
+                  <div class="focus-metric-value positive">+18%</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">CSAT Impact</div>
+                  <div class="focus-metric-value positive">+0.4</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">AHT Impact</div>
+                  <div class="focus-metric-value positive">-1:10</div>
+                </div>
+              </div>
+              <div class="focus-card-actions">
+                <button class="btn btn-outline-primary">View Agents</button>
+                </div>
+            </div>
+
+            <!-- Empathy Focus Area -->
+            <div class="focus-card">
+              <div class="focus-card-header">
+                <div class="focus-card-title">
+                  <i class="fas fa-smile"></i>
+                  Empathy
+                </div>
+                <div class="focus-card-agents">18 Agents</div>
+              </div>
+              <div class="focus-card-description">
+                Agents need to improve showing empathy and understanding to customer issues.
+              </div>
+              <div class="focus-metrics">
+                <div class="focus-metric">
+                  <div class="focus-metric-name">NPS Impact</div>
+                  <div class="focus-metric-value positive">+18</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">CSAT Impact</div>
+                  <div class="focus-metric-value positive">+0.9</div>
+                </div>
+                <div class="focus-metric">
+                  <div class="focus-metric-name">FCR Impact</div>
+                  <div class="focus-metric-value positive">+3%</div>
+                </div>
+              </div>
+              <div class="focus-card-actions">
+                <button class="btn btn-outline-primary">View Agents</button>                
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Toggle between KPI and Behavior views
+    document.getElementById('kpiToggle').addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('behaviorToggle').classList.remove('active');
+      document.getElementById('kpiView').style.display = 'block';
+      document.getElementById('behaviorView').style.display = 'none';
+    });
+
+    document.getElementById('behaviorToggle').addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('kpiToggle').classList.remove('active');
+      document.getElementById('kpiView').style.display = 'none';
+      document.getElementById('behaviorView').style.display = 'block';
+    });
+
+    // Tab navigation (would expand to show different views in a real implementation)
+    document.querySelectorAll('.tab-item').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Chart filter buttons (would filter chart data in a real implementation)
+    document.querySelectorAll('.chart-filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const parent = this.closest('.chart-filters');
+        parent.querySelectorAll('.chart-filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+    
+    // Expand/collapse functionality for agent details
+    document.querySelectorAll('.toggle-agents').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const behavior = this.getAttribute('data-behavior');
+        const detailsRow = document.getElementById(behavior + '-agents');
+        
+        if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
+          detailsRow.style.display = 'table-row';
+          this.innerHTML = '<i class="fas fa-chevron-up"></i> Collapse';
+        } else {
+          detailsRow.style.display = 'none';
+          this.innerHTML = '<i class="fas fa-chevron-down"></i> Expand';
+        }
+      });
+    });
+  </script>
+
+  <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
+ </body
+

@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Items - Call Center Coach</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="css/variables.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <style>
+        /* Main Layout */
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Main Content */
+    .content {
+      flex: 1;
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      color: var(--grey-600);
+    }
+
+    /* Progress Indicator */
+    .progress-steps {
+      display: flex;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress-steps::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--grey-300);
+      z-index: -1;
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-indicator {
+      width: 40px;
+      height: 40px;
+      background-color: var(--grey-300);
+      color: var(--grey-700);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: 600;
+      position: relative;
+      z-index: 2;
+    }
+
+    .progress-step.active .step-indicator {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .progress-step.completed .step-indicator {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--grey-700);
+    }
+
+    .progress-step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .progress-step.completed .step-label {
+      color: var(--success-color);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-icon {
+      margin-right: 8px;
+    }
+
+    .btn-outline-primary {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2457a7;
+    }
+
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #2d9247;
+    }
+
+    .btn-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .btn-accent:hover {
+      background-color: #e55a2b;
+    }
+
+    .btn-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Agent Search Section */
+    .agent-search-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .agent-search-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .agent-search-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .auto-populated {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .search-container {
+      position: relative;
+    }
+
+    .agent-search-input {
+      width: 100%;
+      padding: 10px 16px;
+      padding-left: 40px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .agent-search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .agent-search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-600);
+    }
+
+    /* Suggested Coaching Section */
+    .suggested-coaching {
+      background-color: var(--primary-light);
+      border-radius: var(--border-radius);
+      margin-top: 16px;
+      padding: 16px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .suggested-coaching-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .suggested-coaching-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .suggested-coaching-title i {
+      margin-right: 8px;
+    }
+
+    .suggested-coaching-subtitle {
+      font-size: 14px;
+      color: var(--grey-700);
+      margin-bottom: 16px;
+    }
+
+    .kpi-overview {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 12px;
+      flex: 1;
+      min-width: 150px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .kpi-value.low {
+      color: var(--danger-color);
+    }
+
+    .kpi-value.medium {
+      color: var(--warning-color);
+    }
+
+    .kpi-value.high {
+      color: var(--success-color);
+    }
+
+    .kpi-trend {
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .behavior-recommendations {
+      margin-top: 16px;
+    }
+
+    .behavior-recommendations-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--grey-700);
+    }
+
+    .behavior-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .behavior-item {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .behavior-item.selected {
+      border-color: var(--primary-dark);
+      background-color: var(--grow-light);
+    }
+
+    .behavior-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--primary-dark);
+      color: var(--grow-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .behavior-info {
+      flex: 1;
+    }
+
+    .behavior-name {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--primary-dark);
+    }
+
+    .behavior-impact {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .impact-high {
+      color: var(--danger-color);
+      font-weight: 500;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    /* Setup Wizard Section */
+    .setup-wizard {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .wizard-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wizard-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--grey-800);
+    }
+
+    .wizard-content {
+      padding: 24px;
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: block;
+    }
+
+    .wizard-section {
+      margin-bottom: 24px;
+    }
+
+    .wizard-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-700);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .required-indicator {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    .form-helper {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    .wizard-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--grey-100);
+    }
+
+    /* Coaching Form */
+    .coaching-form-container {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 24px;
+    }
+
+    .coaching-form-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .form-session-info {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .session-info-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--grey-800);
+    }
+
+    .session-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px;
+    }
+
+    .info-item {
+      margin-bottom: 4px;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-bottom: 2px;
+    }
+
+    .info-value {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--grey-800);
+    }
+
+    .coaching-form-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    .coaching-tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .coaching-tab.grow {
+      color: var(--grow-color);
+    }
+
+    .coaching-tab.smarter {
+      color: var(--smarter-color);
+    }
+
+    .coaching-tab.active.grow {
+      background-color: var(--grow-light);
+    }
+
+    .coaching-tab.active.smarter {
+      background-color: var(--smarter-light);
+    }
+
+    .coaching-tab.active.grow::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--grow-color);
+    }
+
+    .coaching-tab.active.smarter::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--smarter-color);
+    }
+
+    .coaching-tab-info {
+      display: flex;
+      align-items: center;
+      margin-left: 4px;
+      color: var(--grey-500);
+      cursor: pointer;
+    }
+
+    .coaching-tab-info:hover {
+      color: var(--grey-700);
+    }
+
+    .coaching-tab-content {
+      display: none;
+      padding: 24px;
+    }
+
+    .coaching-tab-content.active {
+      display: block;
+    }
+
+    /* Form sections */
+    .form-section {
+      margin-bottom: 24px;
+    }
+
+    .form-section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .form-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .form-section-title .fa-circle-info {
+      margin-left: 8px;
+      font-size: 14px;
+      color: var(--grey-500);
+      cursor: pointer;
+    }
+
+    .form-section-title .fa-circle-info:hover {
+      color: var(--primary-color);
+    }
+
+    .form-section-description {
+      font-size: 14px;
+      color: var(--grey-800);
+      margin-bottom: 16px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--grey-500);
+      display: flex;
+      align-items: center;
+    }
+
+    .field-required {
+      color: var(--danger-color);
+      margin-left: 4px;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .field-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-select {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      background-color: white;
+    }
+
+    .field-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .field-help {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    /* Rich text editor styling */
+    .rich-editor-toolbar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      padding: 8px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      border: 1px solid var(--grey-300);
+      border-bottom: none;
+    }
+
+    .editor-tool {
+      padding: 6px 8px;
+      background: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--grey-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .editor-tool:hover {
+      background-color: var(--grey-200);
+    }
+
+    .editor-tool.active {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+    }
+
+    .editor-content {
+      min-height: 120px;
+      padding: 12px 16px;
+      border: 1px solid var(--grey-300);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      font-size: 14px;
+    }
+
+    .editor-content:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    /* GROW and SMARTER specific styling */
+    .grow-section {
+      border-left: 3px solid var(--grow-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .grow-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--grow-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .smarter-section {
+      border-left: 3px solid var(--smarter-color);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .smarter-section::before {
+      content: attr(data-letter);
+      position: absolute;
+      left: -16px;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--smarter-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Action Items */
+    .action-items-container {
+      margin-bottom: 16px;
+    }
+
+    .action-items-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .action-items-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--grey-800);
+      display: flex;
+      align-items: center;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .action-items-count {
+      background-color: var(--grey-200);
+      color: var(--grey-700);
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      margin-left: 8px;
+    }
+
+    .coach-count {
+      background-color: var(--coach-light);
+      color: var(--coach-color);
+      border: 1px solid var(--coach-color);
+    }
+
+    .agent-count {
+      background-color: var(--agent-light);
+      color: var(--agent-color);
+      border: 1px solid var(--agent-color);
+    }
+
+    .action-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+
+    .action-item.coach {
+      border-left: 3px solid var(--coach-color);
+      background-color: white;
+    }
+
+    .action-item.agent {
+      border-left: 3px solid var(--agent-color);
+      background-color: white;
+    }
+
+    .action-checkbox {
+      margin-top: 3px;
+    }
+
+    .action-content {
+      flex: 1;
+    }
+
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .action-description {
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .action-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--grey-600);
+    }
+
+    .action-assignee {
+      display: flex;
+      align-items: center;
+    }
+
+    .action-date {
+      display: flex;
+      align-items: center;
+    }
+
+    .action-assignee i,
+    .action-date i {
+      margin-right: 4px;
+    }
+
+    .add-action-btn {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      background-color: var(--grey-100);
+      border: 1px dashed var(--grey-400);
+      border-radius: var(--border-radius);
+      color: var(--grey-700);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .add-action-btn:hover {
+      background-color: var(--grey-200);
+      color: var(--grey-800);
+    }
+
+    .add-action-btn i {
+      margin-right: 8px;
+    }
+
+    /* Form Helper */
+    .form-helper {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+
+    /* Coach and Agent Commitment Sections */
+    .coach-commitment-section {
+      background-color: var(--coach-light);
+      border: 2px solid var(--coach-color);
+      border-radius: var(--border-radius);
+      padding: 15px;
+    }
+
+    .agent-commitment-section {
+      background-color: var(--agent-light);
+      border: 2px solid var(--agent-color);
+      border-radius: var(--border-radius);
+      padding: 15px;
+    }
+
+    .coach-commitment-title {
+      color: var(--coach-color);
+    }
+
+    .agent-commitment-title {
+      color: var(--agent-color);
+    }
+
+    .coach-textarea {
+      border-color: var(--coach-color);
+    }
+
+    .agent-textarea {
+      border-color: var(--agent-color);
+    }
+
+    .coach-action-btn {
+      background-color: var(--coach-light);
+      border: 1px dashed var(--coach-color);
+      color: var(--coach-color);
+    }
+
+    .coach-action-btn:hover {
+      background-color: rgba(44, 110, 203, 0.2);
+    }
+
+    .agent-action-btn {
+      background-color: var(--agent-light);
+      border: 1px dashed var(--agent-color);
+      color: var(--agent-color);
+    }
+
+    .agent-action-btn:hover {
+      background-color: rgba(250, 99, 49, 0.2);
+    }
+
+    /* Focus Badge */
+    .behavior-focus {
+      display: flex;
+      align-items: center;
+      margin-left: 12px;
+    }
+
+    .focus-badge {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    /* Coaching Form Footer */
+    .coaching-form-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--grey-100);
+    }
+
+    .form-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .form-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Calendar Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .calendar-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .calendar-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .calendar-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .calendar-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .calendar-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .calendar-body {
+      padding: 24px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .calendar-month {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .calendar-prev,
+    .calendar-next {
+      background: none;
+      border: none;
+      color: var(--grey-700);
+      cursor: pointer;
+      font-size: 16px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .calendar-prev:hover,
+    .calendar-next:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-600);
+      padding-bottom: 8px;
+    }
+
+    .calendar-day {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--grey-700);
+    }
+
+    .calendar-day:hover {
+      background-color: var(--grey-200);
+    }
+
+    .calendar-day.today {
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .calendar-day.selected {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .calendar-day.disabled {
+      color: var(--grey-400);
+      cursor: not-allowed;
+    }
+
+    .calendar-day.other-month {
+      color: var(--grey-400);
+    }
+
+    .time-select {
+      margin-top: 24px;
+    }
+
+    .time-select-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .time-select-input {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--grey-300);
+      font-size: 14px;
+    }
+
+    .calendar-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Add Action Modal */
+    .add-action-modal {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      max-width: 500px;
+      width: 90%;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .add-action-modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .add-action-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .add-action-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .add-action-close {
+      background: none;
+      border: none;
+      color: var(--grey-600);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .add-action-body {
+      padding: 24px;
+    }
+
+    .add-action-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--grey-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Tooltips */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltip-text {
+      visibility: hidden;
+      width: 220px;
+      background-color: var(--grey-800);
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 8px 12px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      font-weight: normal;
+      box-shadow: var(--shadow-md);
+      pointer-events: none;
+    }
+
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--grey-800) transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Validation States */
+    .is-invalid .field-input,
+    .is-invalid .field-select,
+    .is-invalid .field-textarea,
+    .is-invalid .editor-content {
+      border-color: var(--danger-color);
+    }
+
+    .is-invalid .field-help {
+      color: var(--danger-color);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .coaching-form-header {
+        flex-direction: column;
+      }
+
+      .form-session-info {
+        width: 100%;
+      }
+
+      .form-template-selector {
+        width: 100%;
+      }
+
+      .commitment-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        left: -280px;
+        transition: all 0.3s;
+        z-index: 800;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .header-search {
+        display: none;
+      }
+
+      .progress-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 16px;
+      }
+
+      .progress-steps::before {
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+      }
+
+      .progress-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .step-indicator {
+        margin: 0 16px 0 0;
+      }
+
+      .coaching-form-footer {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .form-actions-left,
+      .form-actions-right {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .coaching-form-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .coaching-tab {
+        padding: 12px 16px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .wizard-footer {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .wizard-footer .btn {
+        width: 100%;
+      }
+    }
+    
+    /* Impacted KPIs Container */
+    .impacted-kpis-container {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      justify-content: center;
+    }
+    
+    .kpi-card {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--grey-300);
+      min-width: 120px;
+    }
+    
+    .kpi-card.primary-kpi {
+      border: 1px solid var(--primary-color);
+      background-color: var(--primary-light);
+      position: relative;
+    }
+    
+    .kpi-card.primary-kpi::after {
+      content: "Primary";
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 8px;
+    }
+    
+    .kpi-card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--grey-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: var(--grey-700);
+      font-size: 16px;
+    }
+    
+    .primary-kpi .kpi-card-icon {
+      color: var(--primary-color);
+      background-color: white;
+    }
+    
+    .kpi-card-details {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .kpi-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey-700);
+      margin-bottom: 2px;
+    }
+    
+    .kpi-card-values {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .kpi-current {
+      font-weight: 700;
+    }
+    
+    .kpi-current.low {
+      color: var(--danger-color);
+    }
+    
+    .kpi-current.medium {
+      color: var(--warning-color);
+    }
+    
+    .kpi-current.high {
+      color: var(--success-color);
+    }
+    
+    .kpi-target {
+      color: var(--grey-600);
+      font-size: 12px;
+    }
+    
+    /* Selected Coaching Styles */
+    .selected-coaching {
+      background-color: var(--grow-light);
+      border-radius: var(--border-radius);
+      padding: 10px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--danger-color);
+    }
+    
+    .selected-coaching-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .selected-coaching-title {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--danger-color);
+    }
+    
+    .selected-coaching-title i {
+      margin-right: 8px;
+    }
+    
+    .selected-coaching-subtitle {
+      font-size: 15px;
+      color: var(--grey-700);
+      margin-bottom: 10px;
+    }
+    
+    .behavior-selected {
+      margin-bottom: 10px;
+    }
+    
+    /* Performance Metrics Panel */
+    .performance-metrics-panel {
+      background-color: var(--grey-100);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-top: 16px;
+      flex-basis: 100%;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .metrics-panel-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .metrics-panel-title i {
+      margin-right: 8px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 16px;
+    }
+
+    .metric-item {
+      text-align: center;
+      background-color: white;
+      padding: 12px 8px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .metric-value.low {
+      color: var(--danger-color);
+    }
+
+    .metric-value.medium {
+      color: var(--warning-color);
+    }
+
+    .metric-value.high {
+      color: var(--success-color);
+    }
+
+    .metric-trend {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .metric-trend.positive {
+      color: var(--success-color);
+    }
+
+    .metric-trend.negative {
+      color: var(--danger-color);
+    }
+  </style>
+  </main>
+<body>
+  <div class="app-container">
+    <div id="header-container"></div>
+    <div class="main-container">
+      <div id="sidebar-container"></div>
+      <main class="content">
+        <div class="page-header">
+          <h1 class="page-title">Coaching Session</h1>
+          <p class="page-subtitle">
+            Complete the Coaching form and determine next steps<br>            
+          </p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="progress-step completed">
+            <div class="step-indicator">1</div>
+            <div class="step-label">Select Agent & Form</div>
+          </div>
+          <div class="progress-step completed">
+            <div class="step-indicator">2</div>
+            <div class="step-label">Behavior Focus</div>
+          </div>
+          <div class="progress-step active">
+            <div class="step-indicator">3</div>
+            <div class="step-label">Coaching Session</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">4</div>
+            <div class="step-label">Action Items</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">5</div>
+            <div class="step-label">Schedule Follow-up</div>
+          </div>
+        </div>
+
+        <!-- Coaching Form -->
+        <div class="coaching-form-container" id="coachingForm">
+          <div class="coaching-form-header">
+            <div class="form-session-info">
+              <h2 class="session-info-title">Session Information</h2>
+              <div class="session-info-grid">
+                <div class="info-item">
+                  <div class="info-label">Agent</div>
+                  <div class="info-value">Michael Brown</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Behavior</div>
+                  <div class="info-value">Product Knowledge</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Coach</div>
+                  <div class="info-value">Marcus Latham</div>
+                </div>  
+                <div class="info-item">
+                  <div class="info-label">Date</div>
+                  <div class="info-value">05/14/2025</div>
+                </div>                                             
+                <div class="info-item">
+                  <div class="info-label">Primary KPI</div>
+                  <div class="info-value">First Call Resolution</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Session Number</div>
+                  <div class="info-value">1</div>
+                </div>                  
+              </div>
+            </div>
+          </div>
+
+          <!-- Selected Coaching Section -->
+          <div class="selected-coaching" id="selectedCoaching">
+            <div class="selected-coaching-header">
+              <div class="selected-coaching-title">
+                <i class="fas fa-check-circle"></i>
+                Selected Coaching Focus
+              </div>
+            </div>
+            <div class="selected-coaching-subtitle">
+              You're now coaching Michael Brown on the following selected behavior:
+            </div>
+
+            <div class="behavior-selected">
+              <div class="behavior-item selected">
+                <div class="behavior-icon">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="behavior-info">
+                  <div class="behavior-name">Product Knowledge</div>
+                  <div class="behavior-impact impact-high">
+                    <i class="fas fa-chart-line"></i>
+                    High Impact Behavior
+                  </div>
+                  <div class="focus-area">
+                    <span class="focus-badge">Feature Knowledge</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Impacted KPIs - Separate Cards -->
+              <div class="impacted-kpis-container">
+                <div class="kpi-card primary-kpi">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">FCR</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">65%</span>
+                      <span class="kpi-target">→ 80%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-card-icon">
+                    <i class="fas fa-smile"></i>
+                  </div>
+                  <div class="kpi-card-details">
+                    <div class="kpi-card-name">CSAT</div>
+                    <div class="kpi-card-values">
+                      <span class="kpi-current low">3.8</span>
+                      <span class="kpi-target">→ 4.4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coaching form tabs -->
+          <div class="coaching-form-tabs">
+            <div class="coaching-tab grow active" data-tab="grow">
+              GROW Coaching Model
+              <div class="coaching-tab-info tooltip">
+                <i class="fas fa-circle-info"></i>
+                <span class="tooltip-text">Goal, Reality, Options, Way Forward - A proven coaching framework</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- GROW Tab Content -->
+          <div class="coaching-tab-content active" id="grow-tab">
+            <!-- Goals Section -->
+            <div class="form-section grow-section" data-letter="G">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Goals
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Clarify any short or long-term objective for this session</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                Define specific performance goals for this coaching session. What does success look like?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <ul>
+                    <li>Improve product knowledge score from 76% to 85% within 30 days</li>
+                    <li>Increase first call resolution rate from 65% to 80% for product-related issues</li>
+                    <li>Reduce escalations due to product knowledge gaps by 50%</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reality Section -->
+            <div class="form-section grow-section" data-letter="R">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Reality
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Explore the current situation, previous actions taken, and obstacles</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What is happening now? What are the impacts of this? What are the obstacles?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Current Performance:</strong></p>
+                  <ul>
+                    <li>Product knowledge score at 76% based on last QA assessment</li>
+                           </ul>
+                  <p><strong>Obstacles:</strong></p>
+                  <ul>
+                    <li>Limited hands-on practice with new product features</li>
+                    <li>Recent product updates not fully understood</li>
+              
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Options Section -->
+            <div class="form-section grow-section" data-letter="O">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Options
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Identify possibilities and alternative strategies to consider</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What alternatives do we have? What else could we try? What approaches might work best?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Product Knowledge Strategies:</strong></p>
+                  <ol>
+                    <li>Complete Product Knowledge online module with focus on new features</li>
+                    <li>Shadow top-performing agent (James) for 2 hours to observe product discussions</li>          
+                  </ol>                  
+                </div>
+              </div>
+            </div>
+
+            <!-- Way Forward Section -->
+            <div class="form-section grow-section" data-letter="W">
+              <div class="form-section-header">
+                <h3 class="form-section-title">
+                  Way Forward
+                  <div class="tooltip">
+                    <i class="fas fa-circle-info"></i>
+                    <span class="tooltip-text">Establish a plan of action, future obstacles, and accountability</span>
+                  </div>
+                </h3>
+              </div>
+              <div class="form-section-description">
+                What will you do? When will you do it? How will we measure success? What support do you need?
+              </div>
+              <div class="form-field">
+                <label class="field-label">
+                  What was discussed and agreed upon
+                  <span class="field-required">*</span>
+                </label>
+                <div class="rich-editor-toolbar">
+                  <button class="editor-tool" title="Bold"><i class="fas fa-bold"></i></button>
+                  <button class="editor-tool" title="Italic"><i class="fas fa-italic"></i></button>
+                  <button class="editor-tool" title="Underline"><i class="fas fa-underline"></i></button>
+                  <button class="editor-tool" title="Bulleted List"><i class="fas fa-list-ul"></i></button>
+                  <button class="editor-tool" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                </div>
+                <div class="editor-content" contenteditable="true">
+                  <p><strong>Action Plan:</strong></p>
+                  <ol>
+                    <li>Complete Product Knowledge online module by 5/18/2025</li>
+                    <li>Shadow James on 5/17/2025 from 10am-12pm</li>
+                    <li>Create personal quick-reference guides for top 5 features by 5/21/2025</li>
+                    <li>Join next product update webinar on 5/20/2025</li>
+                    <li>Schedule 30-minute session with tech support by 5/25/2025</li>
+                    <li>Join product team Slack channel by end of day</li>
+                  </ol>
+                  <p><strong>Key Metrics:</strong></p>
+                  <ul>
+                    <li>Product Knowledge Score (Target: 85% by 6/14/2025)</li>
+                    <li>First Call Resolution (Target: 80% by 6/14/2025)</li>
+                    <li>Escalations (Target: Reduce to 1-2 per week by 6/1/2025)</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="actionCommitmentSection"style="margin-top: 32px; border-top: 1px solid var(--grey-300); padding-top: 32px;">
+                        <!-- Coach Commitment Section -->
+                        <div class="form-section coach-commitment-section">
+                            <div class="action-items-header">
+                            <h3 class="action-items-title coach-commitment-title">
+                                <i class="fas fa-user-tie"></i>
+                                Coach Commitment
+                                <span class="action-items-count coach-count">0</span>
+                                <span class="field-required">*</span>
+                            </h3>
+                            </div>
+                            <div class="form-field">
+                            <textarea class="field-textarea coach-textarea" placeholder="Enter your commitment as a coach to support the agent's development" id="coachCommitment"></textarea>
+                            <div class="form-helper">Required to enable "Submit & Schedule Follow-up"</div>
+                            </div>
+                            <div class="action-items-container coach-items">
+                            <!-- Coach action items will be added here dynamically -->
+                            </div>
+                            <button class="add-action-btn coach-action-btn" id="addCoachActionBtn">
+                            <i class="fas fa-plus"></i>
+                            Add Coach Action Item
+                            </button>
+                        </div>
+
+                        <!-- Agent Commitment Section -->
+                        <div class="form-section agent-commitment-section" style="margin-top: 24px;">
+                            <div class="action-items-header">
+                            <h3 class="action-items-title agent-commitment-title">
+                                <i class="fas fa-user"></i>
+                                Agent Commitment
+                                <span class="action-items-count agent-count">0</span>
+                                <span class="field-required">*</span>
+                            </h3>
+                            </div>
+                            <div class="form-field">
+                            <textarea class="field-textarea agent-textarea" placeholder="Enter the agent's commitment to completing the action items" id="agentCommitment"></textarea>
+                            <div class="form-helper">Required to enable "Submit & Schedule Follow-up"</div>
+                            </div>
+                            <div class="action-items-container agent-items">
+                            <!-- Agent action items will be added here dynamically -->
+                            </div>
+                            <button class="add-action-btn agent-action-btn" id="addAgentActionBtn">
+                            <i class="fas fa-plus"></i>
+                            Add Agent Action Item
+                            </button>
+                        </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+          
+          <!-- Coaching Form Footer -->
+          <div class="coaching-form-footer">
+            <div class="form-actions-left">
+              <button class="btn btn-outline-primary" id="backToSetupBtn">
+                <i class="fas fa-arrow-left btn-icon"></i>
+                Back
+              </button>
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-save btn-icon"></i>
+                Save Draft
+              </button>
+            </div>
+            <div class="form-actions-right">
+              <button class="btn btn-success">
+                <i class="fas fa-calendar-plus btn-icon"></i>
+                Submit & Schedule Follow-up
+              </button>
+            </div>
+          </div>
+        </div>
+
+        
+  <!-- Add Action Modal -->
+  <div class="modal-overlay" id="actionModalOverlay"></div>
+  <div class="add-action-modal" id="addActionModal">
+    <div class="add-action-header">
+      <h3 class="add-action-title">Add New Action Item</h3>
+      <button class="add-action-close" id="addActionClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="add-action-body">
+      <div class="form-field">
+        <label class="field-label">
+          Action Title
+          <span class="field-required">*</span>
+        </label>
+        <input type="text" class="field-input" id="actionTitle" placeholder="Enter a clear, specific action title">
+      </div>
+      <div class="form-field">
+        <label class="field-label">
+          Description
+        </label>
+        <textarea class="field-textarea" id="actionDescription" placeholder="Provide additional details about this action item" style="min-height: 80px;"></textarea>
+      </div>
+      <div class="field-row">
+        <div class="form-field">
+          <label class="field-label">
+            Assigned To
+            <span class="field-required">*</span>
+          </label>
+          <select class="field-select" id="actionAssignee">
+            <option value="michael" selected>Michael Brown (Agent)</option>
+            <option value="marcus">Marcus Latham (Coach)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="field-label">
+            Due Date
+            <span class="field-required">*</span>
+          </label>
+          <input type="date" class="field-input" id="actionDueDate" min="2025-05-14" value="2025-05-18">
+        </div>
+      </div>
+    </div>
+    <div class="add-action-footer">
+      <button class="btn btn-outline-primary" id="addActionCancel">
+        Cancel
+      </button>
+      <button class="btn btn-primary" id="addActionSave">
+        Add Action
+      </button>
+    </div>
+  </div>
+
+  <!-- Calendar Modal for Follow-up -->
+  <div class="modal-overlay" id="calendarModalOverlay"></div>
+  <div class="calendar-modal" id="calendarModal">
+    <div class="calendar-header">
+      <h3 class="calendar-title">Schedule Follow-up Session</h3>
+      <button class="calendar-close" id="calendarClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="calendar-body">
+      <div class="calendar-nav">
+        <button class="calendar-prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="calendar-month">May 2025</div>
+        <button class="calendar-next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-day-header">Sun</div>
+        <div class="calendar-day-header">Mon</div>
+        <div class="calendar-day-header">Tue</div>
+        <div class="calendar-day-header">Wed</div>
+        <div class="calendar-day-header">Thu</div>
+        <div class="calendar-day-header">Fri</div>
+        <div class="calendar-day-header">Sat</div>
+        
+        <!-- Calendar days would be dynamically generated, here's a static example -->
+        <div class="calendar-day other-month">27</div>
+        <div class="calendar-day other-month">28</div>
+        <div class="calendar-day other-month">29</div>
+        <div class="calendar-day other-month">30</div>
+        <div class="calendar-day">1</div>
+        <div class="calendar-day">2</div>
+        <div class="calendar-day">3</div>
+        
+        <div class="calendar-day">4</div>
+        <div class="calendar-day">5</div>
+        <div class="calendar-day">6</div>
+        <div class="calendar-day">7</div>
+        <div class="calendar-day">8</div>
+        <div class="calendar-day">9</div>
+        <div class="calendar-day">10</div>
+        
+        <div class="calendar-day">11</div>
+        <div class="calendar-day">12</div>
+        <div class="calendar-day">13</div>
+        <div class="calendar-day today">14</div>
+        <div class="calendar-day">15</div>
+        <div class="calendar-day">16</div>
+        <div class="calendar-day">17</div>
+        
+        <div class="calendar-day">18</div>
+        <div class="calendar-day selected">19</div>
+        <div class="calendar-day">20</div>
+        <div class="calendar-day">21</div>
+        <div class="calendar-day">22</div>
+        <div class="calendar-day">23</div>
+        <div class="calendar-day">24</div>
+        
+        <div class="calendar-day">25</div>
+        <div class="calendar-day">26</div>
+        <div class="calendar-day">27</div>
+        <div class="calendar-day">28</div>
+        <div class="calendar-day">29</div>
+        <div class="calendar-day">30</div>
+        <div class="calendar-day">31</div>
+        
+        <div class="calendar-day other-month">1</div>
+        <div class="calendar-day other-month">2</div>
+        <div class="calendar-day other-month">3</div>
+        <div class="calendar-day other-month">4</div>
+        <div class="calendar-day other-month">5</div>
+        <div class="calendar-day other-month">6</div>
+        <div class="calendar-day other-month">7</div>
+      </div>
+
+      <div class="time-select">
+        <div class="time-select-label">Select Time</div>
+        <input type="time" class="time-select-input" value="10:30">
+      </div>
+
+      <div class="form-field" style="margin-top: 16px;">
+        <label class="field-label">Follow-up Notes (Optional)</label>
+        <textarea class="field-textarea" placeholder="Add any notes for the follow-up session" style="min-height: 80px;"></textarea>
+      </div>
+    </div>
+    <div class="calendar-footer">
+      <button class="btn btn-outline-primary" id="cancelFollowup">
+        Cancel
+      </button>
+      <button class="btn btn-primary" id="confirmFollowup">
+        Confirm Follow-up
+      </button>
+    </div>
+  </div>
+
+  <script>
+      // Rich text editor functionality
+    document.querySelectorAll('.editor-tool').forEach(tool => {
+      tool.addEventListener('click', function() {
+        const command = this.getAttribute('title').toLowerCase();
+        
+        if (command === 'bold') {
+          document.execCommand('bold', false, null);
+        } else if (command === 'italic') {
+          document.execCommand('italic', false, null);
+        } else if (command === 'underline') {
+          document.execCommand('underline', false, null);
+        } else if (command === 'bulleted list') {
+          document.execCommand('insertUnorderedList', false, null);
+        } else if (command === 'numbered list') {
+          document.execCommand('insertOrderedList', false, null);
+        }
+        
+        // Toggle active state for formatting buttons
+        if (['bold', 'italic', 'underline'].includes(command)) {
+          this.classList.toggle('active');
+        }
+      });
+    });
+
+        document.querySelector('.btn-success').addEventListener('click', function() {
+    // Do not hide coaching form content - removed that line
+    
+    // No need to show action items section as it's already visible - removed that line
+    
+    // Update progress steps
+    document.querySelectorAll('.progress-step')[2].classList.remove('active');
+    document.querySelectorAll('.progress-step')[2].classList.add('completed');
+    document.querySelectorAll('.progress-step')[3].classList.add('active');
+    
+    // Smooth scroll to action items section
+    document.getElementById('actionCommitmentSection').scrollIntoView({ behavior: 'smooth' });
+    
+    // Update button text
+    this.innerHTML = '<i class="fas fa-calendar-plus btn-icon"></i>Schedule Follow-up';
+    this.addEventListener('click', function() {
+        // Show calendar modal
+        document.getElementById('calendarModal').classList.add('show');
+        document.getElementById('calendarModalOverlay').classList.add('show');
+    });
+    });
+
+    // Back to Behavior Focus
+    document.getElementById('backToSetupBtn').addEventListener('click', function() {
+      window.location.href = 'behavior-focus.html';
+    });
+
+    // Add Action Modal functionality
+    const actionModal = document.getElementById('addActionModal');
+    const actionOverlay = document.getElementById('actionModalOverlay');
+    
+    document.getElementById('addCoachActionBtn')?.addEventListener('click', function() {
+      actionModal.classList.add('show');
+      actionOverlay.classList.add('show');
+      document.getElementById('actionAssignee').value = 'marcus';
+    });
+    
+    document.getElementById('addAgentActionBtn')?.addEventListener('click', function() {
+      actionModal.classList.add('show');
+      actionOverlay.classList.add('show');
+      document.getElementById('actionAssignee').value = 'michael';
+    });
+    
+    document.getElementById('addActionClose')?.addEventListener('click', function() {
+      actionModal.classList.remove('show');
+      actionOverlay.classList.remove('show');
+    });
+    
+    document.getElementById('addActionCancel')?.addEventListener('click', function() {
+      actionModal.classList.remove('show');
+      actionOverlay.classList.remove('show');
+    });
+    
+    // Calendar Modal functionality
+    const calendarModal = document.getElementById('calendarModal');
+    const calendarOverlay = document.getElementById('calendarModalOverlay');
+    
+    document.getElementById('calendarClose')?.addEventListener('click', function() {
+      calendarModal.classList.remove('show');
+      calendarOverlay.classList.remove('show');
+    });
+    
+    document.getElementById('cancelFollowup')?.addEventListener('click', function() {
+      calendarModal.classList.remove('show');
+      calendarOverlay.classList.remove('show');
+    });
+    
+    document.getElementById('confirmFollowup')?.addEventListener('click', function() {
+      alert('Follow-up scheduled successfully!');
+      window.location.href = 'index.html';
+    });
+    
+    // Select calendar date
+    document.querySelectorAll('.calendar-day:not(.other-month):not(.disabled)').forEach(day => {
+      day.addEventListener('click', function() {
+        document.querySelectorAll('.calendar-day').forEach(d => {
+          d.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+  </script>
+ <!-- JavaScript -->
+        <script src="js/header-footer.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/coaching-form.js"></script>
+        <script src="js/insights-modal.js"></script>
+        <script src="js/charts.js"></script>
+        <script src="js/active-coaching.js"></script>
+      </main>
+    </div>
+  </div>
+ </body
+

@@ -28,12 +28,27 @@
   --brand-pink-light: #e9a1c4;
   --brand-purple: #8a3df7;     /* More vibrant purple */
   --brand-teal: #00c2c2;       /* Teal accent color */
+
   
   /* UI Elements */
   --border-radius: 8px;        /* Consistent border radius */
   --border-radius-lg: 12px;    /* Larger border radius for cards */
   --border-radius-sm: 4px;     /* Smaller border radius for buttons */
-  
+  --grow-color: #e37501;
+  --grow-light: #f7f7f7;
+  --smarter-color: #ff9800;
+  --smarter-light: #fff3e0;
+  --coach-color: #2c6ecb;
+  --coach-light: #e8f0fe;
+  --agent-color: #fa6331;
+  --agent-light: #ffefe9;
+  --nps-color: #673ab7;
+  --csat-color: #E20074;
+;
+  --nrs-color: #009688;
+  --aht-color: #ff5722;
+  --fcr-color: #8bc34a;
+
   /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);

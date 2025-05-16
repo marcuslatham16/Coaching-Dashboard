@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     sidebarContainer.innerHTML = `
       <div class="sidebar" id="sidebar">
         <div class="sidebar-action">
-          <a href="coaching-form.html" class="btn btn-primary stn" id="startSessionSidebarBtn">
+          <a href="behavior-focus.html" class="btn btn-primary stn" id="startSessionSidebarBtn">
           <i class="fas fa-plus btn-icon"></i>
           Start Coaching Session
         </a>
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <li>
               <a href="coaching-opportunities.html" class="sidebar-item ${currentPage === 'coaching-opportunities.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fas fa-lightbulb"></i></div>
-                <div class="sidebar-label">Coaching Opportunities</div>
+                <div class="sidebar-label">Coaching Insights</div>
               </a>
             </li>
             <li>
@@ -105,13 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="sidebar-label">Coach Performance</div>
               </a>
             </li>
-            <li>
-              <a href="team-overview.html" class="sidebar-item ${currentPage === 'team-overview.html' ? 'active' : ''}">
-                <div class="sidebar-icon"><i class="fas fa-user-friends"></i></div>
-                <div class="sidebar-label">My Team</div>
-              </a>
-            </li>
-            <li>
+              <li>
               <a href="reports.html" class="sidebar-item ${currentPage === 'reports.html' ? 'active' : ''}">
                 <div class="sidebar-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="sidebar-label">Reports</div>
